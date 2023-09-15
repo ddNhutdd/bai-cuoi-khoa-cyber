@@ -1,0 +1,40 @@
+.button-login{
+    background-color: #FBC531;
+    padding: 1rem 2rem; 
+    cursor: pointer;
+    border-radius: 0.5rem;
+    border: 0.2rem solid black;
+    margin-left: 17rem;
+    font-weight: 500;
+}
+.button-login:active{
+    background-color: black;
+    color: white;
+}
+.content{
+    margin-bottom: 40px;
+    text-align: center;
+    font-size: 2.5rem;
+}
+.input-tk, .input-mk {
+    width: 100%;
+    padding: 1.5rem 1rem 1.5rem 2rem;
+    border: 0.1rem solid #4684ee;
+    border-radius: 0.5rem;
+  }
+.form-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    background-color: #3C40C6 ; 
+}
+.login-form {
+    background-color: white; 
+    padding: 100px 150px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(4, 4, 4, 0.904); 
+}
+.input-container {
+    margin-bottom: 20px; /* Khoảng cách giữa các ô nhập liệu */
+}
