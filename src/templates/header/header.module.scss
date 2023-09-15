@@ -1,0 +1,51 @@
+.header {
+    width: 100%;
+    background-color: black;
+
+    .header__container {
+        margin: auto;
+        max-width: 140rem;
+        padding: 3rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: nowrap;
+
+        .header__search {
+            @media screen and (max-width:768px) {
+                order: 4;
+                width: 100%;
+                margin-top: 1rem;
+            }
+        }
+
+        .header__list-course {
+            >button {
+                width: 100%;
+            }
+            @media screen and (max-width:746px) {
+                order: 3;
+                width: 100%;
+                margin-top: 1rem;
+            }
+        }
+
+
+        @media screen and (max-width:768px) {
+            flex-wrap: wrap ;
+        }
+
+    }
+
+    .header__action {
+        display: flex;
+        gap: 1rem;
+        @media screen and (max-width:576px) {
+            order: 2;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+    }
+}
