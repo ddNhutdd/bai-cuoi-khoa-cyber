@@ -20,7 +20,7 @@ export const router = createBrowserRouter([
                 ),
             },
             {
-                path: '/danhmuckhoahoc',
+                path: '/DanhMucKhoaHoc',
                 element: (
                     <Suspense>
                         <DanhMuc />
@@ -28,7 +28,7 @@ export const router = createBrowserRouter([
                 ),
             },
             {
-                path: '/chitiet',
+                path: '/chitiet/:maKhoaHoc',
                 element: (
                     <Suspense>
                         <ChiTiet />
