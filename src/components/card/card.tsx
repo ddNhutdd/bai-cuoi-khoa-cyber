@@ -1,7 +1,6 @@
 import css from './card.module.scss'
 import { StarRating } from './starRating/star-rating'
 import { Button, Card } from 'antd'
-const { Meta } = Card
 export default function CardCyber() {
     const styleCard: React.CSSProperties = {
         position: 'relative',
