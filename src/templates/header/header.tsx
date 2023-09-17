@@ -1,9 +1,9 @@
-
 import css from './header.module.scss'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown, Input } from 'antd'
 import logo from '../../assets/imgs/cyberlogo-white.png'
 import { UnorderedListOutlined } from '@ant-design/icons'
+import { Link } from 'react-router-dom'
 const { Search } = Input
 export default function Header() {
     const items: MenuProps['items'] = [
@@ -69,8 +69,8 @@ export default function Header() {
                     enterButton
                 />
                 <div className={css['header__action']}>
-                    <Button type='primary'>Đăng kí</Button>
-                    <Button type='primary'>Đăng nhập</Button>
+                    <Link to='/register'><Button type='primary'>Đăng kí</Button></Link>
+                    <Link to='/login'><Button type='primary'>Đăng nhập</Button></Link>
                 </div>
             </div>
         </div>

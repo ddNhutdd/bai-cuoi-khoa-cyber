@@ -3,6 +3,7 @@ import { Suspense } from 'react'
 import Home from '../pages/home/home'
 import UserTemplate from '../templates/user/user.template'
 import Login from '../pages/login'
+import Register from '../pages/register'
 export const router = createBrowserRouter([
     {
         element: <UserTemplate />,
@@ -18,6 +19,10 @@ export const router = createBrowserRouter([
             {
                 path: '/login',
                 element: <Login/>
+            },
+            {
+                path: '/register',
+                element: <Register/>
             }
         ],
     },
