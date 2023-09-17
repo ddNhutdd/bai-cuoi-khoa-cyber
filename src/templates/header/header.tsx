@@ -4,7 +4,7 @@ import type { MenuProps } from 'antd'
 import { Button, Dropdown, Input } from 'antd'
 import logo from '../../assets/imgs/cyberlogo-white.png'
 import { UnorderedListOutlined } from '@ant-design/icons'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import { layDanhMucKhoaHoc } from '../../services/khoa-hoc.service'
 const { Search } = Input
 export default function Header() {
@@ -53,8 +53,8 @@ export default function Header() {
                     enterButton
                 />
                 <div className={css['header__action']}>
-                    <Button type='primary'>Đăng kí</Button>
-                    <Button type='primary'>Đăng nhập</Button>
+                    <Link to='/register'><Button type='primary'>Đăng kí</Button></Link>
+                    <Link to='/login'><Button type='primary'>Đăng nhập</Button></Link>
                 </div>
             </div>
         </div>

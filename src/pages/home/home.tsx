@@ -1,3 +1,4 @@
+
 import ListCard from '../../components/list-card/list-card'
 import css from './home.module.scss'
 import { useEffect, useState } from 'react'

@@ -1,0 +1,93 @@
+.button-login{
+    background-color: #FBC531;
+    padding: 1rem 2rem; 
+    cursor: pointer;
+    border-radius: 0.5rem;
+    border: 0.2rem solid black;
+    margin-left: 15rem;
+    font-size: 1.6rem;
+
+    transition: .3s;
+}
+.button-login:hover{
+    background-color: rgb(248, 212, 112);
+}
+.button-login:active{
+    background-color: #fcb900;
+    border-color: white;
+}
+
+.content{
+    margin-bottom: 40px;
+    text-align: center;
+    font-size: 2.5rem;
+}
+
+.form-container {
+    background: #3C40C6;
+    box-shadow: 0px 35px 44px -22px #1f181b;
+    padding: 8rem 40rem 10rem 40rem;
+}
+.login-form {
+    background-color: white; 
+    padding: 3rem 2rem 10rem 2rem;
+    border-radius: 10px;
+    box-shadow: 0px 0px 1rem rgba(4, 4, 4, 0.904); 
+}
+.input-container {
+    margin-bottom: 20px; /* Khoảng cách giữa các ô nhập liệu */
+    display: flex;
+}
+.input-tk,.input-mk{
+    outline: none;
+    width: 85%;
+    font-size: 1.6rem;
+    padding: 1.5rem 4rem 1.5rem 1rem;
+    border-left: 0.6rem solid #4684ee;
+    border-top: 0.1rem solid #4684ee;
+    border-bottom: 0.2rem solid #4684ee;
+    border-right: 0.1rem solid #4684ee;
+    border-radius: 0.5rem;
+}
+.icon-user,.icon-lock{
+    margin: 1rem 0 0 1rem;
+    color: #4684ee;
+}
+.remember-forgot {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 2rem;
+    .forgot{
+        cursor: pointer;
+    } 
+    .forgot:hover{
+        color: #4684ee;
+    }
+    .checkbox-remember{
+        display: flex;
+        cursor: pointer;
+    }
+    .remember{
+        margin-left: 1rem;
+    }
+    .remember:hover{
+        color: #4684ee;
+    }        
+}
+
+.icon-contact{
+    display: flex;
+    justify-content:center;
+    margin: 3rem 0;
+    .icon-twiter{
+        margin: 1rem 1.5rem 0 1.5rem;
+        cursor: pointer;
+    }
+    .icon-gg{
+        cursor: pointer;
+        margin-top: 1.5rem;
+    }
+    .icon-f{
+        cursor: pointer;
+    }
+}
