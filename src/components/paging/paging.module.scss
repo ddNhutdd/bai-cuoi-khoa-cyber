@@ -1,0 +1,42 @@
+.page {
+    display: flex;
+    margin: 20px 40px;
+    gap: 8px;
+
+    .page-button {
+        width: 32px;
+        height: 32px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 20px;
+        text-align: center;
+        color: white;
+    }
+
+    div {
+        &:nth-of-type(1) {
+            margin-left: auto;
+        }
+
+        &.disable {
+            opacity: 50%;
+            color: rgba(33, 43, 54, 1);
+            cursor: not-allowed;
+        }
+
+        &.active {
+            background-color: white;
+            color: black;
+        }
+
+        &.dot {
+            cursor: not-allowed;
+            border: none;
+        }
+    }
+}

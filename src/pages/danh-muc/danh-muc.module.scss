@@ -1,0 +1,35 @@
+.danh-muc {
+    background-color: #3C40C6;
+    width: 100%;
+
+    .danh-muc__title {
+        background-color: #FF3CAC;
+        background-image: linear-gradient(90deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%);
+        width: 100%;
+
+        h1 {
+            font-size: 4rem;
+            padding: 3rem;
+            color: white;
+            max-width: 140rem;
+            margin: auto;
+        }
+    }
+
+    .danh-muc__container {
+        max-width: 140rem;
+        padding: 3rem;
+        margin: auto;
+
+        h3 {
+            margin-bottom: 4rem;
+        }
+
+        .danh-muc__paging {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+
+        }
+    }
+}
