@@ -31,9 +31,9 @@ export default function Header() {
     return (
         <div className={css['header']}>
             <div className={css['header__container']}>
-                <div className={css['header__container__logo']}>
+                <NavLink to={'/'} className={css['header__container__logo']}>
                     <img src={logo} alt='...' />
-                </div>
+                </NavLink>
                 <div className={css['header__list-course']}>
                     <Dropdown
                         menu={{ items }}

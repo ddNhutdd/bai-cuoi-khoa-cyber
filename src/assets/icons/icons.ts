@@ -4,4 +4,7 @@ export * from './star-fill.icon/star-fill.icon'
 export * from './star-emp.icon/star-emp.icon'
 export * from './user.icon'
 export * from './lock.icon'
+export * from './bars.icon/bars.icon'
+export * from './learn.icon/learn.icon'
+export * from './user-fill.icon/user-fill.icon'
 

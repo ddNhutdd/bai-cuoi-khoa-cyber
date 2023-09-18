@@ -27,3 +27,13 @@ export const layThongTinKhoaHoc = async (maKhoaHoc = 'LTC_GP01') => {
         return error.response.data
     }
 }
+
+export const layKhoaHocTheoDanhMuc = async (maDanhMuc:string, maNhom = 'GP01') => {
+    try {
+        const resp = await axiosWithoutAuth(`/QuanLyKhoaHoc/LayKhoaHocTheoDanhMuc?maDanhMuc=${maDanhMuc}&MaNhom=${maNhom}`)
+        return resp.data
+    } catch (error:any) {
+        console.log(error.response.data)
+        return error.response.data
+    }
+}

@@ -1,13 +1,16 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { Suspense, lazy } from 'react'
 import UserTemplate from '../templates/user/user.template'
-
-const Home = lazy(() => import('../pages/home/home'));
-const DanhMuc = lazy(() => import("../pages/danh-muc/danh-muc"));
-const ChiTiet = lazy(() => import("../pages/chi-tiet/chi-tiet"));
-const Register = lazy(() => import("../pages/register"));
-const Login = lazy(() => import("../pages/login"));
-
+import AdminTemplate from '../templates/admin/admin.template'
+const Home = lazy(() => import('../pages/home/home'))
+const DanhMuc = lazy(() => import('../pages/danh-muc/danh-muc'))
+const ChiTiet = lazy(() => import('../pages/chi-tiet/chi-tiet'))
+const Register = lazy(() => import('../pages/register'))
+const Login = lazy(() => import('../pages/login'))
+const NguoiDung = lazy(
+    () => import('../pages/quan-li-nguoi-dung/quan-li-nguoi-dung'),
+)
+const KhoaHoc = lazy(() => import('../pages/quan-li-khoa-hoc/quan-li-khoa-hoc'))
 export const router = createBrowserRouter([
     {
         element: <UserTemplate />,
@@ -40,7 +43,7 @@ export const router = createBrowserRouter([
                 path: '/register',
                 element: (
                     <Suspense>
-                        <Register/>
+                        <Register />
                     </Suspense>
                 ),
             },
@@ -48,10 +51,32 @@ export const router = createBrowserRouter([
                 path: '/login',
                 element: (
                     <Suspense>
-                        <Login/>
+                        <Login />
                     </Suspense>
                 ),
-            }
+            },
+        ],
+    },
+    {
+        element: <AdminTemplate />,
+        path: 'admin',
+        children: [
+            {
+                path: 'quanlinguoidung',
+                element: (
+                    <Suspense>
+                        <NguoiDung />
+                    </Suspense>
+                ),
+            },
+            {
+                path: 'quanlikhoahoc',
+                element: (
+                    <Suspense>
+                        <KhoaHoc />
+                    </Suspense>
+                ),
+            },
         ],
     },
     {

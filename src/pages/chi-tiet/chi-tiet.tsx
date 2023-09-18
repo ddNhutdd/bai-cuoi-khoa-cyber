@@ -5,21 +5,27 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import css from './chi-tiet.module.scss'
 import { layThongTinKhoaHoc } from '../../services/khoa-hoc.service'
+import { getLocalStorage } from '../../utils'
+import { ACCESS_TOKEN } from '../../constants'
+import { useNavigate } from 'react-router-dom'
 export default function ChiTiet() {
     const { maKhoaHoc } = useParams()
     const [khoaHoc, setKhoaHoc] = useState<any>()
+    const navigate = useNavigate()
     useEffect(() => {
         fetchData(maKhoaHoc ?? '')
     }, [])
-    useEffect(()=>{
-        console.log(khoaHoc)
-    },[khoaHoc])
     const fetchData = async (maKhoaHoc: string) => {
         const data = await layThongTinKhoaHoc(maKhoaHoc)
         if (typeof data === 'string') {
             return
         }
         setKhoaHoc(data)
+    }
+    const dangKiClickHandle = () => {
+        const access_token = getLocalStorage(ACCESS_TOKEN)
+        if (!access_token) navigate('/login')
+
     }
     return (
         <>
@@ -45,7 +51,7 @@ export default function ChiTiet() {
                                 <div
                                     className={css['chi-tiet__banner__action']}
                                 >
-                                    <Button type='primary' ghost>
+                                    <Button type='primary' onClick={dangKiClickHandle}>
                                         Đăng kí
                                     </Button>
                                 </div>
@@ -60,9 +66,7 @@ export default function ChiTiet() {
                     <h3 className={css['chi-tiet__denomination']}>
                         Giới thiệu khoá học (Phần mô tả khoá học)
                     </h3>
-                    <p>
-                        {khoaHoc && khoaHoc.moTa}
-                    </p>
+                    <p>{khoaHoc && khoaHoc.moTa}</p>
                 </div>
             </div>
         </>

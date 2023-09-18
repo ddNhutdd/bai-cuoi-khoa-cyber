@@ -8,14 +8,16 @@ export default function CardCyber(props:any) {
     const { item } = props
     const styleCard: React.CSSProperties = {
         position: 'relative',
+        display:'flex',
+        flexDirection:'column',
+        justifyContent:'space-between'
     }
     const buttonDangKiHandleClick = () => {
-        console.log(item)
         navigate('/chitiet/' + item.maKhoaHoc);
     }
     return (
         <Card
-            hoverable
+            hoverable={false}
             style={styleCard}
             cover={
                 <img
