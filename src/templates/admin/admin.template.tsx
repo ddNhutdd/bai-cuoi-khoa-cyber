@@ -38,7 +38,7 @@ export default function AdminTemplate() {
                 </div>
                 <div className={css['admin-template-container__side-right']}>
                     <div className={css['admin-template-container__top']}>
-                        tpo
+                        fdsafdsafdsfda
                     </div>
                     <Outlet />
                 </div>

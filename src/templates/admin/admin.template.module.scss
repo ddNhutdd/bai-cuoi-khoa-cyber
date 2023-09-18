@@ -78,8 +78,11 @@
     }
 
     .admin-template-container__side-right {
-        padding: 3rem;
         background-color: khaki;
         flex: 1;
+        .admin-template-container__top {
+            background-color: red;
+            padding: 2rem;
+        }
     }
 }
