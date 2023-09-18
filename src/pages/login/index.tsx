@@ -5,6 +5,8 @@ import LockIcon from "../../assets/icons/lock.icon";
 import iconGG from '../../assets/imgs/icon-gg.png'
 import iconFace from '../../assets/imgs/icon-face.avif'
 import iconTwitter from '../../assets/imgs/icon-twitter.png'
+import ButtonQT from "../../components/button";
+import InputForm from "../../components/input";
 
 function Login() {
   const [formLogin, setFormLogin] = useState({
@@ -32,11 +34,12 @@ function Login() {
           <h2>Đăng nhập</h2>
         </div>
         <div className={css['input-container']}>
-          <input name="taiKhoan" onChange={handleChange} value={formLogin.taiKhoan} className={css['input-tk']} placeholder="Tài khoản" />
+          {/* <input name="taiKhoan" onChange={handleChange} value={formLogin.taiKhoan} className={css['input-tk']} placeholder="Tài khoản" /> */}
+          <InputForm name="taiKhoan" onChange={handleChange} value={formLogin.taiKhoan} placeholder="Tài khoản" />
           <div className={css['icon-user']}><UserIcon /></div>
         </div>
         <div className={css['input-container']}>
-          <input type="password" name="matKhau" onChange={handleChange} value={formLogin.matKhau} className={css['input-mk']} placeholder="Mật khẩu" />
+          <InputForm type="password" name="matKhau" onChange={handleChange} value={formLogin.matKhau} placeholder="Mật khẩu" />
           <div className={css['icon-lock']}><LockIcon /></div>
         </div>
         <div className={css['remember-forgot']}>
@@ -51,9 +54,8 @@ function Login() {
           <img className={css['icon-twiter']} style={{ width: '70px' }} src={iconTwitter}></img>
           <img className={css['icon-gg']} style={{ width: '50px' }} src={iconGG} />
         </div>
-        <button type="submit" className={css['button-login']}>
-          Đăng nhập
-        </button>
+        
+        <ButtonQT title='Đăng nhập' type="submit" />
 
       </form>
     </div>

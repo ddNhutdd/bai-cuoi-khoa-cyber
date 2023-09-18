@@ -1,0 +1,18 @@
+.button-qt{
+    background-color: #FBC531;
+    padding: 1rem 2rem; 
+    cursor: pointer;
+    border-radius: 0.5rem;
+    border: 0.2rem solid black;
+    font-size: 1.6rem;
+    width: 100%;
+
+    transition: .3s;
+}
+.button-qt:hover{
+    background-color: #fcb900;
+}
+.button-qt:active{
+    background-color: #fcb900;
+    border-color: white;
+}

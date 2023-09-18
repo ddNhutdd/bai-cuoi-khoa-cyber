@@ -37,23 +37,9 @@
     margin-left: 4.5rem;
 }
 .button-register{
-    background-color: #FBC531;
-    padding: 1rem 2rem; 
-    cursor: pointer;
-    border-radius: 0.5rem;
-    border: 0.2rem solid black;
-    margin-left: 50rem;
-    font-size: 1.6rem;
+    padding: 0 8rem 0 8rem;
+}
 
-    transition: .3s;
-}
-.button-register:hover{
-    background-color: #fcb900;
-}
-.button-register:active{
-    background-color: #fcb900;
-    border-color: white;
-}
 .h2-register{
     text-align: center;
     font-size: 4rem;

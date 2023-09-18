@@ -4,13 +4,16 @@ import css from './footer.module.scss'
 import logo from '../../assets/imgs/cyberlogo-white.png'
 import footerImage from '../../assets/imgs/footerImg.jpg'
 import { LocationIcon, PhoneIcon } from '../../assets/icons/icons'
+import { NavLink } from 'react-router-dom'
 export default function Footer() {
     return (
         <div className={css['footer']}>
             <div className={css['footer__container']}>
                 <div className={css['footer__left']}>
                     <div className={css['footer__logo']}>
+                        <NavLink to={'/'}>
                         <img src={logo} alt='...' />
+                        </NavLink>
                         <p>
                             Lorem, ipsum dolor sit amet consectetur adipisicing
                             elit. Quibusdam, deserunt?

@@ -1,8 +1,21 @@
 
 import ListCard from '../../components/list-card/list-card'
 import css from './home.module.scss'
+import { useEffect, useState } from 'react'
 import { Button } from 'antd'
+import { timKiemKhoaHoc } from '../../services/khoa-hoc.service';
 export default function Home() {
+    const [listKhoaHoc, setListKhoaHoc] = useState([]);
+    useEffect(() => {
+        fetchKhoaHoc()
+    }, [])
+    const fetchKhoaHoc = async () => {
+        const resp = await timKiemKhoaHoc('', 1, 8)
+        if(typeof resp === 'string' ) {
+            return;
+        }
+        setListKhoaHoc(resp.items);
+    }
     return (
         <div className={css['home-container']}>
             <div className={css['home-container__banner']}>
@@ -21,7 +34,7 @@ export default function Home() {
                 <div className={css['home-container__title']}>
                     Các khoá học mới nhất
                 </div>
-                <ListCard />
+                <ListCard list={listKhoaHoc} />
             </div>
         </div>
     )

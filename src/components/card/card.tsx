@@ -1,22 +1,32 @@
 import css from './card.module.scss'
 import { StarRating } from './starRating/star-rating'
 import { Button, Card } from 'antd'
-export default function CardCyber() {
+import { useNavigate } from 'react-router-dom';
+
+export default function CardCyber(props:any) {
+    const navigate = useNavigate()
+    const { item } = props
     const styleCard: React.CSSProperties = {
         position: 'relative',
+        display:'flex',
+        flexDirection:'column',
+        justifyContent:'space-between'
+    }
+    const buttonDangKiHandleClick = () => {
+        navigate('/chitiet/' + item.maKhoaHoc);
     }
     return (
         <Card
-            hoverable
+            hoverable={false}
             style={styleCard}
             cover={
                 <img
                     alt='...'
-                    src='https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png'
+                    src={item.hinhAnh}
                 />
             }
         >
-            <h3>Lập trình FRONEND với HTML CSS JAVASCRIPT</h3>
+            <h3>{item.biDanh}</h3>
             <div className={css['card__content']}>
                 <StarRating
                     totalStars={5}
@@ -28,7 +38,7 @@ export default function CardCyber() {
                 <p>(1.593)</p>
             </div>
             <div className={css['card__action']}>
-                <Button type='primary'>ĐĂNG KÍ</Button>
+                <Button type='primary' onClick={buttonDangKiHandleClick}>ĐĂNG KÍ</Button>
             </div>
         </Card>
     )
