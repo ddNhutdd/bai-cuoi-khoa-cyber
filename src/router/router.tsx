@@ -7,6 +7,7 @@ const DanhMuc = lazy(() => import("../pages/danh-muc/danh-muc"));
 const ChiTiet = lazy(() => import("../pages/chi-tiet/chi-tiet"));
 const Register = lazy(() => import("../pages/register"));
 const Login = lazy(() => import("../pages/login"));
+const Profile = lazy(() => import("../pages/profile"));
 
 export const router = createBrowserRouter([
     {
@@ -49,6 +50,14 @@ export const router = createBrowserRouter([
                 element: (
                     <Suspense>
                         <Login/>
+                    </Suspense>
+                ),
+            },
+            {
+                path: '/profile',
+                element: (
+                    <Suspense>
+                        <Profile/>
                     </Suspense>
                 ),
             }

@@ -1,16 +1,24 @@
 .form-container {
+    display: flex;
     background: #3C40C6;
     box-shadow: 0px 35px 44px -22px #1f181b;
-    padding: 8rem 20rem 10rem 20rem;    
+    padding: 8rem 10rem 10rem 10rem;    
 }
 .register-form {
+    flex: 70%;
     background-color: white; 
     padding: 3rem 2rem 10rem 2rem;
     border-radius: 10px;
     box-shadow: 0px 0px 1rem rgba(4, 4, 4, 0.904); 
+    border: 2rem solid rgb(105, 202, 255);
+}
+.img-cyber{
+    padding: 3rem;
+    width: 31.9rem;
+    height: 25.4rem;
 }
 .img-register{
-    padding: 5rem 5rem;
+    flex: 30%;
 }
 .input-register{
     outline: none;
@@ -22,4 +30,32 @@
     border-bottom: 0.2rem solid #4684ee;
     border-right: 0.1rem solid #4684ee;
     border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    margin-left: 4rem;
+}
+.p-errors{
+    margin-left: 4.5rem;
+}
+.button-register{
+    background-color: #FBC531;
+    padding: 1rem 2rem; 
+    cursor: pointer;
+    border-radius: 0.5rem;
+    border: 0.2rem solid black;
+    margin-left: 50rem;
+    font-size: 1.6rem;
+
+    transition: .3s;
+}
+.button-register:hover{
+    background-color: #fcb900;
+}
+.button-register:active{
+    background-color: #fcb900;
+    border-color: white;
+}
+.h2-register{
+    text-align: center;
+    font-size: 4rem;
+    color: #3C40C6;
 }
