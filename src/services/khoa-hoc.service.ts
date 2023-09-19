@@ -1,4 +1,6 @@
-import { axiosWithoutAuth } from './config.service'
+import { ACCESS_TOKEN } from '../constants'
+import { getLocalStorage } from '../utils'
+import { axiosWithAuth, axiosWithoutAuth } from './config.service'
 export const layDanhMucKhoaHoc = async () => {
     try {
         const resp = await axiosWithoutAuth('/QuanLyKhoaHoc/LayDanhMucKhoaHoc')
@@ -31,6 +33,19 @@ export const layThongTinKhoaHoc = async (maKhoaHoc = 'LTC_GP01') => {
 export const layKhoaHocTheoDanhMuc = async (maDanhMuc:string, maNhom = 'GP01') => {
     try {
         const resp = await axiosWithoutAuth(`/QuanLyKhoaHoc/LayKhoaHocTheoDanhMuc?maDanhMuc=${maDanhMuc}&MaNhom=${maNhom}`)
+        return resp.data
+    } catch (error:any) {
+        console.log(error.response.data)
+        return error.response.data
+    }
+}
+
+export const dangKiKhoaHoc = async (maKhoaHoc:string, taiKhoan: string) => {
+    try {
+        const dataToSend = {
+            maKhoaHoc, taiKhoan
+        }
+        const resp= await axiosWithAuth.post('/QuanLyKhoaHoc/DangKyKhoaHoc', dataToSend)
         return resp.data
     } catch (error:any) {
         console.log(error.response.data)

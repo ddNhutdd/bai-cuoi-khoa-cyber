@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { Suspense, lazy } from 'react'
+import { Skeleton } from 'antd';
 import UserTemplate from '../templates/user/user.template'
-
 import AdminTemplate from '../templates/admin/admin.template'
 const Home = lazy(() => import('../pages/home/home'))
 const DanhMuc = lazy(() => import('../pages/danh-muc/danh-muc'))
@@ -21,7 +21,7 @@ export const router = createBrowserRouter([
             {
                 path: '',
                 element: (
-                    <Suspense>
+                    <Suspense fallback={<Skeleton />}>
                         <Home />
                     </Suspense>
                 ),
@@ -29,7 +29,7 @@ export const router = createBrowserRouter([
             {
                 path: '/DanhMucKhoaHoc',
                 element: (
-                    <Suspense>
+                    <Suspense fallback={<Skeleton />}>
                         <DanhMuc />
                     </Suspense>
                 ),
@@ -37,7 +37,7 @@ export const router = createBrowserRouter([
             {
                 path: '/chitiet/:maKhoaHoc',
                 element: (
-                    <Suspense>
+                    <Suspense fallback={<Skeleton />}>
                         <ChiTiet />
                     </Suspense>
                 ),
@@ -45,7 +45,7 @@ export const router = createBrowserRouter([
             {
                 path: '/register',
                 element: (
-                    <Suspense>
+                    <Suspense fallback={<Skeleton />}>
                         <Register />
                     </Suspense>
                 ),
@@ -53,7 +53,7 @@ export const router = createBrowserRouter([
             {
                 path: '/login',
                 element: (
-                    <Suspense>
+                    <Suspense fallback={<Skeleton />}>
                         <Login />
                     </Suspense>
                 ),
@@ -61,7 +61,7 @@ export const router = createBrowserRouter([
             {
                 path: '/profile',
                 element: (
-                    <Suspense>
+                    <Suspense fallback={<Skeleton />}>
                         <Profile/>
                     </Suspense>
                 ),
@@ -75,7 +75,7 @@ export const router = createBrowserRouter([
             {
                 path: 'quanlinguoidung',
                 element: (
-                    <Suspense>
+                    <Suspense fallback={<Skeleton />}>
                         <NguoiDung />
                     </Suspense>
                 ),
@@ -83,7 +83,7 @@ export const router = createBrowserRouter([
             {
                 path: 'quanlikhoahoc',
                 element: (
-                    <Suspense>
+                    <Suspense fallback={<Skeleton />}>
                         <KhoaHoc />
                     </Suspense>
                 ),
