@@ -4,9 +4,15 @@ import { Button } from 'antd'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import css from './chi-tiet.module.scss'
-import { layThongTinKhoaHoc } from '../../services/khoa-hoc.service'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import {
+    dangKiKhoaHoc,
+    layThongTinKhoaHoc,
+} from '../../services/khoa-hoc.service'
 import { getLocalStorage } from '../../utils'
-import { ACCESS_TOKEN } from '../../constants'
+import { ACCESS_TOKEN, HO_TEN } from '../../constants'
+import { API_RESPONSE, URL_NAVIGATE } from '../../constants'
 import { useNavigate } from 'react-router-dom'
 export default function ChiTiet() {
     const { maKhoaHoc } = useParams()
@@ -22,10 +28,29 @@ export default function ChiTiet() {
         }
         setKhoaHoc(data)
     }
-    const dangKiClickHandle = () => {
+    const dangKiClickHandle = async () => {
         const access_token = getLocalStorage(ACCESS_TOKEN)
-        if (!access_token) navigate('/login')
-
+        const taiKhoan = getLocalStorage(HO_TEN)
+        if (!access_token || !taiKhoan) {
+            navigate(URL_NAVIGATE.login)
+            return
+        }
+        const alertConfig: any = {
+            position: 'top-center',
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+        }
+        const data = await dangKiKhoaHoc(maKhoaHoc ?? '', taiKhoan)
+        if (data === API_RESPONSE.gdtc) {
+            toast.success(data, alertConfig)
+        } else {
+            toast.error(data, alertConfig)
+        }
     }
     return (
         <>
@@ -51,7 +76,10 @@ export default function ChiTiet() {
                                 <div
                                     className={css['chi-tiet__banner__action']}
                                 >
-                                    <Button type='primary' onClick={dangKiClickHandle}>
+                                    <Button
+                                        type='primary'
+                                        onClick={dangKiClickHandle}
+                                    >
                                         Đăng kí
                                     </Button>
                                 </div>
@@ -69,6 +97,18 @@ export default function ChiTiet() {
                     <p>{khoaHoc && khoaHoc.moTa}</p>
                 </div>
             </div>
+            <ToastContainer
+                position='top-center'
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme='light'
+            />
         </>
     )
 }

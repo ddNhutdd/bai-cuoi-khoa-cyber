@@ -23,7 +23,7 @@ axiosWithAuth.interceptors.request.use(
         config.headers[
             "TokenCybersoft"
         ] = TOKEN_CYBERSOFT;
-        config.headers['Authorization'] = getLocalStorage(ACCESS_TOKEN)
+        config.headers['Authorization'] = 'Bearer ' + getLocalStorage(ACCESS_TOKEN)
         return config;
     }
 )
