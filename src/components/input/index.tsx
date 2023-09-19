@@ -1,9 +1,13 @@
 import css from './input.module.scss'
 
 function InputForm(props: any) {
-    const {type, placeholder, name, onChange, value} = props
+    const {type, placeholder, field, touched, errors} = props
   return (
-    <input name={name} onChange={onChange} value={value}  type={type} placeholder={placeholder} className={css['input-form']}/>
+    <>
+      <input {...field}  type={type} placeholder={placeholder} className={css['input-form']}/>
+      {touched && errors && <p className={css['p-errors']}>{errors}</p>}
+    </>
+    
   )
 }
 

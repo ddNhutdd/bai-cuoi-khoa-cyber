@@ -20,23 +20,12 @@
 .img-register{
     flex: 30%;
 }
-.input-register{
-    outline: none;
-    width: 85%;
-    font-size: 1.6rem;
-    padding: 1.5rem 4rem 1.5rem 1rem;
-    border-left: 0.6rem solid #4684ee;
-    border-top: 0.1rem solid #4684ee;
-    border-bottom: 0.2rem solid #4684ee;
-    border-right: 0.1rem solid #4684ee;
-    border-radius: 0.5rem;
-    margin-bottom: 2rem;
-    margin-left: 4rem;
+.input-form{
+    padding: 1rem 4rem 1rem 4rem;
 }
-.p-errors{
-    margin-left: 4.5rem;
-}
+
 .button-register{
+    margin-top: 2rem;
     padding: 0 8rem 0 8rem;
 }
 
