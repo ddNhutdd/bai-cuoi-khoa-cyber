@@ -1,7 +1,6 @@
 import { useFormik } from "formik"
 import css from './register.module.scss'
 import imgMuiten from '../../assets/imgs/mui-ten.png'
-import { Link } from "react-router-dom"
 import NoteIcon from "../../assets/icons/note.icon"
 import ButtonQT from "../../components/button"
 import InputForm from "../../components/input"

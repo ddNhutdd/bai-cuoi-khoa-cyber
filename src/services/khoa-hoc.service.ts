@@ -1,5 +1,3 @@
-import { ACCESS_TOKEN } from '../constants'
-import { getLocalStorage } from '../utils'
 import { axiosWithAuth, axiosWithoutAuth } from './config.service'
 export const layDanhMucKhoaHoc = async () => {
     try {

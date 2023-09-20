@@ -11,7 +11,7 @@ import {
     layThongTinKhoaHoc,
 } from '../../services/khoa-hoc.service'
 import { getLocalStorage } from '../../utils'
-import { ACCESS_TOKEN, HO_TEN, TAI_KHOAN } from '../../constants'
+import { ACCESS_TOKEN, TAI_KHOAN } from '../../constants'
 import { API_RESPONSE, URL_NAVIGATE } from '../../constants'
 import { useNavigate } from 'react-router-dom'
 export default function ChiTiet() {
