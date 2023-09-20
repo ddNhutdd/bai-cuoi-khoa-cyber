@@ -11,7 +11,7 @@ import {
     layThongTinKhoaHoc,
 } from '../../services/khoa-hoc.service'
 import { getLocalStorage } from '../../utils'
-import { ACCESS_TOKEN, HO_TEN } from '../../constants'
+import { ACCESS_TOKEN, HO_TEN, TAI_KHOAN } from '../../constants'
 import { API_RESPONSE, URL_NAVIGATE } from '../../constants'
 import { useNavigate } from 'react-router-dom'
 export default function ChiTiet() {
@@ -30,7 +30,7 @@ export default function ChiTiet() {
     }
     const dangKiClickHandle = async () => {
         const access_token = getLocalStorage(ACCESS_TOKEN)
-        const taiKhoan = getLocalStorage(HO_TEN)
+        const taiKhoan = getLocalStorage(TAI_KHOAN)
         if (!access_token || !taiKhoan) {
             navigate(URL_NAVIGATE.login)
             return
@@ -54,7 +54,6 @@ export default function ChiTiet() {
     }
     return (
         <>
-            <div>{}</div>
             <div className={css['chi-tiet']}>
                 <div className={css['chi-tiet__banner']}>
                     <div className={css['chi-tiet__banner__container']}>
