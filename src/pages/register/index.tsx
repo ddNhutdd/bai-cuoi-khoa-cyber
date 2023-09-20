@@ -4,6 +4,36 @@ import imgMuiten from '../../assets/imgs/mui-ten.png'
 import { Link } from "react-router-dom"
 import NoteIcon from "../../assets/icons/note.icon"
 import ButtonQT from "../../components/button"
+import InputForm from "../../components/input"
+import * as Y from 'yup'
+
+const registerSchema = Y.object({
+    taiKhoan: Y.string()
+    .min(6, 'Tài khoản phải từ 6 ký tự trở lên !')
+    .max(20, 'Tài khoản phải nhỏ hơn 20 ký tự !')
+    .required('Tài khoản không được bỏ trống !'),
+    matKhau: Y.string()
+    .min(6, 'Mật khẩu phải từ 6 ký tự trở lên !')
+    .max(20, 'Mật khẩu phải nhỏ hơn 20 ký tự !')
+    .required('Mật khẩu không được bỏ trống !'),
+    hoTen: Y.string()
+    .min(6, 'Họ tên phải từ 6 ký tự trở lên !')
+    .max(20, 'Họ tên phải nhỏ hơn 20 ký tự !')
+    .required('Họ tên không được bỏ trống !'),
+    soDT: Y.string()
+    .min(6, 'Số điện thoại phải từ 6 ký tự trở lên !')
+    .max(20, 'Số điện thoại phải nhỏ hơn 20 ký tự !')
+    .required('Số điện thoại không được bỏ trống !'),
+    maNhom: Y.string()
+    .min(1, 'Mã nhóm phải từ 1 ký tự trở lên !')
+    .max(2, 'Mã nhóm phải nhỏ hơn 2 ký tự !')
+    .required('Mã nhóm không được bỏ trống !'),
+    email: Y.string()
+    .email('Email không hợp lệ !')
+    .min(6, 'Email phải từ 6 ký tự trở lên !')
+    .max(30, 'Email phải nhỏ hơn 20 ký tự !')
+    .required('Email không được bỏ trống !'),
+})
 
 function Register() {
     const formik = useFormik({
@@ -16,14 +46,7 @@ function Register() {
             email: ''
         },
 
-        validate: (value) => {
-            const err: Partial<typeof value> = {}
-
-            if (!value.taiKhoan) {
-                err.taiKhoan = 'err tai khoan'
-            }
-            return err
-        },
+        validationSchema: registerSchema,
 
         onSubmit: (value) => {
             console.log({ value })
@@ -40,52 +63,58 @@ function Register() {
             <form onSubmit={formik.handleSubmit} className={css['register-form']}>
                 <h2 className={css['h2-register']}>Đăng kí <NoteIcon /></h2>
                 <div className={css['input-container']}>
-                    <input className={css['input-register']}
-                        // value={formik.values.taiKhoan}
-                        // name="taiKhoan"
-                        // onChange={formik.handleChange}
-                        // onBlur={formik.handleBlur}
 
-                        {...formik.getFieldProps('taiKhoan')}
+                    <div className={css['input-form']}>
+                        <InputForm 
+                        touched={formik.touched.taiKhoan} 
+                        errors={formik.errors.taiKhoan} 
+                        {...formik.getFieldProps('taiKhoan')} placeholder="Tài khoản" />
+                    </div>
 
-                        placeholder="Tài khoản" />
-                    {formik.touched.taiKhoan && formik.errors.taiKhoan && (
-                        <p className={css['p-errors']}>{formik.errors.taiKhoan}</p>
-                    )}
 
-                    <input className={css['input-register']}
-                        value={formik.values.matKhau}
-                        name="matKhau"
-                        onChange={formik.handleChange}
-                        placeholder="Mật khẩu" />
+                    <div className={css['input-form']}>
+                        <InputForm 
+                        touched={formik.touched.matKhau} 
+                        errors={formik.errors.matKhau} 
+                        {...formik.getFieldProps('matKhau')} placeholder="Mật khẩu" />
+                        
+                    </div>
 
-                    <input className={css['input-register']}
-                        value={formik.values.hoTen}
-                        name="hoTen"
-                        onChange={formik.handleChange}
-                        placeholder="Họ tên" />
+                    <div className={css['input-form']}>
+                        <InputForm 
+                        touched={formik.touched.hoTen} 
+                        errors={formik.errors.hoTen} 
+                        {...formik.getFieldProps('hoTen')} placeholder="Họ tên" />
+                        
+                    </div>
 
-                    <input className={css['input-register']}
-                        value={formik.values.soDT}
-                        onChange={formik.handleChange}
-                        name="soDT"
-                        placeholder="Số điện thoại" />
+                    <div className={css['input-form']}>
+                        <InputForm 
+                        touched={formik.touched.soDT} 
+                        errors={formik.errors.soDT} 
+                        {...formik.getFieldProps('soDT')} placeholder="Số điện thoại" />
+                       
+                    </div>
 
-                    <input className={css['input-register']}
-                        value={formik.values.maNhom}
-                        name="maNhom"
-                        onChange={formik.handleChange}
-                        placeholder="Mã nhóm" />
+                    <div className={css['input-form']}>
+                        <InputForm 
+                        touched={formik.touched.maNhom} 
+                        errors={formik.errors.maNhom} 
+                        {...formik.getFieldProps('maNhom')} placeholder="Mã nhóm"/>
+                        
+                    </div>
 
-                    <input className={css['input-register']}
-                        value={formik.values.email}
-                        name="email"
-                        onChange={formik.handleChange}
-                        placeholder="Email" />
-
+                    <div className={css['input-form']}>
+                        <InputForm 
+                        touched={formik.touched.email} 
+                        errors={formik.errors.email} 
+                        {...formik.getFieldProps('email')} placeholder="Email"/>
+                        
+                    </div>
                 </div>
                 <div className={css['button-register']}>
-                    <Link to='/profile'><ButtonQT type="submit" title='Đăng kí' /></Link>
+                    <ButtonQT type="submit" title='Đăng kí' />  
+                    {/* <Link to='/profile'><ButtonQT type="submit" title='Đăng kí' /></Link> */}
                 </div>
             </form>
 
