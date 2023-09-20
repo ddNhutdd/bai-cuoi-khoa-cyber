@@ -49,6 +49,7 @@ export default function DanhMuc() {
                     <div className={css['danh-muc__paging']}>
                         {paging_totalItem >= 1 && (
                             <Paging
+                            theme={1}
                                 totalItem={Math.ceil(
                                     paging_totalItem / ITEM_PER_PAGE,
                                 )}
