@@ -39,10 +39,13 @@ function Login() {
         };
         userLogin(data)
           .then((resp: any) => {
+            setLocalStorage(ACCESS_TOKEN, resp.accessToken);
             alert('Đăng nhập thành công !')
-            setLocalStorage(ACCESS_TOKEN, resp.content.accessToken);
           })
-          .catch((err: any) => console.log(err));
+          .catch((err: any) =>{ 
+            console.log(err)
+            alert('Đăng nhập không thành công. Có lỗi xảy ra.');
+          });
       },
     })
   

@@ -62,7 +62,10 @@ function Register() {
                 .then(() => {
                     alert('Đăng ký thành công !')
                 })
-                .catch((err) => console.log(err));
+                .catch((err) => {
+                    console.log(err)
+                    alert('Đăng ký không thành công. Có lỗi xảy ra.');
+                });
         },
     })
     return (
