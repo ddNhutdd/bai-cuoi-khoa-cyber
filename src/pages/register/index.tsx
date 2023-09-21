@@ -22,7 +22,7 @@ const registerSchema = Y.object({
     .required('Họ tên không được bỏ trống !'),
     soDT: Y.string()
     .min(6, 'Số điện thoại phải từ 6 ký tự trở lên !')
-    .max(20, 'Số điện thoại phải nhỏ hơn 20 ký tự !')
+    .max(15, 'Số điện thoại phải nhỏ hơn 20 ký tự !')
     .required('Số điện thoại không được bỏ trống !'),
     maNhom: Y.string()
     .min(1, 'Mã nhóm phải từ 1 ký tự trở lên !')
@@ -66,48 +66,42 @@ function Register() {
 
                     <div className={css['input-form']}>
                         <InputForm 
-                        touched={formik.touched.taiKhoan} 
-                        errors={formik.errors.taiKhoan} 
+                        formik={formik} 
                         {...formik.getFieldProps('taiKhoan')} placeholder="Tài khoản" />
                     </div>
 
 
                     <div className={css['input-form']}>
                         <InputForm 
-                        touched={formik.touched.matKhau} 
-                        errors={formik.errors.matKhau} 
+                        formik={formik} 
                         {...formik.getFieldProps('matKhau')} placeholder="Mật khẩu" />
                         
                     </div>
 
                     <div className={css['input-form']}>
                         <InputForm 
-                        touched={formik.touched.hoTen} 
-                        errors={formik.errors.hoTen} 
+                        formik={formik}
                         {...formik.getFieldProps('hoTen')} placeholder="Họ tên" />
                         
                     </div>
 
                     <div className={css['input-form']}>
                         <InputForm 
-                        touched={formik.touched.soDT} 
-                        errors={formik.errors.soDT} 
+                        formik={formik}
                         {...formik.getFieldProps('soDT')} placeholder="Số điện thoại" />
                        
                     </div>
 
                     <div className={css['input-form']}>
                         <InputForm 
-                        touched={formik.touched.maNhom} 
-                        errors={formik.errors.maNhom} 
+                        formik={formik} 
                         {...formik.getFieldProps('maNhom')} placeholder="Mã nhóm"/>
                         
                     </div>
 
                     <div className={css['input-form']}>
                         <InputForm 
-                        touched={formik.touched.email} 
-                        errors={formik.errors.email} 
+                        formik={formik}
                         {...formik.getFieldProps('email')} placeholder="Email"/>
                         
                     </div>
