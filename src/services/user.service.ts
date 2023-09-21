@@ -1,4 +1,4 @@
-import { UserRegister } from "../types/classnames";
+import { UserRegister } from "../types";
 import { axiosWithAuth, axiosWithoutAuth } from "./config.service";
 
 export const userLogin =async (data: { taiKhoan: string; matKhau: string }) => {
