@@ -1,0 +1,51 @@
+.list-nguoi-dung {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+
+    .list-nguoi-dung__add {
+        color: blue;
+        text-decoration: underline;
+        cursor: pointer;
+        display: block;
+    }
+
+    .paging {
+        margin-top: -3rem;
+    }
+}
+
+.list-nguoi-dung-model {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    .modal-khoa-hoc-dropdown {
+        display: flex;
+        gap: 1rem;
+
+        .dropdown-container {
+            flex: 1;
+
+            button {
+                width: 100%;
+
+                div {
+                    width: 100%;
+
+                    div {
+                        text-align: left;
+
+                        &:last-child {
+                            text-align: right;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .model-khoa-hoc-line {
+        width: 100%;
+        border: .1rem solid #f0f0f0;
+    }
+}

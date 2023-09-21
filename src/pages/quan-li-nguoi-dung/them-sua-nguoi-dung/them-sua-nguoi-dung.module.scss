@@ -1,0 +1,25 @@
+.them-sua-nguoi-dung {
+    .them-sua-nguoi-dung__title {
+        margin-bottom: 2rem;
+    }
+
+    .them-sua-nguoi-dung__input-contaier {
+        display: flex;
+        gap: 2rem;
+
+        .them-sua-nguoi-dung__left, .them-sua-nguoi-dung__right {
+            flex: 1;
+        }
+    }
+    .them-sua-nguoi-dung__action {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        .them-sua-nguoi-dung__return {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+        }
+    }
+    
+}

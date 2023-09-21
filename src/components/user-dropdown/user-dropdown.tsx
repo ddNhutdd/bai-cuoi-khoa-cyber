@@ -6,7 +6,6 @@ interface UserDropdownProps {
   }
 const UserDropdown: React.FC<UserDropdownProps> = (props) => {
     const  {dangXuat, userName}  = props
-    console.log('dsafd ', dangXuat )
     const items: MenuProps['items'] = [
         {
             label: <a href='https://www.antgroup.com'>Cập nhật thông tin</a>,
