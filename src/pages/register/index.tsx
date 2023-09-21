@@ -6,7 +6,7 @@ import ButtonQT from "../../components/button"
 import InputForm from "../../components/input"
 import * as Y from 'yup'
 import { register } from "../../services/user.service"
-import { UserRegister } from "../../types/classnames"
+import { UserRegister } from "../../types"
 
 const registerSchema = Y.object({
     taiKhoan: Y.string()
@@ -59,7 +59,7 @@ function Register() {
                 email: value.email
             }
             register(data)
-                .then((resp) => {
+                .then(() => {
                     alert('Đăng ký thành công !')
                 })
                 .catch((err) => console.log(err));
