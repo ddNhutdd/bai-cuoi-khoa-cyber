@@ -1,19 +1,19 @@
 import { UserRegister } from "../types/classnames";
-import { axiosWithoutAuth } from "./config.service";
+import { axiosWithAuth, axiosWithoutAuth } from "./config.service";
 
-export const userLogin =async (data:{email: string; password: string}) => {
+export const userLogin =async (data: { taiKhoan: string; matKhau: string }) => {
     try {
-        const resp = await {
+        const resp = await axiosWithAuth({
             method: 'post',
             url: '',
             data
-        }
+        })
         return resp.data
     } catch (error) {
         console.log(error)
     }
 }
-export const signup = async (data: UserRegister) => {
+export const register = async (data: UserRegister) => {
     try {
         const resp = await axiosWithoutAuth({
             method: "post",

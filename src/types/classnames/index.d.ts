@@ -1,9 +1,10 @@
 declare module "react-google-recaptcha"
 
 export type UserRegister = {
-    "email": string,
-    "password": string,
-    "name": string,
-    "gender": boolean,
-    "phone": string
-  }
+  taiKhoan: string,
+  matKhau: string,
+  hoTen: string,
+  soDT: string,
+  maNhom: string,
+  email: string
+}
