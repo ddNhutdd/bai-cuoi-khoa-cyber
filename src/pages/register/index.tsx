@@ -7,6 +7,8 @@ import InputForm from "../../components/input"
 import * as Y from 'yup'
 import { register } from "../../services/user.service"
 import { UserRegister } from "../../types"
+import { useNavigate } from "react-router-dom"
+import { URL_NAVIGATE } from "../../constants"
 
 const registerSchema = Y.object({
     taiKhoan: Y.string()
@@ -37,6 +39,7 @@ const registerSchema = Y.object({
 })
 
 function Register() {
+    const navigate = useNavigate();
     const formik = useFormik({
         initialValues: {
             taiKhoan: '',
@@ -61,6 +64,7 @@ function Register() {
             register(data)
                 .then(() => {
                     alert('Đăng ký thành công !')
+                    navigate(URL_NAVIGATE.login)
                 })
                 .catch((err) => {
                     console.log(err)

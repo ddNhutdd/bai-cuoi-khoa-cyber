@@ -11,7 +11,8 @@ import {useFormik } from "formik";
 import * as Y from 'yup'
 import { userLogin } from "../../services/user.service";
 import { setLocalStorage } from '../../utils';
-import { ACCESS_TOKEN } from '../../constants';
+import { ACCESS_TOKEN, HO_TEN, TAI_KHOAN, URL_NAVIGATE } from '../../constants';
+import { useNavigate } from 'react-router-dom';
 
 const registerSchema = Y.object({
   taiKhoan: Y.string()
@@ -25,7 +26,7 @@ const registerSchema = Y.object({
 })
 
 function Login() {
-  
+  const navigate = useNavigate();
   const formik = useFormik({
       initialValues: {
         taiKhoan: "",
@@ -40,7 +41,10 @@ function Login() {
         userLogin(data)
           .then((resp: any) => {
             setLocalStorage(ACCESS_TOKEN, resp.accessToken);
+            setLocalStorage(TAI_KHOAN, resp.taiKhoan)
+            setLocalStorage(HO_TEN, resp.hoTen)
             alert('Đăng nhập thành công !')
+            navigate(URL_NAVIGATE.home)
           })
           .catch((err: any) =>{ 
             console.log(err)
