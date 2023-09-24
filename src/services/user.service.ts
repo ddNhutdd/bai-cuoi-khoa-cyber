@@ -1,4 +1,4 @@
-import { UserRegister } from "../types";
+import { UserProfile, UserRegister } from "../types";
 import { axiosWithAuth, axiosWithoutAuth } from "./config.service";
 export const userLogin = async (data: { taiKhoan: string; matKhau: string }) => {
     try {
@@ -37,6 +37,30 @@ export const getListUserPaging = (tuKhoa = '', page = 1, pageSize = 10, maNhom =
         return resp
     }
     catch (err: any) {
+        console.log(err)
+    }
+}
+export const getProfile = async () => {
+    try {
+        const resp = await axiosWithAuth({
+            method: 'post',
+            url: '/QuanLyNguoiDung/ThongTinNguoiDung'
+        })
+        return resp;
+    } catch (err) {
+        console.log(err)
+    }
+}
+export const updateProfile = async (data: UserProfile) => {
+    try {
+        const resp = await axiosWithAuth({
+            method: 'put',
+            url: '/QuanLyNguoiDung/CapNhatThongTinNguoiDung',
+            data
+        })
+        console.log('service: ', resp)
+        return resp;
+    } catch (err) {
         console.log(err)
     }
 }

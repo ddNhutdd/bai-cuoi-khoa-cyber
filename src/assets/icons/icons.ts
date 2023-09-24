@@ -8,4 +8,6 @@ export * from './note.icon'
 export * from './bars.icon/bars.icon'
 export * from './learn.icon/learn.icon'
 export * from './user-fill.icon/user-fill.icon'
+export * from './eye-sleep.icon'
+export * from './eye-open.icon'
 

@@ -20,9 +20,7 @@ axiosWithoutAuth.interceptors.request.use(
 export const axiosWithAuth = axios.create({ baseURL: BASE_URL, timeout: 180_000 })
 axiosWithAuth.interceptors.request.use(
     (config) => {
-        config.headers[
-            "TokenCybersoft"
-        ] = TOKEN_CYBERSOFT;
+        config.headers[ "TokenCybersoft"] = TOKEN_CYBERSOFT;
         config.headers['Authorization'] = 'Bearer ' + getLocalStorage(ACCESS_TOKEN)
         return config;
     }
