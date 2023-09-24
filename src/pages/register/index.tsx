@@ -62,9 +62,15 @@ function Register() {
                 email: value.email
             }
             register(data)
-                .then(() => {
-                    alert('Đăng ký thành công !')
-                    navigate(URL_NAVIGATE.login)
+                .then((data) => {
+                    if (data) {
+                        alert('Đăng ký thành công !')
+                        navigate(URL_NAVIGATE.login)
+                    }
+                    else {
+                        alert('Đăng ký không thành công. Có lỗi xảy ra. !');
+                    }
+
                 })
                 .catch((err) => {
                     console.log(err)
@@ -94,7 +100,10 @@ function Register() {
                     <div className={css['input-form']}>
                         <InputForm
                             formik={formik}
-                            {...formik.getFieldProps('matKhau')} placeholder="Mật khẩu" />
+                            {...formik.getFieldProps('matKhau')}
+                            type='password'
+                            showEye={true}
+                            placeholder="Mật khẩu" />
 
                     </div>
 

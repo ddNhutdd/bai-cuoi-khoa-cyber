@@ -7,52 +7,67 @@ import iconFace from '../../assets/imgs/icon-face.avif'
 import iconTwitter from '../../assets/imgs/icon-twitter.png'
 import ButtonQT from "../../components/button";
 import InputForm from "../../components/input";
-import {useFormik } from "formik";
+import { useFormik } from "formik";
 import * as Y from 'yup'
 import { userLogin } from "../../services/user.service";
 import { setLocalStorage } from '../../utils';
-import { ACCESS_TOKEN, HO_TEN, TAI_KHOAN, URL_NAVIGATE } from '../../constants';
+import { ACCESS_TOKEN, HO_TEN, MA_LOAI_NGUOI_DUNG, TAI_KHOAN, URL_NAVIGATE } from '../../constants';
 import { useNavigate } from 'react-router-dom';
 
 const registerSchema = Y.object({
   taiKhoan: Y.string()
-      .min(6, 'Tài khoản phải từ 6 ký tự trở lên !')
-      .max(20, 'Tài khoản phải nhỏ hơn 20 ký tự !')
-      .required('Tài khoản không được bỏ trống !'),
+    .min(6, 'Tài khoản phải từ 6 ký tự trở lên !')
+    .max(20, 'Tài khoản phải nhỏ hơn 20 ký tự !')
+    .required('Tài khoản không được bỏ trống !'),
   matKhau: Y.string()
-      .min(6, 'Mật khẩu phải từ 6 ký tự trở lên !')
-      .max(20, 'Mật khẩu phải nhỏ hơn 20 ký tự !')
-      .required('Mật khẩu không được bỏ trống !'),
+    .min(6, 'Mật khẩu phải từ 6 ký tự trở lên !')
+    .max(20, 'Mật khẩu phải nhỏ hơn 20 ký tự !')
+    .required('Mật khẩu không được bỏ trống !'),
 })
 
 function Login() {
   const navigate = useNavigate();
   const formik = useFormik({
-      initialValues: {
-        taiKhoan: "",
-        matKhau: "",
-      },
-      validationSchema: registerSchema,
-      onSubmit: (values) => {
-        const data = {
-          taiKhoan: values.taiKhoan,
-          matKhau: values.matKhau
-        };
-        userLogin(data)
-          .then((resp: any) => {
+    initialValues: {
+      taiKhoan: "",
+      matKhau: "",
+    },
+    validationSchema: registerSchema,
+    onSubmit: (values) => {
+      const data = {
+        taiKhoan: values.taiKhoan,
+        matKhau: values.matKhau
+      };
+      userLogin(data)
+        .then((resp: any) => {
+          if(resp){
+            console.log(resp)
             setLocalStorage(ACCESS_TOKEN, resp.accessToken);
             setLocalStorage(TAI_KHOAN, resp.taiKhoan)
             setLocalStorage(HO_TEN, resp.hoTen)
+            setLocalStorage(MA_LOAI_NGUOI_DUNG, resp.maLoaiNguoiDung)
             alert('Đăng nhập thành công !')
-            navigate(URL_NAVIGATE.home)
-          })
-          .catch((err: any) =>{ 
-            console.log(err)
+            // navigate(URL_NAVIGATE.home)
+            if(resp.maLoaiNguoiDung === 'HV'){
+              navigate(URL_NAVIGATE.home)
+            }
+            else{
+              navigate(URL_NAVIGATE.quanlynguoidung)
+            }
+            
+          }
+          else{
             alert('Đăng nhập không thành công. Có lỗi xảy ra.');
-          });
-      },
-    })
-  
+          }
+          
+        })
+        .catch((err: any) => {
+          console.log(err)
+          alert('Đăng nhập không thành công. Có lỗi xảy ra.');
+        });
+    },
+  })
+
 
   return (
     <div className={css['form-container']}>
@@ -63,19 +78,22 @@ function Login() {
         <div className={css['input-container']}>
           {/* <input name="taiKhoan" onChange={handleChange} value={formLogin.taiKhoan} className={css['input-tk']} placeholder="Tài khoản" /> */}
           <div className={css['input-formik']}>
-          <InputForm
-            formik={formik}
-            {...formik.getFieldProps('taiKhoan')} placeholder="Tài khoản" />
-          </div>  
+            <InputForm
+              formik={formik}
+              {...formik.getFieldProps('taiKhoan')} placeholder="Tài khoản" />
+          </div>
           <div className={css['icon-user']}><UserIcon /></div>
         </div>
         <div className={css['input-container']}>
           <div className={css['input-formik']}>
             <InputForm
-            formik={formik}
-            {...formik.getFieldProps('matKhau')} placeholder="Mật khẩu" />
+              formik={formik}
+              {...formik.getFieldProps('matKhau')}
+              type='password'
+              showEye={true}
+              placeholder="Mật khẩu" />
           </div>
-        
+
           <div className={css['icon-lock']}><LockIcon /></div>
         </div>
         <div className={css['remember-forgot']}>
