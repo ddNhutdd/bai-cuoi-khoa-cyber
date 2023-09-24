@@ -37,16 +37,9 @@ export default function ListNguoiDung(props: any) {
     )
     const [paging_selectedPage, setPaging_selectedPage] = useState(1)
     const [paging_totalPage, setPaging_totalPage] = useState(0)
+    const [searchText, setSearchText] = useState<string>()
     useEffect(() => {
-        setApiUserStatus(() => API_STATUS.fetching)
-        getListUserPaging()
-            ?.then((resp) => {
-                setListUser(() => resp.data.items)
-                
-            })
-            .catch((err) => {
-                setErrorFromApi(err)
-            })
+        loadListUser(1)
     }, [])
     useEffect(() => {
         setApiUserStatus(() => API_STATUS.fetchingSuccess)
@@ -54,11 +47,40 @@ export default function ListNguoiDung(props: any) {
     useEffect(() => {
         setApiUserStatus(() => API_STATUS.fetchingError)
     }, [errorFromApi])
+
+
+
+
+    useEffect(() => {
+        loadListUser(paging_selectedPage,searchText)
+    }, [paging_selectedPage])
+
+
+    useEffect(() => {
+        loadListUser(1, searchText)
+    }, [searchText])
+
+
+
+
+
     const showModal = () => {
         setIsModalOpen(true)
     }
     const closeModel = () => {
         setIsModalOpen(false)
+    }
+    const loadListUser = (selectedPage: number, search = '') => {
+        setApiUserStatus(() => API_STATUS.fetching)
+        getListUserPaging(search, selectedPage)
+            ?.then((resp) => {
+                setListUser(() => resp.data.items)
+                setPaging_selectedPage(() => resp.data.currentPage)
+                setPaging_totalPage(() => resp.data.totalPages - 1)
+            })
+            .catch((err) => {
+                setErrorFromApi(err)
+            })
     }
     const { setShow } = props
     const columns: ColumnsType<DataType> = [
@@ -152,13 +174,15 @@ export default function ListNguoiDung(props: any) {
                 </span>
                 <form>
                     <Space.Compact style={{ width: '100%' }}>
-                        <Input placeholder='Nhập vào tên tài khoản hoặc họ tên người dùng' />
-                        <Button
-                            disabled={apiUserStatus === API_STATUS.fetching}
-                            type='primary'
-                        >
-                            Tìm
-                        </Button>
+                        <Input
+                            onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>,
+                            ) => {
+                                setSearchText(e.target.value)
+                            }}
+                            value={searchText}
+                            placeholder='Nhập vào tên tài khoản hoặc họ tên người dùng'
+                        />
                     </Space.Compact>
                 </form>
                 <Table columns={columns} pagination={false} dataSource={data} />
@@ -166,9 +190,9 @@ export default function ListNguoiDung(props: any) {
                     <div className={css['paging']}>
                         <Paging
                             theme={2}
-                            totalItem={10}
-                            selectedPage={3}
-                            setSelectedPage={() => {}}
+                            totalItem={paging_totalPage}
+                            selectedPage={paging_selectedPage}
+                            setSelectedPage={setPaging_selectedPage}
                         />
                     </div>
                 )}

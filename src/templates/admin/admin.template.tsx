@@ -6,35 +6,37 @@ import { Dropdown } from 'antd'
 import { useState, useEffect } from 'react'
 import { BarsIcon, LearnIcon, UserFill } from '../../assets/icons/icons'
 import { getLocalStorage, removeLocalStorage } from '../../utils'
-import { ACCESS_TOKEN, HO_TEN, MA_LOAI_NGUOI_DUNG, TAI_KHOAN } from '../../constants'
+import {
+    ACCESS_TOKEN,
+    HO_TEN,
+    MA_LOAI_NGUOI_DUNG,
+    TAI_KHOAN,
+} from '../../constants'
 const logoutHandle = () => {
-    removeLocalStorage(ACCESS_TOKEN);
-    removeLocalStorage(TAI_KHOAN);
-    removeLocalStorage(HO_TEN);
+    removeLocalStorage(ACCESS_TOKEN)
+    removeLocalStorage(TAI_KHOAN)
+    removeLocalStorage(HO_TEN)
     removeLocalStorage(MA_LOAI_NGUOI_DUNG)
 }
 const items: MenuProps['items'] = [
     {
         key: '1',
-        label: <NavLink to={'/'}>Cập nhật thông tin</NavLink>,
+        label: <NavLink to={'/profile'}>Cập nhật thông tin</NavLink>,
     },
     {
         key: '2',
         label: <span onClick={logoutHandle}>Đăng xuất</span>,
     },
 ]
-
-
 export default function AdminTemplate() {
-    const navigate = useNavigate();
-    const [showSideBar, setShowSideBar] = useState<boolean>(false);
-    useEffect(()=>{
-        const typeOfUser = getLocalStorage(MA_LOAI_NGUOI_DUNG);
-        console.log(typeOfUser)
+    const navigate = useNavigate()
+    const [showSideBar, setShowSideBar] = useState<boolean>(false)
+    useEffect(() => {
+        const typeOfUser = getLocalStorage(MA_LOAI_NGUOI_DUNG)
         if (!typeOfUser) {
             navigate('/login')
-        } 
-    },[])
+        }
+    }, [])
     return (
         <>
             <div className={css['admin-template-container']}>
@@ -68,7 +70,9 @@ export default function AdminTemplate() {
                             <NavLink to={'/'}>Quản lý khóa học</NavLink>
                         </li>
                         <li className={showSideBar ? css['--dn'] : ''}>
-                            <NavLink to={'/admin/quanlinguoidung'}>Quản lý người dùng</NavLink>
+                            <NavLink to={'/admin/quanlinguoidung'}>
+                                Quản lý người dùng
+                            </NavLink>
                         </li>
                         <li className={!showSideBar ? css['--dn'] : ''}>
                             <NavLink to={'/'}>

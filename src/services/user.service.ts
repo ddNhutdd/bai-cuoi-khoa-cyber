@@ -26,13 +26,9 @@ export const register = async (data: UserRegister) => {
 }
 export const getListUserPaging = (tuKhoa = '', page = 1, pageSize = 10, maNhom = 'GP01') => {
     try {
-        const data = {
-            tuKhoa, page, pageSize, maNhom
-        }
         const resp = axiosWithoutAuth({
             method: 'get',
-            url: '/QuanLyNguoiDung/LayDanhSachNguoiDung_PhanTrang',
-            data
+            url: (`/QuanLyNguoiDung/LayDanhSachNguoiDung_PhanTrang?MaNhom=${maNhom}&page=${page}&pageSize=${pageSize}` + (tuKhoa && `&tuKhoa=${tuKhoa}`)),
         })
         return resp
     }

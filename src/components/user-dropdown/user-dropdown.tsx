@@ -1,5 +1,6 @@
 import { MenuProps } from 'antd'
 import Dropdown from 'antd/es/dropdown/dropdown'
+import { NavLink } from 'react-router-dom';
 interface UserDropdownProps {
     dangXuat: () => void;
     userName:string
@@ -8,7 +9,7 @@ const UserDropdown: React.FC<UserDropdownProps> = (props) => {
     const  {dangXuat, userName}  = props
     const items: MenuProps['items'] = [
         {
-            label: <a href='https://www.antgroup.com'>Cập nhật thông tin</a>,
+            label: <NavLink to='/profile'>Cập nhật thông tin</NavLink>,
             key: '0',
         },
         {
