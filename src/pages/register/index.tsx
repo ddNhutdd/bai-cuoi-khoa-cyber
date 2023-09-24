@@ -34,7 +34,7 @@ const registerSchema = Y.object({
     email: Y.string()
         .email('Email không hợp lệ !')
         .min(6, 'Email phải từ 6 ký tự trở lên !')
-        .max(30, 'Email phải nhỏ hơn 20 ký tự !')
+        .max(20, 'Email phải nhỏ hơn 20 ký tự !')
         .required('Email không được bỏ trống !'),
 })
 

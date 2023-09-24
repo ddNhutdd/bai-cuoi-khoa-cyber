@@ -36,6 +36,19 @@ export const getListUserPaging = (tuKhoa = '', page = 1, pageSize = 10, maNhom =
         console.log(err)
     }
 }
+
+export const createUser = (data:UserProfile) => {
+    try {
+        const resp = axiosWithAuth({
+            method: 'post',
+            url:'/QuanLyNguoiDung/ThemNguoiDung',
+            data
+        })
+        return resp;
+    } catch (err:any) {
+        console.log(err)
+    }
+}
 export const getProfile = async () => {
     try {
         const resp = await axiosWithAuth({

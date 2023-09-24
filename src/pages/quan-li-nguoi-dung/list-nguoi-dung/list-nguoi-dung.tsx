@@ -8,6 +8,7 @@ import Paging from '../../../components/paging/paging'
 import TableKhoaHoc from './table-khoa-hoc/table-khoa-hoc'
 import { getListUserPaging } from '../../../services/user.service'
 import { API_STATUS } from '../../../constants'
+import { ShowPage } from '../quan-li-nguoi-dung'
 interface DataType {
     key: number
     stt: number
@@ -82,7 +83,7 @@ export default function ListNguoiDung(props: any) {
                 setErrorFromApi(err)
             })
     }
-    const { setShow } = props
+    const { setShowPage } = props
     const columns: ColumnsType<DataType> = [
         {
             title: 'STT',
@@ -167,7 +168,7 @@ export default function ListNguoiDung(props: any) {
                     }
                     onClick={() => {
                         if (apiUserStatus == API_STATUS.fetching) return
-                        setShow(1)
+                        setShowPage(ShowPage.add)
                     }}
                 >
                     Thêm người dùng
