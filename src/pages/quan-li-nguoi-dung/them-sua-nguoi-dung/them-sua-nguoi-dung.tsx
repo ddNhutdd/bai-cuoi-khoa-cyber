@@ -1,8 +1,11 @@
 import { Button } from 'antd'
 import InputElearning from '../../../components/input-elearning'
 import css from './them-sua-nguoi-dung.module.scss'
+
 export default function ThemSuaNguoiDung(props: any) {
+
     const { setShow } = props
+
     return (
         <div className={css['them-sua-nguoi-dung']}>
             <div className={css['them-sua-nguoi-dung__title']}>
@@ -23,7 +26,8 @@ export default function ThemSuaNguoiDung(props: any) {
                 </div>
                 <div className={css['them-sua-nguoi-dung__action']}>
                     <span
-                        className={css['them-sua-nguoi-dung__return']}
+
+                        className={css['them-sua-nguoi-dung__return'] + ' ' + css['disabled']}
                         onClick={() => {
                             setShow(0)
                         }}

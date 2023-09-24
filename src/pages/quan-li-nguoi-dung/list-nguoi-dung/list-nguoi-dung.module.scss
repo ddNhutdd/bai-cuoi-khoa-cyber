@@ -1,3 +1,8 @@
+.disabled {
+    color: gray !important;
+    cursor: not-allowed;
+}
+
 .list-nguoi-dung {
     display: flex;
     flex-direction: column;

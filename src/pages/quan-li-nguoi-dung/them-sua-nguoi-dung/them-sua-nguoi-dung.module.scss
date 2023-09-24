@@ -21,5 +21,10 @@
             text-decoration: underline;
         }
     }
+    .disabled {
+        color: gray !important;
+        cursor: not-allowed !important;
+        
+    }
     
 }

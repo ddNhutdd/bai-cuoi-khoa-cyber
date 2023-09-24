@@ -21,9 +21,6 @@ export default function Header() {
     useEffect(() => {
         setHoTenUser(() => getLocalStorage(HO_TEN))
     }, [location])
-    useEffect(() => {
-        console.log(hotenUser)
-    }, [hotenUser])
     const items: MenuProps['items'] = [...listDanhMucKhoaHoc]
     const fetchMenuItems = async () => {
         const menuItems = await layDanhMucKhoaHoc()

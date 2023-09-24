@@ -9,8 +9,6 @@ export default function QuanLiNguoiDung() {
                 return <ListNguoiDung setShow={setShow}/>
             case 1:
                 return <ThemSuaNguoiDung show setShow={setShow} />
-            case 2:
-                return <ThemSuaNguoiDung show setShow={setShow} />
             default:
                 break
         }

@@ -1,22 +1,40 @@
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import css from './admin.template.module.scss'
 import logo from '../../assets/imgs/logonobg.png'
 import type { MenuProps } from 'antd'
 import { Dropdown } from 'antd'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { BarsIcon, LearnIcon, UserFill } from '../../assets/icons/icons'
+import { getLocalStorage, removeLocalStorage } from '../../utils'
+import { ACCESS_TOKEN, HO_TEN, MA_LOAI_NGUOI_DUNG, TAI_KHOAN } from '../../constants'
+const logoutHandle = () => {
+    removeLocalStorage(ACCESS_TOKEN);
+    removeLocalStorage(TAI_KHOAN);
+    removeLocalStorage(HO_TEN);
+    removeLocalStorage(MA_LOAI_NGUOI_DUNG)
+}
 const items: MenuProps['items'] = [
     {
         key: '1',
-        label: <a>Cập nhật thông tin</a>,
+        label: <NavLink to={'/'}>Cập nhật thông tin</NavLink>,
     },
     {
         key: '2',
-        label: <a>Đăng xuất</a>,
+        label: <span onClick={logoutHandle}>Đăng xuất</span>,
     },
 ]
+
+
 export default function AdminTemplate() {
-    const [showSideBar, setShowSideBar] = useState<boolean>(false)
+    const navigate = useNavigate();
+    const [showSideBar, setShowSideBar] = useState<boolean>(false);
+    useEffect(()=>{
+        const typeOfUser = getLocalStorage(MA_LOAI_NGUOI_DUNG);
+        console.log(typeOfUser)
+        if (!typeOfUser) {
+            navigate('/login')
+        } 
+    },[])
     return (
         <>
             <div className={css['admin-template-container']}>
@@ -50,7 +68,7 @@ export default function AdminTemplate() {
                             <NavLink to={'/'}>Quản lý khóa học</NavLink>
                         </li>
                         <li className={showSideBar ? css['--dn'] : ''}>
-                            <NavLink to={'/'}>Quản lý người dùng</NavLink>
+                            <NavLink to={'/admin/quanlinguoidung'}>Quản lý người dùng</NavLink>
                         </li>
                         <li className={!showSideBar ? css['--dn'] : ''}>
                             <NavLink to={'/'}>
@@ -58,7 +76,7 @@ export default function AdminTemplate() {
                             </NavLink>
                         </li>
                         <li className={!showSideBar ? css['--dn'] : ''}>
-                            <NavLink to={'/'}>
+                            <NavLink to={'/admin/quanlinguoidung'}>
                                 <UserFill />
                             </NavLink>
                         </li>
