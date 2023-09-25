@@ -1,5 +1,6 @@
 import css from './list-nguoi-dung.module.scss'
 import { useDispatch } from 'react-redux'
+import { ghiDanhKhoaHoc } from '../../../services/khoa-hoc.service'
 import { selectUserForUpdate } from '../../../redux/slices/user.slice'
 import { Button, Input, Space, Table, Modal, Dropdown } from 'antd'
 import { useState, useEffect } from 'react'
@@ -207,6 +208,24 @@ export default function ListNguoiDung(props: any) {
         items: itemsDanhMuc,
         onClick: handleMenuDanhMucClick,
     }
+    const buttonGhiDanhClickHandle = () => {
+        const taiKhoan = userRegisterCourse.taiKhoan
+        const khoaHoc = dropdownCourseSelected?.split(',')[0]
+        console.log('buttonGhiDanhClickHandle ', khoaHoc, taiKhoan)
+        setApiUserStatus(API_STATUS.fetching)
+        ghiDanhKhoaHoc(khoaHoc, taiKhoan)
+            ?.then((resp: any) => {
+                setApiUserStatus(API_STATUS.fetchingSuccess)
+                toast.success(resp.data, alertConfig)
+            })
+            .catch((err: any) => {
+                setApiUserStatus(API_STATUS.fetchingError)
+                toast.error(
+                    err.response.data || COMMON_MESSAGE.thatBai,
+                    alertConfig,
+                )
+            })
+    }
     return (
         <>
             <div className={css['list-nguoi-dung']}>
@@ -268,7 +287,7 @@ export default function ListNguoiDung(props: any) {
                                 menu={menuDanhMucProps}
                                 trigger={['click']}
                                 overlayStyle={{
-                                    maxHeight: '250',
+                                    maxHeight: '250px',
                                     overflowY: 'auto',
                                 }}
                             >
@@ -281,13 +300,19 @@ export default function ListNguoiDung(props: any) {
                             </Dropdown>
                         </div>
                         <div>
-                            <Button type='primary'>Ghi danh</Button>
+                            <Button
+                                disabled={apiUserStatus === API_STATUS.fetching}
+                                type='primary'
+                                onClick={buttonGhiDanhClickHandle}
+                            >
+                                Ghi danh
+                            </Button>
                         </div>
                     </div>
                     <div className={css['model-khoa-hoc-line']}></div>
-                    <TableKhoaHoc />
+                    <TableKhoaHoc xacThuc userInfo={userRegisterCourse} />
                     <div className={css['model-khoa-hoc-line']}></div>
-                    <TableKhoaHoc />
+                    <TableKhoaHoc daGhiDanh />
                 </div>
             </Modal>
             <ToastContainer

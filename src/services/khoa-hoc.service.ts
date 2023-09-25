@@ -50,3 +50,19 @@ export const dangKiKhoaHoc = async (maKhoaHoc:string, taiKhoan: string) => {
         return error.response.data
     }
 }
+
+export const ghiDanhKhoaHoc = (maKhoaHoc:string, taiKhoan:string) => {
+    try {
+        const dataToSend = {
+            maKhoaHoc, taiKhoan
+        }
+        const resp = axiosWithAuth({
+            method:'post',
+            url: '/QuanLyKhoaHoc/GhiDanhKhoaHoc',
+            data: dataToSend
+        })
+        return resp;
+    } catch (err:any) {
+        console.log(err)
+    }
+}

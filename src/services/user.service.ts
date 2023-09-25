@@ -112,3 +112,18 @@ export const updateProfile = async (data: UserProfile) => {
         console.log(err)
     }
 }
+
+export const getListCoursesAwaitingApproval = (taiKhoan:string) =>{
+    try {
+        const resp = axiosWithAuth({
+            method: 'post',
+            url: '/QuanLyNguoiDung/LayDanhSachKhoaHocChoXetDuyet',
+            data: {
+                taiKhoan
+            }
+        })
+        return resp
+    } catch (err:any) {
+        console.log(err)
+    }
+}

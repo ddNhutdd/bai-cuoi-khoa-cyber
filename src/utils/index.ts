@@ -7,9 +7,8 @@ export const setLocalStorage = (key: string, data: any) => {
 };
 export const getLocalStorage = (key: string) => {
     try {
-        return JSON.parse(localStorage.getItem(key) ?? "");
+        return JSON.parse(localStorage.getItem(key) ?? JSON.stringify(''));
     } catch (e) {
-        console.log(e);
         return null;
     }
 };

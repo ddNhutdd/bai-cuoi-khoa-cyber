@@ -1,13 +1,29 @@
 import { Table, Button, Space } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
+import { useEffect, useState } from 'react'
 import Paging from '../../../../components/paging/paging'
 import css from './table-khoa-hoc.module.scss'
+import { getListCoursesAwaitingApproval } from '../../../../services/user.service'
 interface DataType {
     stt: string
     tenKhoaHoc: string
     key: string
 }
-export default function TableKhoaHoc() {
+export default function TableKhoaHoc(props: any) {
+    const { xacThuc, daGhiDanh, userInfo } = props
+    useEffect(() => {
+        if (xacThuc) {
+            getListCoursesAwaitingApproval(userInfo.taiKhoan)
+                ?.then((resp: any) => {
+                    console.log('fdsa', resp.data)
+                })
+                .catch((err: any) => {
+                    console.log(err)
+                })
+        } else if (daGhiDanh) {
+            //
+        }
+    }, [userInfo])
     const columns: ColumnsType<DataType> = [
         {
             title: 'STT',
@@ -51,7 +67,10 @@ export default function TableKhoaHoc() {
     ]
     return (
         <>
-            <p>Khoá học chờ xác thực</p>
+            <p>
+                Khoá học {xacThuc && 'chờ xác thực'}
+                {daGhiDanh && 'đã ghi danh'}
+            </p>
             <div>
                 <Table columns={columns} pagination={false} dataSource={data} />
             </div>
