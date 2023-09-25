@@ -1,6 +1,6 @@
 import { Table, Button, Space } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import Paging from '../../../../components/paging/paging'
 import css from './table-khoa-hoc.module.scss'
 import { getListCoursesAwaitingApproval } from '../../../../services/user.service'
