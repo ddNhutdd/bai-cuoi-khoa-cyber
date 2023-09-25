@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as Y from 'yup'
 import { getProfile, updateProfile } from '../../services/user.service'
-import { useEffect, useState } from 'react'
 import { ACCESS_TOKEN, VALIDATITON } from '../../constants'
+import { useEffect } from 'react'
 import { getLocalStorage } from '../../utils'
 import { URL_NAVIGATE } from "../../constants"
 import 'animate.css';

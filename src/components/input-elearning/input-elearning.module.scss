@@ -1,7 +1,11 @@
 .input-elearning {
-    margin-bottom: 2rem;   
+    margin-bottom: 0.5rem;   
     small {
         color: red;
         visibility: hidden;
+    }
+
+    .--visibility-visible {
+        visibility:visible
     }
 }
