@@ -8,34 +8,34 @@ import * as Y from 'yup'
 import { register } from "../../services/user.service"
 import { UserRegister } from "../../types"
 import { useNavigate } from "react-router-dom"
-import { URL_NAVIGATE } from "../../constants"
+import { URL_NAVIGATE, VALIDATITON } from "../../constants"
 
 const registerSchema = Y.object({
     taiKhoan: Y.string()
-        .min(6, 'Tài khoản phải từ 6 ký tự trở lên !')
-        .max(20, 'Tài khoản phải nhỏ hơn 20 ký tự !')
-        .required('Tài khoản không được bỏ trống !'),
-    matKhau: Y.string()
-        .min(6, 'Mật khẩu phải từ 6 ký tự trở lên !')
-        .max(20, 'Mật khẩu phải nhỏ hơn 20 ký tự !')
-        .required('Mật khẩu không được bỏ trống !'),
-    hoTen: Y.string()
-        .min(6, 'Họ tên phải từ 6 ký tự trở lên !')
-        .max(20, 'Họ tên phải nhỏ hơn 20 ký tự !')
-        .required('Họ tên không được bỏ trống !'),
-    soDT: Y.string()
-        .min(6, 'Số điện thoại phải từ 6 ký tự trở lên !')
-        .max(15, 'Số điện thoại phải nhỏ hơn 20 ký tự !')
-        .required('Số điện thoại không được bỏ trống !'),
-    maNhom: Y.string()
-        .min(1, 'Mã nhóm phải từ 1 ký tự trở lên !')
-        .max(5, 'Mã nhóm phải nhỏ hơn 6 ký tự !')
-        .required('Mã nhóm không được bỏ trống !'),
-    email: Y.string()
-        .email('Email không hợp lệ !')
-        .min(6, 'Email phải từ 6 ký tự trở lên !')
-        .max(30, 'Email phải nhỏ hơn 20 ký tự !')
-        .required('Email không được bỏ trống !'),
+    .min(6, VALIDATITON.taikhoan_Min)
+    .max(20, VALIDATITON.taikhoan_Max)
+    .required(VALIDATITON.taikhoan_Required),
+  matKhau: Y.string()
+    .min(6, VALIDATITON.matKhau_Min)
+    .max(20, VALIDATITON.matKhau_Max)
+    .required(VALIDATITON.matKhau_Required),
+  hoTen: Y.string()
+    .min(6, VALIDATITON.hoTen_Min)
+    .max(20, VALIDATITON.hoTen_Max)
+    .required(VALIDATITON.hoTen_Required),
+  soDT: Y.string()
+    .min(6, VALIDATITON.soDT_Min)
+    .max(15, VALIDATITON.soDT_Max)
+    .required(VALIDATITON.soDT_Required),
+  maNhom: Y.string()
+    .min(1, VALIDATITON.maNhom_Min)
+    .max(5, VALIDATITON.maNhom_Max)
+    .required(VALIDATITON.maNhom_Required),
+  email: Y.string()
+    .email(VALIDATITON.email_hl)
+    .min(6, VALIDATITON.email_Min)
+    .max(30, VALIDATITON.email_Max)
+    .required(VALIDATITON.email_Required),
 })
 
 function Register() {

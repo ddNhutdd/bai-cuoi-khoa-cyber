@@ -1,3 +1,5 @@
+@import 'animate.css/animate.css';
+
 .button-login{
     background-color: #FBC531;
     padding: 1rem 2rem; 
@@ -29,6 +31,7 @@
     padding: 8rem 40rem 10rem 40rem;
 }
 .login-form {
+    composes: animate__animated animate__fadeInDown;    
     background-color: white; 
     padding: 3rem 2rem 10rem 2rem;
     border-radius: 10px;

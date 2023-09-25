@@ -1,4 +1,3 @@
-
 import css from './login.module.scss'
 import UserIcon from "../../assets/icons/user.icon";
 import LockIcon from "../../assets/icons/lock.icon";
@@ -11,18 +10,19 @@ import { useFormik } from "formik";
 import * as Y from 'yup'
 import { userLogin } from "../../services/user.service";
 import { setLocalStorage } from '../../utils';
-import { ACCESS_TOKEN, HO_TEN, MA_LOAI_NGUOI_DUNG, TAI_KHOAN, URL_NAVIGATE } from '../../constants';
+import { ACCESS_TOKEN, HO_TEN, MA_LOAI_NGUOI_DUNG, TAI_KHOAN, URL_NAVIGATE, VALIDATITON } from '../../constants';
 import { useNavigate } from 'react-router-dom';
+import 'animate.css'
 
 const registerSchema = Y.object({
   taiKhoan: Y.string()
-    .min(6, 'Tài khoản phải từ 6 ký tự trở lên !')
-    .max(20, 'Tài khoản phải nhỏ hơn 20 ký tự !')
-    .required('Tài khoản không được bỏ trống !'),
+    .min(6, VALIDATITON.taikhoan_Min)
+    .max(20, VALIDATITON.taikhoan_Max)
+    .required( VALIDATITON.taikhoan_Required ),
   matKhau: Y.string()
-    .min(6, 'Mật khẩu phải từ 6 ký tự trở lên !')
-    .max(20, 'Mật khẩu phải nhỏ hơn 20 ký tự !')
-    .required('Mật khẩu không được bỏ trống !'),
+    .min(6, VALIDATITON.matKhau_Min)
+    .max(20, VALIDATITON.matKhau_Max)
+    .required( VALIDATITON.matKhau_Required ),
 })
 
 function Login() {
@@ -47,7 +47,7 @@ function Login() {
             setLocalStorage(HO_TEN, resp.hoTen)
             setLocalStorage(MA_LOAI_NGUOI_DUNG, resp.maLoaiNguoiDung)
             alert('Đăng nhập thành công !')
-            // navigate(URL_NAVIGATE.home)
+            
             if(resp.maLoaiNguoiDung === 'HV'){
               navigate(URL_NAVIGATE.home)
             }

@@ -22,3 +22,25 @@ export const enum API_STATUS {
     fetchingSuccess = 'fetchingSuccess',
     fetchingError = 'fetchingError'
 }
+export const enum VALIDATITON{
+    taikhoan_Min = 'Tài khoản phải từ 6 ký tự trở lên !',
+    taikhoan_Max = 'Tài khoản phải nhỏ hơn 20 ký tự !',
+    taikhoan_Required = 'Tài khoản không được bỏ trống !',
+    matKhau_Min = 'Mật khẩu phải từ 6 ký tự trở lên !',
+    matKhau_Max = 'Mật khẩu phải nhỏ hơn 20 ký tự !',
+    matKhau_Required = 'Mật khẩu không được bỏ trống !',
+    hoTen_Min = 'Họ tên phải từ 6 ký tự trở lên !',
+    hoTen_Max = 'Họ tên phải nhỏ hơn 20 ký tự !',
+    hoTen_Required = 'Họ tên không được bỏ trống !',
+    soDT_Min = 'Số điện thoại phải từ 6 ký tự trở lên !',
+    soDT_Max = 'Số điện thoại phải nhỏ hơn 20 ký tự !',
+    soDT_Required = 'Số điện thoại không được bỏ trống !',
+    maNhom_Min = 'Mã nhóm phải từ 1 ký tự trở lên !',
+    maNhom_Max = 'Mã nhóm phải nhỏ hơn 6 ký tự !',
+    maNhom_Required = 'Mã nhóm không được bỏ trống !',
+    email_hl = 'Email không hợp lệ !',
+    email_Min = 'Email phải từ 6 ký tự trở lên !',
+    email_Max = 'Email phải nhỏ hơn 30 ký tự !',
+    email_Required = 'Email không được bỏ trống !',
+
+}
