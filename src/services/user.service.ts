@@ -49,6 +49,46 @@ export const createUser = (data:UserProfile) => {
         console.log(err)
     }
 }
+
+export const deleteUser = (taiKhoan:string) => {
+    try {
+        const resp = axiosWithAuth({
+            method: 'delete',
+            url:`/QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${taiKhoan}`
+        });
+        return resp;
+    } catch (err:any) {
+        console.log(err);
+    }
+}
+
+export const updateUser = (data: UserProfile) => {
+    try {
+        const resp = axiosWithAuth({
+            method: 'put',
+            url: '/QuanLyNguoiDung/CapNhatThongTinNguoiDung',
+            data
+        })
+        return resp;
+    } catch (err:any) {
+        console.log(err)
+    }
+}
+
+
+export const getCoursesNotEnrolled = (taiKhoan:string) => {
+    try {
+        const resp = axiosWithAuth({
+            method:'post',
+            url:`/QuanLyNguoiDung/LayDanhSachKhoaHocChuaGhiDanh?TaiKhoan=${taiKhoan}`
+        })
+        return resp
+    } catch (err:any) {
+        console.log(err)
+    }
+}
+
+
 export const getProfile = async () => {
     try {
         const resp = await axiosWithAuth({
@@ -67,7 +107,6 @@ export const updateProfile = async (data: UserProfile) => {
             url: '/QuanLyNguoiDung/CapNhatThongTinNguoiDung',
             data
         })
-        console.log('service: ', resp)
         return resp;
     } catch (err) {
         console.log(err)

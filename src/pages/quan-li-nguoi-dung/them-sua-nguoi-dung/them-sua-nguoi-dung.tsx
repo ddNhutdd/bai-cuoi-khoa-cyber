@@ -1,5 +1,7 @@
 import { Button } from 'antd'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { userForUpdate } from '../../../redux/slices/user.slice'
 import { useFormik } from 'formik'
 import InputElearning from '../../../components/input-elearning'
 import { ToastContainer, toast } from 'react-toastify'
@@ -14,7 +16,7 @@ import {
 } from '../../../constants'
 import { ShowPage } from '../quan-li-nguoi-dung'
 import * as Y from 'yup'
-import { createUser } from '../../../services/user.service'
+import { createUser, updateUser } from '../../../services/user.service'
 import { UserProfile } from '../../../types'
 const alertConfig: any = {
     position: 'top-center',
@@ -30,7 +32,26 @@ export default function ThemSuaNguoiDung(props: any) {
     const [apiUserStatus, setApiUserStatus] = useState<string>(
         API_STATUS.pending,
     )
+    const dataUserForUpdate = useSelector(userForUpdate)
     const { showPage, setShowPage } = props
+    useEffect(() => {
+        if (showPage === ShowPage.update) {
+            formik.setFieldValue(
+                FIELD_NAME.loaiNguoiDung,
+                dataUserForUpdate.maLoaiNguoiDung,
+            )
+            formik.setFieldValue(FIELD_NAME.hoTen, dataUserForUpdate.hoTen)
+            formik.setFieldValue(
+                FIELD_NAME.soDienThoai,
+                dataUserForUpdate.soDienThoai,
+            )
+            formik.setFieldValue(FIELD_NAME.email, dataUserForUpdate.email)
+            formik.setFieldValue(
+                FIELD_NAME.taiKhoan,
+                dataUserForUpdate.taiKhoan,
+            )
+        }
+    }, [])
     const phoneRegExp = /(84|0[3|5|7|8|9])+([0-9]{8})\b/
     const userSchema = Y.object({
         taiKhoan: Y.string().required(ERROR_MESSAGE.taiKhoanEmpty),
@@ -41,10 +62,16 @@ export default function ThemSuaNguoiDung(props: any) {
             .matches(phoneRegExp, ERROR_MESSAGE.soDienThoaiFormat)
             .required(ERROR_MESSAGE.soDienThoaiEmpty),
         hoTen: Y.string().required(ERROR_MESSAGE.hoTenEmpty),
-        matKhau: Y.string()
-            .required(ERROR_MESSAGE.matKhauEmpty)
-            .min(6, ERROR_MESSAGE.matKhauTooShort)
-            .max(20, ERROR_MESSAGE.matKhauTooLong),
+        matKhau: Y.string().when([], () =>
+            showPage === ShowPage.add
+                ? Y.string()
+                      .required(ERROR_MESSAGE.matKhauEmpty)
+                      .min(6, ERROR_MESSAGE.matKhauTooShort)
+                      .max(20, ERROR_MESSAGE.matKhauTooLong)
+                : Y.string()
+                      .min(6, ERROR_MESSAGE.matKhauTooShort)
+                      .max(20, ERROR_MESSAGE.matKhauTooLong),
+        ),
     })
     const formik = useFormik({
         initialValues: {
@@ -57,17 +84,17 @@ export default function ThemSuaNguoiDung(props: any) {
         },
         validationSchema: userSchema,
         onSubmit: (values) => {
+            const data: UserProfile = {
+                taiKhoan: values.taiKhoan,
+                matKhau: values.matKhau,
+                hoTen: values.hoTen,
+                soDT: values.soDienThoai,
+                maLoaiNguoiDung: values.loaiNguoiDung,
+                maNhom: 'GP01',
+                email: values.email,
+            }
             if (showPage === ShowPage.add) {
                 setApiUserStatus(API_STATUS.fetching)
-                const data: UserProfile = {
-                    taiKhoan: values.taiKhoan,
-                    matKhau: values.matKhau,
-                    hoTen: values.hoTen,
-                    soDT: values.soDienThoai,
-                    maLoaiNguoiDung: values.loaiNguoiDung,
-                    maNhom: 'GP01',
-                    email: values.email,
-                }
                 createUser(data)
                     ?.then(() => {
                         setApiUserStatus(API_STATUS.fetchingSuccess)
@@ -82,6 +109,19 @@ export default function ThemSuaNguoiDung(props: any) {
                             alertConfig,
                         )
                     })
+            } else {
+                setApiUserStatus(API_STATUS.fetching)
+                updateUser(data)
+                    ?.then((resp: any) => {
+                        if (resp) {
+                            setApiUserStatus(API_STATUS.fetchingSuccess)
+                            toast.success(COMMON_MESSAGE.thanhCong, alertConfig)
+                        }
+                    })
+                    .catch((err) => {
+                        setApiUserStatus(API_STATUS.fetchingError)
+                        toast.error(err.response.data, alertConfig)
+                    })
             }
         },
     })
@@ -95,6 +135,7 @@ export default function ThemSuaNguoiDung(props: any) {
                     <div className={css['them-sua-nguoi-dung__input-contaier']}>
                         <div className={css['them-sua-nguoi-dung__left']}>
                             <InputElearning
+                                disabled={showPage === ShowPage.update}
                                 getFieldProps={formik.getFieldProps(
                                     FIELD_NAME.taiKhoan,
                                 )}
@@ -163,13 +204,23 @@ export default function ThemSuaNguoiDung(props: any) {
                         >
                             {'<< Trở lại'}
                         </span>
-                        <Button
-                            disabled={apiUserStatus == API_STATUS.fetching}
-                            htmlType='submit'
-                            type='primary'
-                        >
-                            Thêm
-                        </Button>
+                        {showPage == ShowPage.add ? (
+                            <Button
+                                disabled={apiUserStatus == API_STATUS.fetching}
+                                htmlType='submit'
+                                type='primary'
+                            >
+                                Thêm
+                            </Button>
+                        ) : (
+                            <Button
+                                disabled={apiUserStatus == API_STATUS.fetching}
+                                htmlType='submit'
+                                type='primary'
+                            >
+                                Cập nhật
+                            </Button>
+                        )}
                     </div>
                 </form>
             </div>

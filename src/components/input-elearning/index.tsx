@@ -11,6 +11,7 @@ export default function InputElearning(props: any) {
         touched,
         error,
         dropdownValue,
+        disabled
     } = props
     const listDropdown = [
         {
@@ -38,7 +39,6 @@ export default function InputElearning(props: any) {
                         onChange={onChangeDropdown}
                         options={listDropdown}
                     />
-                    <p>formik : {dropdownValue}</p>
                 </>
             )
         if (password)
@@ -46,7 +46,7 @@ export default function InputElearning(props: any) {
                 <Input.Password {...getFieldProps} placeholder={placeholder} />
             )
         if (!password)
-            return <Input {...getFieldProps} placeholder={placeholder} />
+            return <Input disabled={disabled} {...getFieldProps} placeholder={placeholder} />
     }
     return (
         <div className={css['input-elearning']}>

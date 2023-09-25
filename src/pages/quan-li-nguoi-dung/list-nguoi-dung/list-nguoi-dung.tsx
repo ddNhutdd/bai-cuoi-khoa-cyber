@@ -1,13 +1,21 @@
 import css from './list-nguoi-dung.module.scss'
+import { useDispatch } from 'react-redux'
+import { selectUserForUpdate } from '../../../redux/slices/user.slice'
 import { Button, Input, Space, Table, Modal, Dropdown } from 'antd'
 import { useState, useEffect } from 'react'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import type { ColumnsType } from 'antd/es/table'
 import type { MenuProps } from 'antd'
 import { CloseOutlined, DownOutlined, UserOutlined } from '@ant-design/icons'
 import Paging from '../../../components/paging/paging'
 import TableKhoaHoc from './table-khoa-hoc/table-khoa-hoc'
-import { getListUserPaging } from '../../../services/user.service'
-import { API_STATUS } from '../../../constants'
+import {
+    deleteUser,
+    getCoursesNotEnrolled,
+    getListUserPaging,
+} from '../../../services/user.service'
+import { API_STATUS, COMMON_MESSAGE } from '../../../constants'
 import { ShowPage } from '../quan-li-nguoi-dung'
 interface DataType {
     key: number
@@ -16,16 +24,12 @@ interface DataType {
     hoTen: string
     email: string
     soDienThoai: string
+    maLoaiNguoiDung: string
 }
-const itemsDanhMuc: MenuProps['items'] = [
+let itemsDanhMuc: MenuProps['items'] = [
     {
         label: '1st menu item',
         key: '1',
-        icon: <UserOutlined />,
-    },
-    {
-        label: '2nd menu item',
-        key: '2',
         icon: <UserOutlined />,
     },
 ]
@@ -33,12 +37,15 @@ export default function ListNguoiDung(props: any) {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [listUser, setListUser] = useState()
     const [errorFromApi, setErrorFromApi] = useState()
+    const [userRegisterCourse, setUserRegisterCourse] = useState<any>()
+    const [dropdownCourseSelected, setDropdownCourseSelected] = useState<any>()
     const [apiUserStatus, setApiUserStatus] = useState<string>(
         API_STATUS.pending,
     )
     const [paging_selectedPage, setPaging_selectedPage] = useState(1)
     const [paging_totalPage, setPaging_totalPage] = useState(0)
     const [searchText, setSearchText] = useState<string>()
+    const dispatch = useDispatch()
     useEffect(() => {
         loadListUser(1)
     }, [])
@@ -48,23 +55,45 @@ export default function ListNguoiDung(props: any) {
     useEffect(() => {
         setApiUserStatus(() => API_STATUS.fetchingError)
     }, [errorFromApi])
-
-
-
-
     useEffect(() => {
-        loadListUser(paging_selectedPage,searchText)
+        loadListUser(paging_selectedPage, searchText)
     }, [paging_selectedPage])
-
-
     useEffect(() => {
         loadListUser(1, searchText)
     }, [searchText])
-
-
-
-
-
+    useEffect(() => {
+        if (userRegisterCourse) {
+            setApiUserStatus(() => API_STATUS.fetching)
+            getCoursesNotEnrolled(userRegisterCourse.taiKhoan)
+                ?.then((resp) => {
+                    setApiUserStatus(() => API_STATUS.fetchingSuccess)
+                    itemsDanhMuc = resp.data.map((item: any) => {
+                        return {
+                            label: item.tenKhoaHoc,
+                            key: item.maKhoaHoc + ',' + item.tenKhoaHoc,
+                        }
+                    })
+                    if (itemsDanhMuc) {
+                        setDropdownCourseSelected(itemsDanhMuc[0]?.key)
+                    }
+                })
+                .catch((err) => {
+                    setApiUserStatus(API_STATUS.fetchingError)
+                    toast.error(err.response.data, alertConfig)
+                    closeModel()
+                })
+        }
+    }, [userRegisterCourse])
+    const alertConfig: any = {
+        position: 'top-center',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+    }
     const showModal = () => {
         setIsModalOpen(true)
     }
@@ -77,13 +106,26 @@ export default function ListNguoiDung(props: any) {
             ?.then((resp) => {
                 setListUser(() => resp.data.items)
                 setPaging_selectedPage(() => resp.data.currentPage)
-                setPaging_totalPage(() => resp.data.totalPages - 1)
+                setPaging_totalPage(() => resp.data.totalPages)
             })
             .catch((err) => {
                 setErrorFromApi(err)
             })
     }
     const { setShowPage } = props
+    const deleteUserHandle = (taiKhoan: string) => {
+        setApiUserStatus(() => API_STATUS.fetching)
+        deleteUser(taiKhoan)
+            ?.then(() => {
+                setApiUserStatus(() => API_STATUS.fetchingSuccess)
+                toast.success(COMMON_MESSAGE.thanhCong, alertConfig)
+                loadListUser(paging_selectedPage, searchText)
+            })
+            .catch((err: any) => {
+                setApiUserStatus(() => API_STATUS.fetchingError)
+                toast.error(err.response.data, alertConfig)
+            })
+    }
     const columns: ColumnsType<DataType> = [
         {
             title: 'STT',
@@ -94,11 +136,6 @@ export default function ListNguoiDung(props: any) {
             title: 'Tài khoản',
             dataIndex: 'taiKhoan',
             key: 'taiKhoan',
-        },
-        {
-            title: 'Mật khẩu',
-            dataIndex: 'matKhau',
-            key: 'matKhau',
         },
         {
             title: 'Họ tên',
@@ -118,13 +155,33 @@ export default function ListNguoiDung(props: any) {
         {
             title: 'Xử lí',
             key: 'Xử lí',
-            render: () => (
+            render: (_, record) => (
                 <Space size='middle'>
-                    <Button type='primary' onClick={showModal}>
+                    <Button
+                        type='primary'
+                        onClick={() => {
+                            setUserRegisterCourse(() => record)
+                            showModal()
+                        }}
+                    >
                         Ghi danh
                     </Button>
-                    <Button type='primary'>Sửa</Button>
-                    <Button type='primary' ghost>
+                    <Button
+                        type='primary'
+                        onClick={() => {
+                            dispatch(selectUserForUpdate(record))
+                            setShowPage(ShowPage.update)
+                        }}
+                    >
+                        Sửa
+                    </Button>
+                    <Button
+                        type='primary'
+                        ghost
+                        onClick={() => {
+                            deleteUserHandle(record.taiKhoan)
+                        }}
+                    >
                         Xoá
                     </Button>
                 </Space>
@@ -134,23 +191,17 @@ export default function ListNguoiDung(props: any) {
     const data: DataType[] = (listUser ?? []).map((item: any, index) => {
         const newItem: DataType = {
             key: index,
-            stt: index + 1,
+            stt: (paging_selectedPage - 1) * 10 + index + 1,
             taiKhoan: item?.taiKhoan,
             hoTen: item?.hoTen,
             email: item?.email,
-            soDienThoai: item?.soDienThoai,
+            soDienThoai: item?.soDT,
+            maLoaiNguoiDung: item.maLoaiNguoiDung,
         }
         return newItem
     })
     const handleMenuDanhMucClick: MenuProps['onClick'] = (e) => {
-        let menuItem: any = itemsDanhMuc?.find(
-            (item: any) => item?.key === e.key,
-        )
-        if (menuItem) {
-            menuItem = menuItem.label
-        }
-        console.log('click', e, menuItem)
-        // setLa(menuItem)
+        setDropdownCourseSelected(e.key)
     }
     const menuDanhMucProps = {
         items: itemsDanhMuc,
@@ -216,10 +267,14 @@ export default function ListNguoiDung(props: any) {
                             <Dropdown
                                 menu={menuDanhMucProps}
                                 trigger={['click']}
+                                overlayStyle={{
+                                    maxHeight: '250',
+                                    overflowY: 'auto',
+                                }}
                             >
                                 <Button>
                                     <Space>
-                                        la
+                                        {dropdownCourseSelected?.split(',')[1]}
                                         <DownOutlined />
                                     </Space>
                                 </Button>
@@ -235,6 +290,18 @@ export default function ListNguoiDung(props: any) {
                     <TableKhoaHoc />
                 </div>
             </Modal>
+            <ToastContainer
+                position='top-center'
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme='light'
+            />
         </>
     )
 }

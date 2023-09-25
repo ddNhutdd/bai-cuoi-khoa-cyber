@@ -24,6 +24,7 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
+
     .modal-khoa-hoc-dropdown {
         display: flex;
         gap: 1rem;
@@ -47,6 +48,11 @@
                 }
             }
         }
+    }
+
+    .ant-dropdown {
+        overflow-y: scroll;
+        max-height: 25rem;
     }
 
     .model-khoa-hoc-line {

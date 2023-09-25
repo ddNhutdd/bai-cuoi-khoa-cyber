@@ -23,7 +23,6 @@ export const enum API_STATUS {
     fetchingError = 'fetchingError'
 }
 
-
 export const enum COMMON_MESSAGE {
     thanhCong = 'Thành công',
     thatBai = 'Thất bại',
