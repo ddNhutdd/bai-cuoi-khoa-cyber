@@ -35,6 +35,9 @@ export const enum FIELD_NAME_WIDTH_SPACE {
     email = 'Email',
     soDienThoai = 'Số điện thoại',
     loaiNguoiDung = 'Loại người dùng',
+    tenKhoaHoc = 'Tên khoá học',
+    xuLi = 'Xử lí',
+
 }
 
 export const enum FIELD_NAME {
@@ -44,6 +47,8 @@ export const enum FIELD_NAME {
     email = 'email',
     soDienThoai = 'soDienThoai',
     loaiNguoiDung = 'loaiNguoiDung',
+    tenKhoaHoc = 'tenKhoaHoc',
+    stt = "STT"
 }
 
 //
@@ -57,4 +62,15 @@ export const enum ERROR_MESSAGE {
     soDienThoaiEmpty = 'Số điện thoại không được bỏ trống',
     soDienThoaiFormat = 'Số điện thoại không đúng định dạng',
     hoTenEmpty = 'Họ tên không được bỏ trống',
+}
+
+export const ALERT_CONFIG: any = {
+    position: 'top-center',
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: 'light',
 }

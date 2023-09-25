@@ -16,11 +16,11 @@ import {
     getCoursesNotEnrolled,
     getListUserPaging,
 } from '../../../services/user.service'
-import { API_STATUS, COMMON_MESSAGE } from '../../../constants'
+import { ALERT_CONFIG, API_STATUS, COMMON_MESSAGE, FIELD_NAME, FIELD_NAME_WIDTH_SPACE } from '../../../constants'
 import { ShowPage } from '../quan-li-nguoi-dung'
-interface DataType {
+interface IUser {
     key: number
-    stt: number
+    STT: number
     taiKhoan: string
     hoTen: string
     email: string
@@ -80,21 +80,12 @@ export default function ListNguoiDung(props: any) {
                 })
                 .catch((err) => {
                     setApiUserStatus(API_STATUS.fetchingError)
-                    toast.error(err.response.data, alertConfig)
+                    toast.error(err.response.data, ALERT_CONFIG)
                     closeModel()
                 })
         }
     }, [userRegisterCourse])
-    const alertConfig: any = {
-        position: 'top-center',
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-    }
+    
     const showModal = () => {
         setIsModalOpen(true)
     }
@@ -119,39 +110,39 @@ export default function ListNguoiDung(props: any) {
         deleteUser(taiKhoan)
             ?.then(() => {
                 setApiUserStatus(() => API_STATUS.fetchingSuccess)
-                toast.success(COMMON_MESSAGE.thanhCong, alertConfig)
+                toast.success(COMMON_MESSAGE.thanhCong, ALERT_CONFIG)
                 loadListUser(paging_selectedPage, searchText)
             })
             .catch((err: any) => {
                 setApiUserStatus(() => API_STATUS.fetchingError)
-                toast.error(err.response.data, alertConfig)
+                toast.error(err.response.data, ALERT_CONFIG)
             })
     }
-    const columns: ColumnsType<DataType> = [
+    const columns: ColumnsType<IUser> = [
         {
-            title: 'STT',
-            dataIndex: 'stt',
-            key: 'stt',
+            title: FIELD_NAME.stt,
+            dataIndex: FIELD_NAME.stt,
+            key: FIELD_NAME.stt,
         },
         {
-            title: 'Tài khoản',
-            dataIndex: 'taiKhoan',
-            key: 'taiKhoan',
+            title: FIELD_NAME_WIDTH_SPACE.taiKhoan,
+            dataIndex: FIELD_NAME.taiKhoan,
+            key: FIELD_NAME.taiKhoan,
         },
         {
-            title: 'Họ tên',
-            dataIndex: 'hoTen',
-            key: 'hoTen',
+            title: FIELD_NAME_WIDTH_SPACE.hoTen,
+            dataIndex: FIELD_NAME.hoTen,
+            key: FIELD_NAME.hoTen,
         },
         {
-            title: 'Email',
-            dataIndex: 'email',
-            key: 'email',
+            title: FIELD_NAME_WIDTH_SPACE.email,
+            dataIndex: FIELD_NAME.email,
+            key: FIELD_NAME.email,
         },
         {
-            title: 'Số điện thoại',
-            dataIndex: 'soDienThoai',
-            key: 'soDienThoai',
+            title: FIELD_NAME_WIDTH_SPACE.soDienThoai,
+            dataIndex: FIELD_NAME.soDienThoai,
+            key: FIELD_NAME.soDienThoai,
         },
         {
             title: 'Xử lí',
@@ -159,6 +150,7 @@ export default function ListNguoiDung(props: any) {
             render: (_, record) => (
                 <Space size='middle'>
                     <Button
+                        disabled={apiUserStatus === API_STATUS.fetching}
                         type='primary'
                         onClick={() => {
                             setUserRegisterCourse(() => record)
@@ -168,6 +160,7 @@ export default function ListNguoiDung(props: any) {
                         Ghi danh
                     </Button>
                     <Button
+                        disabled={apiUserStatus === API_STATUS.fetching}
                         type='primary'
                         onClick={() => {
                             dispatch(selectUserForUpdate(record))
@@ -177,6 +170,7 @@ export default function ListNguoiDung(props: any) {
                         Sửa
                     </Button>
                     <Button
+                        disabled={apiUserStatus === API_STATUS.fetching}
                         type='primary'
                         ghost
                         onClick={() => {
@@ -189,10 +183,10 @@ export default function ListNguoiDung(props: any) {
             ),
         },
     ]
-    const data: DataType[] = (listUser ?? []).map((item: any, index) => {
-        const newItem: DataType = {
+    const data: IUser[] = (listUser ?? []).map((item: any, index) => {
+        const newItem: IUser = {
             key: index,
-            stt: (paging_selectedPage - 1) * 10 + index + 1,
+            STT: (paging_selectedPage - 1) * 10 + index + 1,
             taiKhoan: item?.taiKhoan,
             hoTen: item?.hoTen,
             email: item?.email,
@@ -216,13 +210,13 @@ export default function ListNguoiDung(props: any) {
         ghiDanhKhoaHoc(khoaHoc, taiKhoan)
             ?.then((resp: any) => {
                 setApiUserStatus(API_STATUS.fetchingSuccess)
-                toast.success(resp.data, alertConfig)
+                toast.success(resp.data, ALERT_CONFIG)
             })
             .catch((err: any) => {
                 setApiUserStatus(API_STATUS.fetchingError)
                 toast.error(
                     err.response.data || COMMON_MESSAGE.thatBai,
-                    alertConfig,
+                    ALERT_CONFIG,
                 )
             })
     }
@@ -261,7 +255,7 @@ export default function ListNguoiDung(props: any) {
                     <div className={css['paging']}>
                         <Paging
                             theme={2}
-                            totalItem={paging_totalPage}
+                            totalPage={paging_totalPage}
                             selectedPage={paging_selectedPage}
                             setSelectedPage={setPaging_selectedPage}
                         />

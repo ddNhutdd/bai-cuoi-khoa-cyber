@@ -19,16 +19,24 @@ export const removeLocalStorage = (key: string) => {
         console.log(e);
     }
 };
-export const skip = <T>(arr: T[], startIndex: number): T[] => {
-    if (!arr || startIndex < 0 || startIndex >= arr.length) {
+declare global {
+    interface Array<T> {
+        take(count: number): T[];
+    }
+    interface Array<T> {
+        skip(count: number): T[];
+    }
+}
+Array.prototype.take = function (count: number): any[] {
+    if (!this) return []
+    if (count <= 0 || count >= this.length) {
+        return [...this];
+    }
+    return this.slice(0, count);
+};
+Array.prototype.skip = function (count: number): any[] {
+    if (!this || count < 0 || count >= this.length) {
         return [];
     }
-    return arr.slice(startIndex);
-}
-export const take = <T>(arr: T[], n: number): T[] => {
-    if (!arr) return []
-    if (n <= 0 || n >= arr.length) {
-        return [...arr];
-    }
-    return arr.slice(0, n);
-}
+    return this.slice(count);
+};

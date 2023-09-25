@@ -1,11 +1,11 @@
 import css from './paging.module.scss'
 export default function Paging(props: {
     theme: number
-    totalItem: number
+    totalPage: number
     selectedPage: number
     setSelectedPage: (a: number) => void
 }) {
-    const { selectedPage, totalItem, setSelectedPage, theme } = props
+    const { selectedPage, totalPage: totalItem, setSelectedPage, theme } = props
     const next = (add: number) => {
         let count = selectedPage + add
         if (count < 1) count = 1
@@ -188,7 +188,7 @@ export default function Paging(props: {
             htmlString.push(
                 <div
                     key={totalItem + 1}
-                    className={  theme===1?  css['page-button'] + ' ' + css['disable']   : css['page-button-2'] + ' ' + css['disable']}
+                    className={  theme===1?  css['page-button'] + ' ' + css['disable']   : css['page-button-2'] + ' ' + css['disable-2']}
                     onClick={() => {
                         next(1)
                     }}

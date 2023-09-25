@@ -11,7 +11,7 @@ import {
     layThongTinKhoaHoc,
 } from '../../services/khoa-hoc.service'
 import { getLocalStorage } from '../../utils'
-import { ACCESS_TOKEN, TAI_KHOAN } from '../../constants'
+import { ACCESS_TOKEN, ALERT_CONFIG, TAI_KHOAN } from '../../constants'
 import { API_RESPONSE, URL_NAVIGATE } from '../../constants'
 import { useNavigate } from 'react-router-dom'
 export default function ChiTiet() {
@@ -35,21 +35,11 @@ export default function ChiTiet() {
             navigate(URL_NAVIGATE.login)
             return
         }
-        const alertConfig: any = {
-            position: 'top-center',
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'light',
-        }
         const data = await dangKiKhoaHoc(maKhoaHoc ?? '', taiKhoan)
         if (data === API_RESPONSE.gdtc) {
-            toast.success(data, alertConfig)
+            toast.success(data, ALERT_CONFIG)
         } else {
-            toast.error(data, alertConfig)
+            toast.error(data, ALERT_CONFIG)
         }
     }
     return (

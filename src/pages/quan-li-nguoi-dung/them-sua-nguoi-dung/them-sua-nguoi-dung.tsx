@@ -8,6 +8,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import css from './them-sua-nguoi-dung.module.scss'
 import {
+    ALERT_CONFIG,
     API_STATUS,
     COMMON_MESSAGE,
     ERROR_MESSAGE,
@@ -18,16 +19,6 @@ import { ShowPage } from '../quan-li-nguoi-dung'
 import * as Y from 'yup'
 import { createUser, updateUser } from '../../../services/user.service'
 import { UserProfile } from '../../../types'
-const alertConfig: any = {
-    position: 'top-center',
-    autoClose: 2000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: 'light',
-}
 export default function ThemSuaNguoiDung(props: any) {
     const [apiUserStatus, setApiUserStatus] = useState<string>(
         API_STATUS.pending,
@@ -98,7 +89,7 @@ export default function ThemSuaNguoiDung(props: any) {
                 createUser(data)
                     ?.then(() => {
                         setApiUserStatus(API_STATUS.fetchingSuccess)
-                        toast.success(COMMON_MESSAGE.thanhCong, alertConfig)
+                        toast.success(COMMON_MESSAGE.thanhCong, ALERT_CONFIG)
                         formik.resetForm()
                         formik.setFieldValue(FIELD_NAME.loaiNguoiDung, 'GV')
                     })
@@ -106,7 +97,7 @@ export default function ThemSuaNguoiDung(props: any) {
                         setApiUserStatus(API_STATUS.fetchingError)
                         toast.error(
                             er.response.data || COMMON_MESSAGE.thatBai,
-                            alertConfig,
+                            ALERT_CONFIG,
                         )
                     })
             } else {
@@ -115,12 +106,12 @@ export default function ThemSuaNguoiDung(props: any) {
                     ?.then((resp: any) => {
                         if (resp) {
                             setApiUserStatus(API_STATUS.fetchingSuccess)
-                            toast.success(COMMON_MESSAGE.thanhCong, alertConfig)
+                            toast.success(COMMON_MESSAGE.thanhCong, ALERT_CONFIG)
                         }
                     })
                     .catch((err) => {
                         setApiUserStatus(API_STATUS.fetchingError)
-                        toast.error(err.response.data, alertConfig)
+                        toast.error(err.response.data, ALERT_CONFIG)
                     })
             }
         },
