@@ -27,26 +27,53 @@ export const layThongTinKhoaHoc = async (maKhoaHoc = 'LTC_GP01') => {
         return error.response.data
     }
 }
-
-export const layKhoaHocTheoDanhMuc = async (maDanhMuc:string, maNhom = 'GP01') => {
+export const layKhoaHocTheoDanhMuc = async (maDanhMuc: string, maNhom = 'GP01') => {
     try {
         const resp = await axiosWithoutAuth(`/QuanLyKhoaHoc/LayKhoaHocTheoDanhMuc?maDanhMuc=${maDanhMuc}&MaNhom=${maNhom}`)
         return resp.data
-    } catch (error:any) {
+    } catch (error: any) {
         console.log(error.response.data)
         return error.response.data
     }
 }
-
-export const dangKiKhoaHoc = async (maKhoaHoc:string, taiKhoan: string) => {
+export const dangKiKhoaHoc = async (maKhoaHoc: string, taiKhoan: string) => {
     try {
         const dataToSend = {
             maKhoaHoc, taiKhoan
         }
-        const resp= await axiosWithAuth.post('/QuanLyKhoaHoc/DangKyKhoaHoc', dataToSend)
+        const resp = await axiosWithAuth.post('/QuanLyKhoaHoc/DangKyKhoaHoc', dataToSend)
         return resp.data
-    } catch (error:any) {
+    } catch (error: any) {
         console.log(error.response.data)
         return error.response.data
+    }
+}
+export const ghiDanhKhoaHoc = (maKhoaHoc: string, taiKhoan: string) => {
+    try {
+        const dataToSend = {
+            maKhoaHoc, taiKhoan
+        }
+        const resp = axiosWithAuth({
+            method: 'post',
+            url: '/QuanLyKhoaHoc/GhiDanhKhoaHoc',
+            data: dataToSend
+        })
+        return resp;
+    } catch (err: any) {
+        console.log(err)
+    }
+}
+export const huyGhiDanh = (maKhoaHoc: string, taiKhoan: string) => {
+    try {
+        const resp = axiosWithAuth({
+            method: 'post',
+            url: '/QuanLyKhoaHoc/HuyGhiDanh',
+            data: {
+                maKhoaHoc, taiKhoan
+            }
+        })
+        return resp
+    } catch (err: any) {
+        console.log(err)
     }
 }

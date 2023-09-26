@@ -5,7 +5,6 @@ import { layKhoaHocTheoDanhMuc } from '../../services/khoa-hoc.service'
 import css from './danh-muc.module.scss'
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { skip, take } from '../../utils'
 export default function DanhMuc() {
     const [listKhoaHoc, setListKhoaHoc] = useState<any>()
     const [paging_show, setPaging_show] = useState<any>()
@@ -38,8 +37,7 @@ export default function DanhMuc() {
         setPaging_totalItem(() => data.length)
     }
     const showItemWithPageChange = () => {
-        let items = skip(listKhoaHoc, (paging_selectedPage - 1) * 12)
-        items = take(items, ITEM_PER_PAGE)
+        const items = listKhoaHoc?.skip((paging_selectedPage - 1) * 12).take(ITEM_PER_PAGE)
         setPaging_show(() => items)
     }
     return (
@@ -55,7 +53,7 @@ export default function DanhMuc() {
                         {paging_totalItem >= 1 && (
                             <Paging
                                 theme={1}
-                                totalItem={Math.ceil(
+                                totalPage={Math.ceil(
                                     paging_totalItem / ITEM_PER_PAGE,
                                 )}
                                 selectedPage={paging_selectedPage}

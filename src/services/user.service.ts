@@ -112,3 +112,33 @@ export const updateProfile = async (data: UserProfile) => {
         console.log(err)
     }
 }
+
+export const getListCoursesAwaitingApproval = (taiKhoan:string) =>{
+    try {
+        const resp = axiosWithAuth({
+            method: 'post',
+            url: '/QuanLyNguoiDung/LayDanhSachKhoaHocChoXetDuyet',
+            data: {
+                taiKhoan
+            }
+        })
+        return resp
+    } catch (err:any) {
+        console.log(err)
+    }
+}
+
+export const getListCoursesApproved = (taiKhoan:string) => {
+    try {
+        const resp = axiosWithAuth({
+            method: 'post',
+            url: '/QuanLyNguoiDung/LayDanhSachKhoaHocDaXetDuyet',
+            data: {
+                taiKhoan
+            }
+        })
+        return resp
+    } catch (err:any) {
+        console.log(err)
+    }
+}

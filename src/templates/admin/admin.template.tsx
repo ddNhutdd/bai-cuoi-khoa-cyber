@@ -12,22 +12,6 @@ import {
     MA_LOAI_NGUOI_DUNG,
     TAI_KHOAN,
 } from '../../constants'
-const logoutHandle = () => {
-    removeLocalStorage(ACCESS_TOKEN)
-    removeLocalStorage(TAI_KHOAN)
-    removeLocalStorage(HO_TEN)
-    removeLocalStorage(MA_LOAI_NGUOI_DUNG)
-}
-const items: MenuProps['items'] = [
-    {
-        key: '1',
-        label: <NavLink to={'/profile'}>Cập nhật thông tin</NavLink>,
-    },
-    {
-        key: '2',
-        label: <span onClick={logoutHandle}>Đăng xuất</span>,
-    },
-]
 export default function AdminTemplate() {
     const navigate = useNavigate()
     const [showSideBar, setShowSideBar] = useState<boolean>(false)
@@ -37,6 +21,23 @@ export default function AdminTemplate() {
             navigate('/login')
         }
     }, [])
+    const logoutHandle = () => {
+        removeLocalStorage(ACCESS_TOKEN)
+        removeLocalStorage(TAI_KHOAN)
+        removeLocalStorage(HO_TEN)
+        removeLocalStorage(MA_LOAI_NGUOI_DUNG)
+        navigate('/')
+    }
+    const items: MenuProps['items'] = [
+        {
+            key: '1',
+            label: <NavLink to={'/profile'}>Cập nhật thông tin</NavLink>,
+        },
+        {
+            key: '2',
+            label: <span onClick={logoutHandle}>Đăng xuất</span>,
+        },
+    ]
     return (
         <>
             <div className={css['admin-template-container']}>
@@ -48,11 +49,13 @@ export default function AdminTemplate() {
                     }
                 >
                     <div>
+                        <NavLink to={'/'}>
                         <img
                             className={showSideBar ? css['--dn'] : ''}
                             src={logo}
                             alt='...'
                         />
+                        </NavLink>
                         <p className={showSideBar ? css['--dn'] : ''}>
                             Dashboard
                         </p>

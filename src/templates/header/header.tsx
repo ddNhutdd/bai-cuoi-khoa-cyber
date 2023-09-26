@@ -1,4 +1,5 @@
 import css from './header.module.scss'
+import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown, Input } from 'antd'
@@ -15,6 +16,7 @@ export default function Header() {
     const [listDanhMucKhoaHoc, setListDanhMucKhoaHoc] = useState<any>([])
     const [hotenUser, setHoTenUser] = useState<any>()
     const location = useLocation()
+    const navigate = useNavigate()
     useEffect(() => {
         fetchMenuItems()
     }, [])
@@ -44,6 +46,7 @@ export default function Header() {
         removeLocalStorage(ACCESS_TOKEN)
         removeLocalStorage(TAI_KHOAN)
         setHoTenUser(() => '')
+        navigate('/')
     }
     return (
         <div className={css['header']}>

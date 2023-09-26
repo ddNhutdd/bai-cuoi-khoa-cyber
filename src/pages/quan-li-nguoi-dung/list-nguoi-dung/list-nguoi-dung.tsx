@@ -1,5 +1,6 @@
 import css from './list-nguoi-dung.module.scss'
 import { useDispatch } from 'react-redux'
+import { ghiDanhKhoaHoc } from '../../../services/khoa-hoc.service'
 import { selectUserForUpdate } from '../../../redux/slices/user.slice'
 import { Button, Input, Space, Table, Modal, Dropdown } from 'antd'
 import { useState, useEffect } from 'react'
@@ -15,11 +16,17 @@ import {
     getCoursesNotEnrolled,
     getListUserPaging,
 } from '../../../services/user.service'
-import { API_STATUS, COMMON_MESSAGE } from '../../../constants'
+import {
+    ALERT_CONFIG,
+    API_STATUS,
+    COMMON_MESSAGE,
+    FIELD_NAME,
+    FIELD_NAME_WIDTH_SPACE,
+} from '../../../constants'
 import { ShowPage } from '../quan-li-nguoi-dung'
-interface DataType {
+interface IUser {
     key: number
-    stt: number
+    STT: number
     taiKhoan: string
     hoTen: string
     email: string
@@ -45,6 +52,8 @@ export default function ListNguoiDung(props: any) {
     const [paging_selectedPage, setPaging_selectedPage] = useState(1)
     const [paging_totalPage, setPaging_totalPage] = useState(0)
     const [searchText, setSearchText] = useState<string>()
+    const [re_renderTableDaGhiDanh, setRe_renderTableDaGhiDanh] =
+        useState<number>(0)
     const dispatch = useDispatch()
     useEffect(() => {
         loadListUser(1)
@@ -79,21 +88,11 @@ export default function ListNguoiDung(props: any) {
                 })
                 .catch((err) => {
                     setApiUserStatus(API_STATUS.fetchingError)
-                    toast.error(err.response.data, alertConfig)
+                    toast.error(err.response.data, ALERT_CONFIG)
                     closeModel()
                 })
         }
     }, [userRegisterCourse])
-    const alertConfig: any = {
-        position: 'top-center',
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-    }
     const showModal = () => {
         setIsModalOpen(true)
     }
@@ -118,39 +117,39 @@ export default function ListNguoiDung(props: any) {
         deleteUser(taiKhoan)
             ?.then(() => {
                 setApiUserStatus(() => API_STATUS.fetchingSuccess)
-                toast.success(COMMON_MESSAGE.thanhCong, alertConfig)
+                toast.success(COMMON_MESSAGE.thanhCong, ALERT_CONFIG)
                 loadListUser(paging_selectedPage, searchText)
             })
             .catch((err: any) => {
                 setApiUserStatus(() => API_STATUS.fetchingError)
-                toast.error(err.response.data, alertConfig)
+                toast.error(err.response.data, ALERT_CONFIG)
             })
     }
-    const columns: ColumnsType<DataType> = [
+    const columns: ColumnsType<IUser> = [
         {
-            title: 'STT',
-            dataIndex: 'stt',
-            key: 'stt',
+            title: FIELD_NAME.stt,
+            dataIndex: FIELD_NAME.stt,
+            key: FIELD_NAME.stt,
         },
         {
-            title: 'Tài khoản',
-            dataIndex: 'taiKhoan',
-            key: 'taiKhoan',
+            title: FIELD_NAME_WIDTH_SPACE.taiKhoan,
+            dataIndex: FIELD_NAME.taiKhoan,
+            key: FIELD_NAME.taiKhoan,
         },
         {
-            title: 'Họ tên',
-            dataIndex: 'hoTen',
-            key: 'hoTen',
+            title: FIELD_NAME_WIDTH_SPACE.hoTen,
+            dataIndex: FIELD_NAME.hoTen,
+            key: FIELD_NAME.hoTen,
         },
         {
-            title: 'Email',
-            dataIndex: 'email',
-            key: 'email',
+            title: FIELD_NAME_WIDTH_SPACE.email,
+            dataIndex: FIELD_NAME.email,
+            key: FIELD_NAME.email,
         },
         {
-            title: 'Số điện thoại',
-            dataIndex: 'soDienThoai',
-            key: 'soDienThoai',
+            title: FIELD_NAME_WIDTH_SPACE.soDienThoai,
+            dataIndex: FIELD_NAME.soDienThoai,
+            key: FIELD_NAME.soDienThoai,
         },
         {
             title: 'Xử lí',
@@ -158,6 +157,7 @@ export default function ListNguoiDung(props: any) {
             render: (_, record) => (
                 <Space size='middle'>
                     <Button
+                        disabled={apiUserStatus === API_STATUS.fetching}
                         type='primary'
                         onClick={() => {
                             setUserRegisterCourse(() => record)
@@ -167,6 +167,7 @@ export default function ListNguoiDung(props: any) {
                         Ghi danh
                     </Button>
                     <Button
+                        disabled={apiUserStatus === API_STATUS.fetching}
                         type='primary'
                         onClick={() => {
                             dispatch(selectUserForUpdate(record))
@@ -176,6 +177,7 @@ export default function ListNguoiDung(props: any) {
                         Sửa
                     </Button>
                     <Button
+                        disabled={apiUserStatus === API_STATUS.fetching}
                         type='primary'
                         ghost
                         onClick={() => {
@@ -188,10 +190,10 @@ export default function ListNguoiDung(props: any) {
             ),
         },
     ]
-    const data: DataType[] = (listUser ?? []).map((item: any, index) => {
-        const newItem: DataType = {
+    const data: IUser[] = (listUser ?? []).map((item: any, index) => {
+        const newItem: IUser = {
             key: index,
-            stt: (paging_selectedPage - 1) * 10 + index + 1,
+            STT: (paging_selectedPage - 1) * 10 + index + 1,
             taiKhoan: item?.taiKhoan,
             hoTen: item?.hoTen,
             email: item?.email,
@@ -206,6 +208,25 @@ export default function ListNguoiDung(props: any) {
     const menuDanhMucProps = {
         items: itemsDanhMuc,
         onClick: handleMenuDanhMucClick,
+    }
+    const buttonGhiDanhClickHandle = () => {
+        const taiKhoan = userRegisterCourse.taiKhoan
+        const khoaHoc = dropdownCourseSelected?.split(',')[0]
+        console.log('buttonGhiDanhClickHandle ', khoaHoc, taiKhoan)
+        setApiUserStatus(API_STATUS.fetching)
+        ghiDanhKhoaHoc(khoaHoc, taiKhoan)
+            ?.then((resp: any) => {
+                setApiUserStatus(API_STATUS.fetchingSuccess)
+                toast.success(resp.data, ALERT_CONFIG)
+                setRe_renderTableDaGhiDanh((c) => ++c)
+            })
+            .catch((err: any) => {
+                setApiUserStatus(API_STATUS.fetchingError)
+                toast.error(
+                    err.response.data || COMMON_MESSAGE.thatBai,
+                    ALERT_CONFIG,
+                )
+            })
     }
     return (
         <>
@@ -242,7 +263,7 @@ export default function ListNguoiDung(props: any) {
                     <div className={css['paging']}>
                         <Paging
                             theme={2}
-                            totalItem={paging_totalPage}
+                            totalPage={paging_totalPage}
                             selectedPage={paging_selectedPage}
                             setSelectedPage={setPaging_selectedPage}
                         />
@@ -268,7 +289,7 @@ export default function ListNguoiDung(props: any) {
                                 menu={menuDanhMucProps}
                                 trigger={['click']}
                                 overlayStyle={{
-                                    maxHeight: '250',
+                                    maxHeight: '250px',
                                     overflowY: 'auto',
                                 }}
                             >
@@ -281,13 +302,27 @@ export default function ListNguoiDung(props: any) {
                             </Dropdown>
                         </div>
                         <div>
-                            <Button type='primary'>Ghi danh</Button>
+                            <Button
+                                disabled={apiUserStatus === API_STATUS.fetching}
+                                type='primary'
+                                onClick={buttonGhiDanhClickHandle}
+                            >
+                                Ghi danh
+                            </Button>
                         </div>
                     </div>
                     <div className={css['model-khoa-hoc-line']}></div>
-                    <TableKhoaHoc />
+                    <TableKhoaHoc
+                        xacThuc
+                        setRe_renderTableDaGhiDanh={setRe_renderTableDaGhiDanh}
+                        userInfo={userRegisterCourse}
+                    />
                     <div className={css['model-khoa-hoc-line']}></div>
-                    <TableKhoaHoc />
+                    <TableKhoaHoc
+                        re_render={re_renderTableDaGhiDanh}
+                        daGhiDanh
+                        userInfo={userRegisterCourse}
+                    />
                 </div>
             </Modal>
             <ToastContainer
