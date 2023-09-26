@@ -16,7 +16,13 @@ import {
     getCoursesNotEnrolled,
     getListUserPaging,
 } from '../../../services/user.service'
-import { ALERT_CONFIG, API_STATUS, COMMON_MESSAGE, FIELD_NAME, FIELD_NAME_WIDTH_SPACE } from '../../../constants'
+import {
+    ALERT_CONFIG,
+    API_STATUS,
+    COMMON_MESSAGE,
+    FIELD_NAME,
+    FIELD_NAME_WIDTH_SPACE,
+} from '../../../constants'
 import { ShowPage } from '../quan-li-nguoi-dung'
 interface IUser {
     key: number
@@ -46,6 +52,8 @@ export default function ListNguoiDung(props: any) {
     const [paging_selectedPage, setPaging_selectedPage] = useState(1)
     const [paging_totalPage, setPaging_totalPage] = useState(0)
     const [searchText, setSearchText] = useState<string>()
+    const [re_renderTableDaGhiDanh, setRe_renderTableDaGhiDanh] =
+        useState<number>(0)
     const dispatch = useDispatch()
     useEffect(() => {
         loadListUser(1)
@@ -85,7 +93,6 @@ export default function ListNguoiDung(props: any) {
                 })
         }
     }, [userRegisterCourse])
-    
     const showModal = () => {
         setIsModalOpen(true)
     }
@@ -211,6 +218,7 @@ export default function ListNguoiDung(props: any) {
             ?.then((resp: any) => {
                 setApiUserStatus(API_STATUS.fetchingSuccess)
                 toast.success(resp.data, ALERT_CONFIG)
+                setRe_renderTableDaGhiDanh((c) => ++c)
             })
             .catch((err: any) => {
                 setApiUserStatus(API_STATUS.fetchingError)
@@ -304,9 +312,17 @@ export default function ListNguoiDung(props: any) {
                         </div>
                     </div>
                     <div className={css['model-khoa-hoc-line']}></div>
-                    <TableKhoaHoc xacThuc userInfo={userRegisterCourse} />
+                    <TableKhoaHoc
+                        xacThuc
+                        setRe_renderTableDaGhiDanh={setRe_renderTableDaGhiDanh}
+                        userInfo={userRegisterCourse}
+                    />
                     <div className={css['model-khoa-hoc-line']}></div>
-                    <TableKhoaHoc daGhiDanh />
+                    <TableKhoaHoc
+                        re_render={re_renderTableDaGhiDanh}
+                        daGhiDanh
+                        userInfo={userRegisterCourse}
+                    />
                 </div>
             </Modal>
             <ToastContainer

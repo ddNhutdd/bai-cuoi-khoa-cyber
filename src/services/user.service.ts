@@ -127,3 +127,18 @@ export const getListCoursesAwaitingApproval = (taiKhoan:string) =>{
         console.log(err)
     }
 }
+
+export const getListCoursesApproved = (taiKhoan:string) => {
+    try {
+        const resp = axiosWithAuth({
+            method: 'post',
+            url: '/QuanLyNguoiDung/LayDanhSachKhoaHocDaXetDuyet',
+            data: {
+                taiKhoan
+            }
+        })
+        return resp
+    } catch (err:any) {
+        console.log(err)
+    }
+}
