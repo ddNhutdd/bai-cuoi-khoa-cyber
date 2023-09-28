@@ -73,40 +73,43 @@
 
             svg {
                 width: 3.2rem;
-                height: 3.2rem;               
+                height: 3.2rem;
             }
         }
     }
 
     .admin-template-container__side-right {
         flex: 1;
+
         .admin-template-container__top {
-            
             display: flex;
             gap: 3rem;
             align-items: center;
-            background-color: rgba($color: #000000, $alpha: 0.8) ;
-
+            background-color: rgba($color: #000000, $alpha: 0.8);
             padding: 3.9rem 10rem;
+
             p {
-                font-weight: bold   ;
+                font-weight: bold;
                 color: white;
                 margin-left: auto;
                 cursor: default;
             }
+
             .admin-template-container__logoUser {
                 width: 3rem;
                 height: 3rem;
                 border-radius: 50%;
                 border: none;
                 cursor: pointer;
+
                 img {
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
                 }
-          }
+            }
         }
+
         .admin-template-container__content {
             padding: 1.5rem;
         }

@@ -212,7 +212,6 @@ export default function ListNguoiDung(props: any) {
     const buttonGhiDanhClickHandle = () => {
         const taiKhoan = userRegisterCourse.taiKhoan
         const khoaHoc = dropdownCourseSelected?.split(',')[0]
-        console.log('buttonGhiDanhClickHandle ', khoaHoc, taiKhoan)
         setApiUserStatus(API_STATUS.fetching)
         ghiDanhKhoaHoc(khoaHoc, taiKhoan)
             ?.then((resp: any) => {
