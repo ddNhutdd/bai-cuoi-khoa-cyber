@@ -69,7 +69,11 @@ export default function Header() {
                 <Search
                     className={css['header__search']}
                     placeholder='input search text'
-                    // onSearch={() => {}}
+                    onSearch={(value) => {
+                        // Thực hiện chuyển đến trang search với giá trị tìm kiếm là `value`
+                        // Ví dụ: chuyển đến /search?query=<giá_trị_tìm_kiếm>
+                        navigate(`/search?query=${value}`);
+                    }}
                     enterButton
                 />
                 {hotenUser ? (

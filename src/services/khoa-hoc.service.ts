@@ -63,9 +63,9 @@ export const ghiDanhKhoaHoc = (maKhoaHoc: string, taiKhoan: string) => {
         console.log(err)
     }
 }
-export const huyGhiDanh = (maKhoaHoc: string, taiKhoan: string) => {
+export const huyGhiDanh = async (maKhoaHoc: string, taiKhoan: string) => {
     try {
-        const resp = axiosWithAuth({
+        const resp = await axiosWithAuth({
             method: 'post',
             url: '/QuanLyKhoaHoc/HuyGhiDanh',
             data: {
@@ -74,6 +74,20 @@ export const huyGhiDanh = (maKhoaHoc: string, taiKhoan: string) => {
         })
         return resp
     } catch (err: any) {
-        console.log(err)
+        console.log('err',err)
+    }
+}
+export const xoaKhoaHoc = async (maKhoaHoc: string) =>{
+    try {
+        const resp = await axiosWithAuth({
+            method: 'delete',
+            url: `/QuanLyKhoaHoc/XoaKhoaHoc?MaKhoaHoc=${maKhoaHoc}`,    
+            data: {
+                maKhoaHoc
+            }
+        })
+        return resp
+    } catch (error) {
+        console.log(error)
     }
 }

@@ -1,19 +1,35 @@
+import { useState } from 'react';
 import css from './card.module.scss'
 import { StarRating } from './starRating/star-rating'
 import { Button, Card } from 'antd'
 import { useNavigate } from 'react-router-dom';
 
-export default function CardCyber(props:any) {
+export default function CardCyber(props: any) {
+    const [isDeleted, setIsDeleted] = useState(false);
     const navigate = useNavigate()
-    const { item } = props
+    const { item, isProfilePage, onDelete, taiKhoan } = props
     const styleCard: React.CSSProperties = {
         position: 'relative',
-        display:'flex',
-        flexDirection:'column',
-        justifyContent:'space-between'
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between'
     }
     const buttonDangKiHandleClick = () => {
         navigate('/chitiet/' + item.maKhoaHoc);
+    }
+    const handleDeleteClick = async () => {
+        console.log(item.maKhoaHoc, taiKhoan)
+        try {
+            setIsDeleted(true);
+            const resp = await onDelete(item.maKhoaHoc, taiKhoan);
+            console.log('thanh cong !!!', resp)
+
+        } catch (error) {
+            console.log(error)
+        }
+    };
+    if (isDeleted) {
+        return null;
     }
     return (
         <Card
@@ -38,7 +54,12 @@ export default function CardCyber(props:any) {
                 <p>(1.593)</p>
             </div>
             <div className={css['card__action']}>
-                <Button type='primary' onClick={buttonDangKiHandleClick}>ĐĂNG KÍ</Button>
+                {isProfilePage ? (
+                    <Button onClick={handleDeleteClick} type="primary" danger>Xóa</Button>
+                ) : (
+                    <Button type='primary' onClick={buttonDangKiHandleClick}>ĐĂNG KÍ</Button>
+                )
+                }
             </div>
         </Card>
     )

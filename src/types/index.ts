@@ -15,3 +15,7 @@ export type UserProfile = {
   maNhom: string,
   email: string
 }
+
+export type Item = {
+  item: any; 
+}

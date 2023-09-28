@@ -10,9 +10,11 @@ import { useFormik } from "formik";
 import * as Y from 'yup'
 import { userLogin } from "../../services/user.service";
 import { setLocalStorage } from '../../utils';
-import { ACCESS_TOKEN, HO_TEN, MA_LOAI_NGUOI_DUNG, TAI_KHOAN, URL_NAVIGATE, VALIDATITON } from '../../constants';
+import { ACCESS_TOKEN, ALERT_CONFIG, HO_TEN, MA_LOAI_NGUOI_DUNG, TAI_KHOAN, URL_NAVIGATE, VALIDATITON } from '../../constants';
 import { useNavigate } from 'react-router-dom';
 import 'animate.css'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const registerSchema = Y.object({
   taiKhoan: Y.string()
@@ -33,39 +35,38 @@ function Login() {
       matKhau: "",
     },
     validationSchema: registerSchema,
-    onSubmit: (values) => {
+    
+    onSubmit: async (values) => {
       const data = {
         taiKhoan: values.taiKhoan,
         matKhau: values.matKhau
       };
-      userLogin(data)
-        .then((resp: any) => {
-          if(resp){
-            console.log(resp)
-            setLocalStorage(ACCESS_TOKEN, resp.accessToken);
-            setLocalStorage(TAI_KHOAN, resp.taiKhoan)
-            setLocalStorage(HO_TEN, resp.hoTen)
-            setLocalStorage(MA_LOAI_NGUOI_DUNG, resp.maLoaiNguoiDung)
-            alert('Đăng nhập thành công !')
-            
-            if(resp.maLoaiNguoiDung === 'HV'){
-              navigate(URL_NAVIGATE.home)
+    
+      try {
+        const resp = await userLogin(data);
+        if (resp) {
+          console.log(resp)
+          toast.success('Đăng nhập thành công !', ALERT_CONFIG);
+          setLocalStorage(ACCESS_TOKEN, resp.accessToken);
+          setLocalStorage(TAI_KHOAN, resp.taiKhoan);
+          setLocalStorage(HO_TEN, resp.hoTen);
+          setLocalStorage(MA_LOAI_NGUOI_DUNG, resp.maLoaiNguoiDung);
+    
+          setTimeout(() => {
+            if (resp.maLoaiNguoiDung === 'HV') {
+              navigate(URL_NAVIGATE.home);
+            } else {
+              navigate(URL_NAVIGATE.quanlynguoidung);
             }
-            else{
-              navigate(URL_NAVIGATE.quanlynguoidung)
-            }
-            
-          }
-          else{
-            alert('Đăng nhập không thành công. Có lỗi xảy ra.');
-          }
-          
-        })
-        .catch((err: any) => {
-          console.log(err)
-          alert('Đăng nhập không thành công. Có lỗi xảy ra.');
-        });
+          }, 3000); // Chờ 3 giây trước khi điều hướng
+        } else {
+          toast.error('Đăng nhập không thành công. Có lỗi xảy ra.', ALERT_CONFIG);
+        }
+      } catch (err) {
+        console.error(err);
+      }
     },
+    
   })
 
 
@@ -112,6 +113,18 @@ function Login() {
         <ButtonQT title='Đăng nhập' type="submit" />
 
       </form>
+      <ToastContainer
+        position='top-center'
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme='light'
+      />
     </div>
   )
 }

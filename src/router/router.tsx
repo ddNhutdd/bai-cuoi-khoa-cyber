@@ -3,6 +3,7 @@ import { Suspense, lazy } from 'react'
 import { Skeleton } from 'antd';
 import UserTemplate from '../templates/user/user.template'
 import AdminTemplate from '../templates/admin/admin.template'
+import Search from '../pages/search';
 const Home = lazy(() => import('../pages/home/home'))
 const DanhMuc = lazy(() => import('../pages/danh-muc/danh-muc'))
 const ChiTiet = lazy(() => import('../pages/chi-tiet/chi-tiet'))
@@ -65,6 +66,14 @@ export const router = createBrowserRouter([
                         <Profile/>
                     </Suspense>
                 ),
+            },
+            {
+                path: '/search',
+                element:(
+                    <Suspense fallback={<Skeleton />}>
+                        <Search/>
+                    </Suspense>
+                )
             }
         ],
     },

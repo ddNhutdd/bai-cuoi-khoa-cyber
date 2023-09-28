@@ -7,11 +7,14 @@ import { useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as Y from 'yup'
 import { getProfile, updateProfile } from '../../services/user.service'
-import { ACCESS_TOKEN, VALIDATITON } from '../../constants'
+import { ACCESS_TOKEN, ALERT_CONFIG, VALIDATITON } from '../../constants'
 import { useEffect } from 'react'
 import { getLocalStorage } from '../../utils'
 import { URL_NAVIGATE } from "../../constants"
 import 'animate.css';
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { huyGhiDanh} from '../../services/khoa-hoc.service'
 
 const registerSchema = Y.object({
   taiKhoan: Y.string()
@@ -42,7 +45,6 @@ const registerSchema = Y.object({
 })
 
 function Profile() {
-
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -67,31 +69,35 @@ function Profile() {
       ],
     },
     validationSchema: registerSchema,
-    onSubmit: (values) => {
-      const data = {
-        taiKhoan: values.taiKhoan,
-        matKhau: values.matKhau,
-        hoTen: values.hoTen,
-        soDT: values.soDT,
-        maLoaiNguoiDung: values.maLoaiNguoiDung,
-        maNhom: values.maNhom,
-        email: values.email,
-        chiTietKhoaHocGhiDanh: values.chiTietKhoaHocGhiDanh
-      };
-      // Gọi API hoặc thực hiện xử lý dữ liệu data 
-      updateProfile(data)
-        .then((resp) => {
-          if (resp) {
-            alert('Cập nhật thành công');
-          } else {
-            console.log('Cập nhật thất bại');
-            alert('Cập nhật thất bại');
-          }
-        })
-        .catch((err) => {
-          console.log(err)
-          alert('Cap nhat that bai')
-        })
+
+    onSubmit: async (values) => {
+      try {
+        const data = {
+          taiKhoan: values.taiKhoan,
+          matKhau: values.matKhau,
+          hoTen: values.hoTen,
+          soDT: values.soDT,
+          maLoaiNguoiDung: values.maLoaiNguoiDung,
+          maNhom: values.maNhom,
+          email: values.email,
+          chiTietKhoaHocGhiDanh: values.chiTietKhoaHocGhiDanh
+        };
+        // Gọi API hoặc thực hiện xử lý update
+        await updateProfile(data)
+          .then((resp) => {
+            if (resp) {
+              console.log(resp)
+              toast.success('Cập nhật thành công', ALERT_CONFIG)
+            } else {
+              toast.error('Cập nhật thất bại', ALERT_CONFIG)
+            }
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      } catch (error) {
+        console.log(error)
+      }
 
     },
   })
@@ -113,8 +119,6 @@ function Profile() {
       formik.setFieldValue('chiTietKhoaHocGhiDanh', chiTietKhoaHocGhiDanh);
     })();
   }, []);
-
-
 
   return (
     <div className={css['form-container']}>
@@ -138,9 +142,11 @@ function Profile() {
                 <InputForm
                   formik={formik}
                   {...formik.getFieldProps('taiKhoan')}
+                  disabled = {true}
                   placeholder="Tài khoản"
-                  disabled={true} />
+                />
               </div>
+
               <div className={css['input-ele']}>
                 <p className={css['p-title']}>Mật khẩu</p>
                 <InputForm
@@ -173,7 +179,6 @@ function Profile() {
                 <InputForm
                   formik={formik}
                   {...formik.getFieldProps('maNhom')}
-                  disabled={true}
                   placeholder="Mã nhóm" />
               </div>
               <div className={css['input-ele']}>
@@ -190,24 +195,35 @@ function Profile() {
                 <InputForm
                   formik={formik}
                   {...formik.getFieldProps('maLoaiNguoiDung')}
-                  disabled={true}
                   placeholder="Loại người dùng" />
               </div>
               <div className={css['button-profile']}>
-                <ButtonQT title='Cập nhật' />
+                <ButtonQT type='submit' title='Cập nhật' />
               </div>
             </div>
-        </div>
+          </div>
         </div>
         <div className={css['h2-profile']}>
           <h2>Khóa học đã đăng ký</h2>
           <span><NoteIcon /></span>
         </div>
         <div>
-          <ListCard list={formik.values.chiTietKhoaHocGhiDanh} />
+          <ListCard list={formik.values.chiTietKhoaHocGhiDanh} isProfilePage={true} taiKhoan={formik.values.taiKhoan} onDelete={huyGhiDanh} />
         </div>
-        
+
       </form>
+      <ToastContainer
+        position='top-center'
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme='light'
+      />
     </div>
   )
 }
