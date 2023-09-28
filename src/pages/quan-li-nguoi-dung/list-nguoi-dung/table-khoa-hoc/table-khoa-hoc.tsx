@@ -42,7 +42,7 @@ export default function TableKhoaHoc(props: any) {
     useEffect(() => {
         loadDataForTable()
         setPaging_selectedPage(() => 1)
-    }, [xacThuc, daGhiDanh, userInfo])
+    }, [userInfo])
     useEffect(() => {
         loadDataForTable()
         setPaging_selectedPage(() => 1)

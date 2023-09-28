@@ -253,7 +253,7 @@ export default function ListNguoiDung(props: any) {
                                 setSearchText(e.target.value)
                             }}
                             value={searchText}
-                            placeholder='Nhập vào tên tài khoản hoặc họ tên người dùng'
+                            placeholder={COMMON_MESSAGE.nhapVaoTaiKhoanHocTenNguoiDung}
                         />
                     </Space.Compact>
                 </form>
