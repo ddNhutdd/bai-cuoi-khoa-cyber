@@ -50,11 +50,11 @@ export default function AdminTemplate() {
                 >
                     <div>
                         <NavLink to={'/'}>
-                        <img
-                            className={showSideBar ? css['--dn'] : ''}
-                            src={logo}
-                            alt='...'
-                        />
+                            <img
+                                className={showSideBar ? css['--dn'] : ''}
+                                src={logo}
+                                alt='...'
+                            />
                         </NavLink>
                         <p className={showSideBar ? css['--dn'] : ''}>
                             Dashboard

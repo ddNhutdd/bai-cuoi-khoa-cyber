@@ -212,7 +212,6 @@ export default function ListNguoiDung(props: any) {
     const buttonGhiDanhClickHandle = () => {
         const taiKhoan = userRegisterCourse.taiKhoan
         const khoaHoc = dropdownCourseSelected?.split(',')[0]
-        console.log('buttonGhiDanhClickHandle ', khoaHoc, taiKhoan)
         setApiUserStatus(API_STATUS.fetching)
         ghiDanhKhoaHoc(khoaHoc, taiKhoan)
             ?.then((resp: any) => {
@@ -254,7 +253,7 @@ export default function ListNguoiDung(props: any) {
                                 setSearchText(e.target.value)
                             }}
                             value={searchText}
-                            placeholder='Nhập vào tên tài khoản hoặc họ tên người dùng'
+                            placeholder={COMMON_MESSAGE.nhapVaoTaiKhoanHocTenNguoiDung}
                         />
                     </Space.Compact>
                 </form>

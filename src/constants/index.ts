@@ -47,6 +47,7 @@ export const enum VALIDATITON{
 export const enum COMMON_MESSAGE {
     thanhCong = 'Thành công',
     thatBai = 'Thất bại',
+    nhapVaoTaiKhoanHocTenNguoiDung = 'Nhập vào tên tài khoản hoặc họ tên người dùng',
 }
 /////
 export const enum FIELD_NAME_WIDTH_SPACE {
