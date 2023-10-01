@@ -91,3 +91,12 @@ export const xoaKhoaHoc = async (maKhoaHoc: string) =>{
         console.log(error)
     }
 }
+export const layDanhSachKhoaHoc = async () => {
+    try {
+        const resp = await axiosWithoutAuth('/QuanLyKhoaHoc/LayDanhSachKhoaHoc')
+        return resp.data
+    } catch (error: any) {
+        console.log(error.response.data)
+        return error.response.data
+    }
+}
