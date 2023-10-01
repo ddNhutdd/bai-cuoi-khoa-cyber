@@ -27,6 +27,8 @@ declare global {
         skip(count: number): T[];
     }
 }
+
+//
 Array.prototype.take = function (count: number): any[] {
     if (!this) return []
     if (count <= 0 || count >= this.length) {
