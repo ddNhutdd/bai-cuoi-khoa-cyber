@@ -1,4 +1,5 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { useMediaQuery } from 'react-responsive'
 import css from './admin.template.module.scss'
 import logo from '../../assets/imgs/logonobg.png'
 import type { MenuProps } from 'antd'
@@ -15,12 +16,14 @@ import {
 export default function AdminTemplate() {
     const navigate = useNavigate()
     const [showSideBar, setShowSideBar] = useState<boolean>(false)
+    const isWidth768 = useMediaQuery({ query: '(max-width: 768px)' })
     useEffect(() => {
         const typeOfUser = getLocalStorage(MA_LOAI_NGUOI_DUNG)
         if (!typeOfUser) {
             navigate('/login')
         }
     }, [])
+    const allowShowSideBar = isWidth768 || showSideBar
     const logoutHandle = () => {
         removeLocalStorage(ACCESS_TOKEN)
         removeLocalStorage(TAI_KHOAN)
@@ -45,23 +48,24 @@ export default function AdminTemplate() {
                     className={
                         css['admin-template-container__side-left'] +
                         ' ' +
-                        (showSideBar && css['--mw-4'])
+                        (allowShowSideBar && css['--mw-6'])
                     }
                 >
-                    <div>
+                    <div className={'' + (allowShowSideBar && css['--g-0'])}>
                         <NavLink to={'/'}>
                             <img
-                                className={showSideBar ? css['--dn'] : ''}
+                                className={allowShowSideBar ? css['--dn'] : ''}
                                 src={logo}
                                 alt='...'
                             />
                         </NavLink>
-                        <p className={showSideBar ? css['--dn'] : ''}>
+                        <p className={allowShowSideBar ? css['--dn'] : ''}>
                             Dashboard
                         </p>
                         <span
-                            className={showSideBar ? css['--ma'] : ''}
+                            className={allowShowSideBar ? css['--ma'] : ''}
                             onClick={() => {
+                                if (isWidth768) return;                            
                                 setShowSideBar((s) => !s)
                             }}
                         >
@@ -69,20 +73,20 @@ export default function AdminTemplate() {
                         </span>
                     </div>
                     <ul>
-                        <li className={showSideBar ? css['--dn'] : ''}>
+                        <li className={allowShowSideBar ? css['--dn'] : ''}>
                             <NavLink to={'/'}>Quản lý khóa học</NavLink>
                         </li>
-                        <li className={showSideBar ? css['--dn'] : ''}>
+                        <li className={allowShowSideBar ? css['--dn'] : ''}>
                             <NavLink to={'/admin/quanlinguoidung'}>
                                 Quản lý người dùng
                             </NavLink>
                         </li>
-                        <li className={!showSideBar ? css['--dn'] : ''}>
+                        <li className={!allowShowSideBar ? css['--dn'] : ''}>
                             <NavLink to={'/'}>
                                 <LearnIcon />
                             </NavLink>
                         </li>
-                        <li className={!showSideBar ? css['--dn'] : ''}>
+                        <li className={!allowShowSideBar ? css['--dn'] : ''}>
                             <NavLink to={'/admin/quanlinguoidung'}>
                                 <UserFill />
                             </NavLink>

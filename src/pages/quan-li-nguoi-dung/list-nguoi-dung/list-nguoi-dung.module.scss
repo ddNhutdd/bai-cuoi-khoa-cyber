@@ -4,6 +4,7 @@
 }
 
 .list-nguoi-dung {
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
@@ -15,8 +16,19 @@
         display: block;
     }
 
-    .paging {
-        margin-top: -3rem;
+    .list-nguoi-dung__table-container {
+        width: 100%;
+
+        .ant-table-tbody>.ant-table-cell {
+            word-break: break-all;
+        }
+
+        .list-nguoi-dung__xu-li-cell {
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
     }
 }
 
