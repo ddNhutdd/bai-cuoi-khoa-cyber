@@ -32,7 +32,9 @@ const registerSchema = Y.object({
     .required(VALIDATITON.email_Required),
 })
 
-function ThemKhoaHoc() {
+  
+function ThemKhoaHoc(props: any) {
+  const {setPage} = props
   const formik = useFormik({
     initialValues: {
       maKhoaHoc: '',
@@ -77,7 +79,6 @@ function ThemKhoaHoc() {
               <InputForm
                 formik={formik}
                 {...formik.getFieldProps('biDanh')}
-                showEye={true}
                 placeholder="Bí danh"
               />
             </div>
@@ -126,7 +127,8 @@ function ThemKhoaHoc() {
               <p className={css['p-title']}>Mã nhóm</p>
               <InputForm
                 formik={formik}
-                {...formik.getFieldProps('maNhom')} placeholder="Mã nhóm" />
+                {...formik.getFieldProps('maNhom')} 
+                placeholder="Mã nhóm" />
             </div>
           </div>
           <div className={css['input-row']}>
@@ -134,20 +136,23 @@ function ThemKhoaHoc() {
               <p className={css['p-title']}>Ngày tạo</p>
               <InputForm
                 formik={formik}
-                {...formik.getFieldProps('ngayTao')} placeholder="Ngày tạo" />
+                {...formik.getFieldProps('ngayTao')} 
+                placeholder="Ngày tạo" />
             </div>
             <div className={css['input-ele']}>
-              <p className={css['p-title']}>Danh mục khóa học</p>
+              <p className={css['p-title']}>Mã danh mục khóa học</p>
               <InputForm
                 formik={formik}
-                {...formik.getFieldProps('maDanhMucKhoaHoc')} placeholder="Danh mục khóa học" />
+                {...formik.getFieldProps('maDanhMucKhoaHoc')} 
+                placeholder="Mã danh mục khóa học" />
             </div>
           </div>
           <div>
             <p className={css['p-title']}>Hình ảnh</p>
             <InputForm
               formik={formik}
-              {...formik.getFieldProps('maDanhMucKhoaHoc')} placeholder="Hình ảnh" />
+              {...formik.getFieldProps('hinhAnh')} 
+              placeholder="Hình ảnh" />
           </div>
         </div>
       </form>

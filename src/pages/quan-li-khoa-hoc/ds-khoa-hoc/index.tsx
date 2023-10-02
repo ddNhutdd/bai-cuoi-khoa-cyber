@@ -15,7 +15,7 @@ interface TypeKH {
 }
 
 function ListKhoaHoc(props: any) {
-  const { setPage } = props
+  const { setPage, setMaKhoaHoc } = props
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -45,7 +45,7 @@ function ListKhoaHoc(props: any) {
     {
       title: 'Ma khoa hoc',
       dataIndex: 'maKhoaHoc',
-      key: 'age',
+      key: 'maKhoaHoc',
     },
     {
       title: 'Ten khoa hoc',
@@ -74,15 +74,19 @@ function ListKhoaHoc(props: any) {
       title: 'Thao tac',
       dataIndex: 'thaoTac',
       key: 'thaoTac',
-      render: () => (
+      render: (_: any, record: TypeKH) => (
         <Space>
-          <Button type='primary'>Ghi danh</Button>
+          <Button onClick={() => {
+            const maKhoaHoc = record.maKhoaHoc;
+            setPage(isPage.ghiDanh)
+            setMaKhoaHoc(maKhoaHoc)
+            }} type='primary'>
+              Ghi danh
+            </Button>
+          
           <Button type="primary" ghost>Sửa</Button>
-          <Button type="primary" danger>X</Button>
+          <Button type="primary" danger>Xóa</Button>
         </Space>
-
-
-
       ),
     },
 
@@ -97,7 +101,7 @@ function ListKhoaHoc(props: any) {
       <div className={css['search-kh']}>
         <Search
           className={css['header__search']}
-          placeholder='input search text'
+          placeholder='Nhập khóa học cần tim'
           enterButton
         />
       </div>

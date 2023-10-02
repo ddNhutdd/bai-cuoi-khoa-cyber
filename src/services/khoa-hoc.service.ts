@@ -100,3 +100,33 @@ export const layDanhSachKhoaHoc = async () => {
         return error.response.data
     }
 }
+export const layDanhSachChoXetDuyet = async (maKhoaHoc: string) => {
+    try {
+        const resp = await axiosWithAuth({
+            method: 'post',
+            url: '/QuanLyNguoiDung/LayDanhSachHocVienChoXetDuyet',
+            data: {
+                maKhoaHoc
+            }
+        })
+        return resp
+    } catch (err: any) {
+        console.log('err',err)
+    }
+   
+}
+export const layDanhSachHocVienKhoaHoc = async (maKhoaHoc: string) => {
+    try {
+        const resp = await axiosWithAuth({
+            method: 'post',
+            url: '/QuanLyNguoiDung/LayDanhSachHocVienKhoaHoc',
+            data: {
+                maKhoaHoc
+            }
+        })
+        return resp
+    } catch (err: any) {
+        console.log('err',err)
+    }
+   
+}
