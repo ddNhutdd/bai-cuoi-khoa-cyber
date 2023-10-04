@@ -4,7 +4,7 @@ import { ghiDanhKhoaHoc } from '../../../services/khoa-hoc.service'
 import { selectUserForUpdate } from '../../../redux/slices/user.slice'
 import { Button, Input, Space, Table, Modal, Dropdown } from 'antd'
 import { useState, useEffect } from 'react'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import type { ColumnsType } from 'antd/es/table'
 import type { MenuProps } from 'antd'
@@ -43,7 +43,6 @@ let itemsDanhMuc: MenuProps['items'] = [
 export default function ListNguoiDung(props: any) {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [listUser, setListUser] = useState()
-    const [errorFromApi, setErrorFromApi] = useState()
     const [userRegisterCourse, setUserRegisterCourse] = useState<any>()
     const [dropdownCourseSelected, setDropdownCourseSelected] = useState<any>()
     const [apiUserStatus, setApiUserStatus] = useState<string>(
@@ -55,15 +54,13 @@ export default function ListNguoiDung(props: any) {
     const [re_renderTableDaGhiDanh, setRe_renderTableDaGhiDanh] =
         useState<number>(0)
     const dispatch = useDispatch()
+
     useEffect(() => {
         loadListUser(1)
     }, [])
     useEffect(() => {
         setApiUserStatus(() => API_STATUS.fetchingSuccess)
     }, [listUser])
-    useEffect(() => {
-        setApiUserStatus(() => API_STATUS.fetchingError)
-    }, [errorFromApi])
     useEffect(() => {
         loadListUser(paging_selectedPage, searchText)
     }, [paging_selectedPage])
@@ -88,8 +85,8 @@ export default function ListNguoiDung(props: any) {
                 })
                 .catch((err) => {
                     setApiUserStatus(API_STATUS.fetchingError)
-                    toast.error(err.response.data, ALERT_CONFIG)
                     closeModel()
+                    toast.error(err.response.data, ALERT_CONFIG)
                 })
         }
     }, [userRegisterCourse])
@@ -108,7 +105,8 @@ export default function ListNguoiDung(props: any) {
                 setPaging_totalPage(() => resp.data.totalPages)
             })
             .catch((err) => {
-                setErrorFromApi(err)
+                setApiUserStatus(() => API_STATUS.fetchingError)
+                console.log(err)
             })
     }
     const { setShowPage } = props
@@ -341,18 +339,6 @@ export default function ListNguoiDung(props: any) {
                     />
                 </div>
             </Modal>
-            <ToastContainer
-                position='top-center'
-                autoClose={2000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme='light'
-            />
         </>
     )
 }

@@ -4,7 +4,7 @@ import { Button } from 'antd'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import css from './chi-tiet.module.scss'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import {
     dangKiKhoaHoc,
@@ -86,18 +86,6 @@ export default function ChiTiet() {
                     <p>{khoaHoc && khoaHoc.moTa}</p>
                 </div>
             </div>
-            <ToastContainer
-                position='top-center'
-                autoClose={2000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme='light'
-            />
         </>
     )
 }

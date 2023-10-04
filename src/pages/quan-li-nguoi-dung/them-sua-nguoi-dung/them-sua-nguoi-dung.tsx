@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { userForUpdate } from '../../../redux/slices/user.slice'
 import { useFormik } from 'formik'
 import InputElearning from '../../../components/input-elearning'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import css from './them-sua-nguoi-dung.module.scss'
 import {
@@ -215,18 +215,6 @@ export default function ThemSuaNguoiDung(props: any) {
                     </div>
                 </form>
             </div>
-            <ToastContainer
-                position='top-center'
-                autoClose={2000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme='light'
-            />
         </>
     )
 }
