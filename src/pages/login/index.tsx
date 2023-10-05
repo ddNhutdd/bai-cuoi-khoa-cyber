@@ -13,7 +13,7 @@ import { setLocalStorage } from '../../utils';
 import { ACCESS_TOKEN, ALERT_CONFIG, HO_TEN, MA_LOAI_NGUOI_DUNG, TAI_KHOAN, URL_NAVIGATE, VALIDATITON } from '../../constants';
 import { useNavigate } from 'react-router-dom';
 import 'animate.css'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 const registerSchema = Y.object({
@@ -113,18 +113,6 @@ function Login() {
         <ButtonQT title='Đăng nhập' type="submit" />
 
       </form>
-      <ToastContainer
-        position='top-center'
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme='light'
-      />
     </div>
   )
 }

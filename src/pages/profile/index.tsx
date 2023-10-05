@@ -12,7 +12,7 @@ import { useEffect } from 'react'
 import { getLocalStorage } from '../../utils'
 import { URL_NAVIGATE } from "../../constants"
 import 'animate.css';
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { huyGhiDanh} from '../../services/khoa-hoc.service'
 
@@ -212,18 +212,7 @@ function Profile() {
         </div>
 
       </form>
-      <ToastContainer
-        position='top-center'
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme='light'
-      />
+      
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import { Table, Button, Space } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useEffect, useState } from 'react'
 import Paging from '../../../../components/paging/paging'
@@ -86,6 +86,7 @@ export default function TableKhoaHoc(props: any) {
                 loadDataForTable()
             })
             .catch((err: any) => {
+                console.log('co day khong')
                 toast.error(COMMON_MESSAGE.thatBai, ALERT_CONFIG)
                 setApiUserStatus(API_STATUS.fetchingError)
                 console.log(err)
@@ -101,6 +102,7 @@ export default function TableKhoaHoc(props: any) {
             })
             .catch((err: any) => {
                 setApiUserStatus(API_STATUS.fetchingError)
+                console.log('co day khong 2 ')
                 toast.error(COMMON_MESSAGE.thatBai, ALERT_CONFIG)
                 console.log(err)
             })
@@ -173,18 +175,7 @@ export default function TableKhoaHoc(props: any) {
                     />
                 </div>
             )}
-            <ToastContainer
-                position='top-center'
-                autoClose={2000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme='light'
-            />
+           
         </>
     )
 }
