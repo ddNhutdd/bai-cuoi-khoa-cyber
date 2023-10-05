@@ -8,6 +8,7 @@ export const ITEM_PER_PAGE = 12
 export const enum API_RESPONSE {
     gdtc = "Ghi danh thành công!",
     tb = "Thất bại",
+    huyGhiDanh = 'Hủy ghi danh thành công !'
 }
 ////
 export const enum URL_NAVIGATE {

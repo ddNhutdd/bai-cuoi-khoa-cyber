@@ -130,3 +130,18 @@ export const layDanhSachHocVienKhoaHoc = async (maKhoaHoc: string) => {
     }
    
 }
+export const layDanhSachChuaGhiDanh = async (maKhoaHoc: string) => {
+    try {
+        const resp = await axiosWithAuth({
+            method: 'post',
+            url: '/QuanLyNguoiDung/LayDanhSachNguoiDungChuaGhiDanh',
+            data: {
+                maKhoaHoc
+            }
+        })
+        return resp
+    } catch (err: any) {
+        console.log('err',err)
+    }
+   
+}

@@ -7,6 +7,10 @@
         display: flex;
         gap: 2rem;
 
+        @media screen and (max-width: 576px) {
+            display: block;
+        }
+
         .them-sua-nguoi-dung__left, .them-sua-nguoi-dung__right {
             flex: 1;
         }
