@@ -77,6 +77,19 @@ export const huyGhiDanh = async (maKhoaHoc: string, taiKhoan: string) => {
         console.log('err',err)
     }
 }
+export const themKhoaHoc = async (data: any) => {
+    try {
+        const resp = await axiosWithAuth({
+            method: 'post',
+            url: '/QuanLyKhoaHoc/ThemKhoaHoc',
+            data,
+        })
+        return resp
+    } catch (err: any) {
+        console.log('err',err)
+        return err.response.data
+    }
+}
 export const xoaKhoaHoc = async (maKhoaHoc: string) =>{
     try {
         const resp = await axiosWithAuth({
@@ -91,9 +104,9 @@ export const xoaKhoaHoc = async (maKhoaHoc: string) =>{
         console.log(error)
     }
 }
-export const layDanhSachKhoaHoc = async () => {
+export const layDanhSachKhoaHoc = async (maNhom: string) => {
     try {
-        const resp = await axiosWithoutAuth('/QuanLyKhoaHoc/LayDanhSachKhoaHoc')
+        const resp = await axiosWithoutAuth(`/QuanLyKhoaHoc/LayDanhSachKhoaHoc?MaNhom=${maNhom}`)
         return resp.data
     } catch (error: any) {
         console.log(error.response.data)

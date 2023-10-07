@@ -10,7 +10,7 @@ import { useFormik } from "formik";
 import * as Y from 'yup'
 import { userLogin } from "../../services/user.service";
 import { setLocalStorage } from '../../utils';
-import { ACCESS_TOKEN, ALERT_CONFIG, HO_TEN, MA_LOAI_NGUOI_DUNG, TAI_KHOAN, URL_NAVIGATE, VALIDATITON } from '../../constants';
+import { ACCESS_TOKEN, ALERT_CONFIG, HO_TEN, MA_LOAI_NGUOI_DUNG, MA_NHOM, TAI_KHOAN, URL_NAVIGATE, VALIDATITON } from '../../constants';
 import { useNavigate } from 'react-router-dom';
 import 'animate.css'
 import { toast } from 'react-toastify'
@@ -51,6 +51,7 @@ function Login() {
           setLocalStorage(TAI_KHOAN, resp.taiKhoan);
           setLocalStorage(HO_TEN, resp.hoTen);
           setLocalStorage(MA_LOAI_NGUOI_DUNG, resp.maLoaiNguoiDung);
+          setLocalStorage(MA_NHOM, resp.maNhom)
     
           setTimeout(() => {
             if (resp.maLoaiNguoiDung === 'HV') {

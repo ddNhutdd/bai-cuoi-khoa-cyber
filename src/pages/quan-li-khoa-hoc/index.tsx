@@ -1,16 +1,16 @@
 import { useState } from "react"
-import { Input } from 'antd'
 import ThemKhoaHoc from "./them-khoa-hoc"
 import ListKhoaHoc from "./ds-khoa-hoc"
 import GhiDanh from "./ghi-danh-kh"
-const { Search } = Input
 export enum isPage {
   list,
   add,
   ghiDanh
 }
 
-export default function QuanLiKhoaHoc() {
+export default function QuanLiKhoaHoc(props: any) {
+  const {maNhom} = props
+  console.log(maNhom)
   const [page, setPage] = useState(isPage.list)
   const [maKhoaHoc, setMaKhoaHoc] = useState("");
   const render = () => {

@@ -82,7 +82,7 @@ function GhiDanh(props: any) {
 
     const handleCancel = (record: TypeKH) => {
         huyGhiDanh(maKhoaHoc, record.taiKhoan)
-            .then(result => {
+            .then(() => {
                 toast.success(API_RESPONSE.huyGhiDanh, ALERT_CONFIG);
             })
             .catch(error => {
