@@ -8,9 +8,7 @@ export enum isPage {
   ghiDanh
 }
 
-export default function QuanLiKhoaHoc(props: any) {
-  const {maNhom} = props
-  console.log(maNhom)
+export default function QuanLiKhoaHoc() {
   const [page, setPage] = useState(isPage.list)
   const [maKhoaHoc, setMaKhoaHoc] = useState("");
   const render = () => {
