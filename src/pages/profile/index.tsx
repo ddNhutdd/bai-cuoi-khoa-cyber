@@ -8,7 +8,7 @@ import { useFormik } from 'formik'
 import * as Y from 'yup'
 import { getProfile, updateProfile } from '../../services/user.service'
 import { ACCESS_TOKEN, ALERT_CONFIG, VALIDATITON } from '../../constants'
-import { useEffect, useState, memo } from 'react'
+import { useEffect } from 'react'
 import { getLocalStorage } from '../../utils'
 import { URL_NAVIGATE } from "../../constants"
 import 'animate.css';

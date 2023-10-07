@@ -6,7 +6,6 @@ import * as Y from 'yup'
 import ButtonQT from '../../../components/button'
 import { themKhoaHoc } from '../../../services/khoa-hoc.service'
 import { toast } from 'react-toastify'
-const urlRegex = /^(http(s)?:\/\/)[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+\.(jpg|jpeg|gif|png)$/
 
 const registerSchema = Y.object({
   
@@ -58,8 +57,7 @@ const registerSchema = Y.object({
 })
 
 
-function ThemKhoaHoc(props: any) {
-  const {maNhom} = props;
+function ThemKhoaHoc() {
   const formik = useFormik({
     initialValues: {
       maKhoaHoc: '',
