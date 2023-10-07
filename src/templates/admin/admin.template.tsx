@@ -12,15 +12,19 @@ import {
     HO_TEN,
     MA_LOAI_NGUOI_DUNG,
     TAI_KHOAN,
+    URL_NAVIGATE,
 } from '../../constants'
 export default function AdminTemplate() {
     const navigate = useNavigate()
     const [showSideBar, setShowSideBar] = useState<boolean>(false)
+    const [nameLogedUser, setNameLogedUser] = useState()
     const isWidth768 = useMediaQuery({ query: '(max-width: 768px)' })
     useEffect(() => {
         const typeOfUser = getLocalStorage(MA_LOAI_NGUOI_DUNG)
         if (!typeOfUser) {
-            navigate('/login')
+            navigate(URL_NAVIGATE.login)
+        } else {
+            setNameLogedUser(getLocalStorage(HO_TEN))
         }
     }, [])
     const allowShowSideBar = isWidth768 || showSideBar
@@ -29,12 +33,14 @@ export default function AdminTemplate() {
         removeLocalStorage(TAI_KHOAN)
         removeLocalStorage(HO_TEN)
         removeLocalStorage(MA_LOAI_NGUOI_DUNG)
-        navigate('/')
+        navigate(URL_NAVIGATE.home)
     }
     const items: MenuProps['items'] = [
         {
             key: '1',
-            label: <NavLink to={'/profile'}>Cập nhật thông tin</NavLink>,
+            label: (
+                <NavLink to={URL_NAVIGATE.profile}>Cập nhật thông tin</NavLink>
+            ),
         },
         {
             key: '2',
@@ -52,7 +58,7 @@ export default function AdminTemplate() {
                     }
                 >
                     <div className={'' + (allowShowSideBar && css['--g-0'])}>
-                        <NavLink to={'/'}>
+                        <NavLink to={URL_NAVIGATE.home}>
                             <img
                                 className={allowShowSideBar ? css['--dn'] : ''}
                                 src={logo}
@@ -65,7 +71,7 @@ export default function AdminTemplate() {
                         <span
                             className={allowShowSideBar ? css['--ma'] : ''}
                             onClick={() => {
-                                if (isWidth768) return;                            
+                                if (isWidth768) return
                                 setShowSideBar((s) => !s)
                             }}
                         >
@@ -74,7 +80,9 @@ export default function AdminTemplate() {
                     </div>
                     <ul>
                         <li className={allowShowSideBar ? css['--dn'] : ''}>
-                            <NavLink to={'/admin/quanlikhoahoc'}>Quản lý khóa học</NavLink>
+                            <NavLink to={'/admin/quanlikhoahoc'}>
+                                Quản lý khóa học
+                            </NavLink>
                         </li>
                         <li className={allowShowSideBar ? css['--dn'] : ''}>
                             <NavLink to={'/admin/quanlinguoidung'}>
@@ -95,7 +103,7 @@ export default function AdminTemplate() {
                 </div>
                 <div className={css['admin-template-container__side-right']}>
                     <div className={css['admin-template-container__top']}>
-                        <p>Xin chào: Haf</p>
+                        <p>Xin chào: {nameLogedUser}</p>
                         <Dropdown menu={{ items }} placement='bottom'>
                             <div
                                 className={
