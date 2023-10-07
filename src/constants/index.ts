@@ -2,12 +2,16 @@ export const ACCESS_TOKEN = 'access_token'
 export const TAI_KHOAN = 'tai_khoan'
 export const HO_TEN = 'ho_ten'
 export const MA_LOAI_NGUOI_DUNG = 'ma_loai_nguoi_dung'
+export const MA_NHOM = 'ma_nhom'
 export const TOKEN_CYBERSOFT = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1MDA4IiwiSGV0SGFuU3RyaW5nIjoiMjgvMDEvMjAyNCIsIkhldEhhblRpbWUiOiIxNzA2NDAwMDAwMDAwIiwibmJmIjoxNjc3NDMwODAwLCJleHAiOjE3MDY1NDc2MDB9.eo3y0MmcjE8Jl4fRzUJLBoZzylEeFDcUTfWXvtb1hdc`
 ///////
 export const ITEM_PER_PAGE = 12
 export const enum API_RESPONSE {
     gdtc = "Ghi danh thành công!",
     tb = "Thất bại",
+    huyGhiDanh = 'Hủy ghi danh thành công !',
+    huyThanhCong = 'Xóa thành công',
+    khongTheHuy = 'Khóa học đã ghi danh học viên không thể xóa!'
 }
 ////
 export const enum URL_NAVIGATE {
@@ -42,6 +46,37 @@ export const enum VALIDATITON{
     email_Min = 'Email phải từ 6 ký tự trở lên !',
     email_Max = 'Email phải nhỏ hơn 30 ký tự !',
     email_Required = 'Email không được bỏ trống !',
+    maKhoaHoc_Min = 'Mã khóa học phải từ 3 ký tự trở lên !',
+    maKhoaHoc_Max = 'Mã khóa học phải nhỏ hơn 20 ký tự !',
+    maKhoaHoc_Required = 'Mã khóa học không được bỏ trống !',
+    biDanh_Min = 'Bí danh phải từ 3 ký tự trở lên !',
+    biDanh_Max = 'Bí danh phải nhỏ hơn 20 ký tự !',
+    biDanh_Required = 'Bí danh không được bỏ trống !',
+    tenKhoaHoc_Min = 'Tên khóa học phải từ 3 ký tự trở lên !',
+    tenKhoaHoc_Max = 'Tên khóa học phải nhỏ hơn 30 ký tự !',
+    tenKhoaHoc_Required = 'Tên khóa học không được bỏ trống !',
+    moTa_Min = 'Mô tả phải từ 3 ký tự trở lên !',
+    moTa_Max = 'Mô tả phải nhỏ hơn 10 ký tự !',
+    moTa_Required = 'Mô tả không được bỏ trống !',
+    hinhAnh_hl = 'Hình ảnh không hợp lệ',
+    hinhAnh_Min = 'Hình ảnh phải từ 3 ký tự trở lên !',
+    hinhAnh_Max = 'Hình ảnh phải nhỏ hơn 100 ký tự !',
+    hinhAnh_Required = 'Hình ảnh không được bỏ trống !',
+    ngayTao_Min = 'Ngày tạo phải từ 3 ký tự trở lên !',
+    ngayTao_Max = 'Ngày tạo phải nhỏ hơn 10 ký tự !',
+    ngayTao_Required = 'Ngày tạo không được bỏ trống !',
+    maDanhMucKhoaHoc_Min = 'Mã danh mục phải từ 3 ký tự trở lên !',
+    maDanhMucKhoaHoc_Max = 'Mã danh mục phải nhỏ hơn 10 ký tự !',
+    maDanhMucKhoaHoc_Required = 'Mã danh mục không được bỏ trống !',
+    tkNguoiTao_Min = 'Tài khoản người tạo phải từ 3 ký tự trở lên !',
+    tkNguoiTao_Max = 'Tài khoản người tạo phải nhỏ hơn 10 ký tự !',
+    tkNguoiTao_Required = 'Tài khoản người tạo không được bỏ trống !',
+    luotXem_Min = 'Lượt xem phải từ 1 ký tự trở lên !',
+    luotXem_Max = 'Lượt xem phải nhỏ hơn 5000 !',
+    luotXem_Required = 'Lượt xem không được bỏ trống !',
+    danhGia_Min = 'Đánh giá phải từ 3 ký tự trở lên !',
+    danhGia_Max = 'Đánh giá phải nhỏ hơn 5000 !',
+    danhGia_Required = 'Đánh giá không được bỏ trống !',
 
 }
 export const enum COMMON_MESSAGE {

@@ -74,7 +74,7 @@ export default function AdminTemplate() {
                     </div>
                     <ul>
                         <li className={allowShowSideBar ? css['--dn'] : ''}>
-                            <NavLink to={'/'}>Quản lý khóa học</NavLink>
+                            <NavLink to={'/admin/quanlikhoahoc'}>Quản lý khóa học</NavLink>
                         </li>
                         <li className={allowShowSideBar ? css['--dn'] : ''}>
                             <NavLink to={'/admin/quanlinguoidung'}>

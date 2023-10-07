@@ -77,6 +77,19 @@ export const huyGhiDanh = async (maKhoaHoc: string, taiKhoan: string) => {
         console.log('err',err)
     }
 }
+export const themKhoaHoc = async (data: any) => {
+    try {
+        const resp = await axiosWithAuth({
+            method: 'post',
+            url: '/QuanLyKhoaHoc/ThemKhoaHoc',
+            data,
+        })
+        return resp
+    } catch (err: any) {
+        console.log('err',err)
+        return err.response.data
+    }
+}
 export const xoaKhoaHoc = async (maKhoaHoc: string) =>{
     try {
         const resp = await axiosWithAuth({
@@ -90,4 +103,58 @@ export const xoaKhoaHoc = async (maKhoaHoc: string) =>{
     } catch (error) {
         console.log(error)
     }
+}
+export const layDanhSachKhoaHoc = async (maNhom: string) => {
+    try {
+        const resp = await axiosWithoutAuth(`/QuanLyKhoaHoc/LayDanhSachKhoaHoc?MaNhom=${maNhom}`)
+        return resp.data
+    } catch (error: any) {
+        console.log(error.response.data)
+        return error.response.data
+    }
+}
+export const layDanhSachChoXetDuyet = async (maKhoaHoc: string) => {
+    try {
+        const resp = await axiosWithAuth({
+            method: 'post',
+            url: '/QuanLyNguoiDung/LayDanhSachHocVienChoXetDuyet',
+            data: {
+                maKhoaHoc
+            }
+        })
+        return resp
+    } catch (err: any) {
+        console.log('err',err)
+    }
+   
+}
+export const layDanhSachHocVienKhoaHoc = async (maKhoaHoc: string) => {
+    try {
+        const resp = await axiosWithAuth({
+            method: 'post',
+            url: '/QuanLyNguoiDung/LayDanhSachHocVienKhoaHoc',
+            data: {
+                maKhoaHoc
+            }
+        })
+        return resp
+    } catch (err: any) {
+        console.log('err',err)
+    }
+   
+}
+export const layDanhSachChuaGhiDanh = async (maKhoaHoc: string) => {
+    try {
+        const resp = await axiosWithAuth({
+            method: 'post',
+            url: '/QuanLyNguoiDung/LayDanhSachNguoiDungChuaGhiDanh',
+            data: {
+                maKhoaHoc
+            }
+        })
+        return resp
+    } catch (err: any) {
+        console.log('err',err)
+    }
+   
 }

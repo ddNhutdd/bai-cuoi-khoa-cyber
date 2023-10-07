@@ -14,7 +14,7 @@ const Profile = lazy(() => import("../pages/profile"));
 const NguoiDung = lazy(
     () => import('../pages/quan-li-nguoi-dung/quan-li-nguoi-dung'),
 )
-const KhoaHoc = lazy(() => import('../pages/quan-li-khoa-hoc/quan-li-khoa-hoc'))
+const KhoaHoc = lazy(() => import('../pages/quan-li-khoa-hoc'))
 export const router = createBrowserRouter([
     {
         element: <UserTemplate />,

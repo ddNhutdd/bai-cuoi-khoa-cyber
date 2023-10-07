@@ -1,3 +1,4 @@
+import { Input } from 'antd';
 import EyeOpenIcon from '../../assets/icons/eye-open.icon';
 import EyeSleepIcon from '../../assets/icons/eye-sleep.icon';
 import css from './input.module.scss'
@@ -14,7 +15,7 @@ function InputForm(props: any) {
   return (
     <>
     <div className={css['input-eye']}>
-      <input {...field} type={inputType} placeholder={placeholder} disabled={disabled} className={css['input-form']} />
+      <Input {...field} type={inputType} placeholder={placeholder} disabled={disabled} className={css['input-form']} />
       {showEye && (
         <span onClick={handleChange} className={css['eye']}>
           {inputType === 'password' ?<EyeSleepIcon/> : <EyeOpenIcon/>} 
