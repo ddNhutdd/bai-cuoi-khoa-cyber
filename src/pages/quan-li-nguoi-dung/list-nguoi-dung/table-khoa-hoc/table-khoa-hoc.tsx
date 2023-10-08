@@ -3,8 +3,6 @@ import type { ColumnsType } from 'antd/es/table'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useEffect, useState } from 'react'
-import Paging from '../../../../components/paging/paging'
-import css from './table-khoa-hoc.module.scss'
 import {
     getListCoursesApproved,
     getListCoursesAwaitingApproval,
@@ -26,7 +24,7 @@ interface IKhoaHoc {
     tenKhoaHoc: string
     maKhoaHoc: string
 }
-const pageSize = 3
+const pageSize = 5
 export default function TableKhoaHoc(props: any) {
     const {
         xacThuc,
@@ -37,7 +35,7 @@ export default function TableKhoaHoc(props: any) {
     } = props
     const [apiUserStatus, setApiUserStatus] = useState(API_STATUS.pending)
     const [listDataForTable, setListDataForTable] = useState<any>()
-    const [paging_totalPage, setPaging_totalPage] = useState<any>(0)
+    const [paging_totalItems, setPaging_totalItems] = useState<any>(0)
     const [paging_selectedPage, setPaging_selectedPage] = useState<any>(1)
     useEffect(() => {
         loadDataForTable()
@@ -54,9 +52,12 @@ export default function TableKhoaHoc(props: any) {
                 ?.then((resp: any) => {
                     setApiUserStatus(API_STATUS.fetchingSuccess)
                     const data = resp.data
-                    const totalItem = resp.data.length
+                    const totalPages = Math.ceil(data.length / pageSize)
+                    if (paging_selectedPage > totalPages) {
+                        setPaging_selectedPage(totalPages)
+                    }
+                    setPaging_totalItems(() => data.length)
                     setListDataForTable(() => data)
-                    setPaging_totalPage(() => Math.ceil(totalItem / pageSize))
                 })
                 .catch((err: any) => {
                     setApiUserStatus(API_STATUS.fetchingError)
@@ -68,9 +69,12 @@ export default function TableKhoaHoc(props: any) {
                 ?.then((resp: any) => {
                     setApiUserStatus(API_STATUS.fetchingSuccess)
                     const data = resp.data
-                    const totalItem = resp.data.length
+                    const totalPages = Math.ceil(data.length / pageSize)
+                    if (paging_selectedPage > totalPages) {
+                        setPaging_selectedPage(totalPages)
+                    }
                     setListDataForTable(() => data)
-                    setPaging_totalPage(() => Math.ceil(totalItem / pageSize))
+                    setPaging_totalItems(() => data.length)
                 })
                 .catch((err: any) => {
                     setApiUserStatus(API_STATUS.fetchingError)
@@ -86,7 +90,6 @@ export default function TableKhoaHoc(props: any) {
                 loadDataForTable()
             })
             .catch((err: any) => {
-                console.log('co day khong')
                 toast.error(COMMON_MESSAGE.thatBai, ALERT_CONFIG)
                 setApiUserStatus(API_STATUS.fetchingError)
                 console.log(err)
@@ -102,7 +105,6 @@ export default function TableKhoaHoc(props: any) {
             })
             .catch((err: any) => {
                 setApiUserStatus(API_STATUS.fetchingError)
-                console.log('co day khong 2 ')
                 toast.error(COMMON_MESSAGE.thatBai, ALERT_CONFIG)
                 console.log(err)
             })
@@ -150,7 +152,7 @@ export default function TableKhoaHoc(props: any) {
         .map((item: any, index: number) => {
             const newData: IKhoaHoc = {
                 key: item.maKhoaHoc,
-                STT: (paging_selectedPage - 1) * 3 + index + 1,
+                STT: (paging_selectedPage - 1) * pageSize + index + 1,
                 tenKhoaHoc: item.tenKhoaHoc,
                 maKhoaHoc: item.maKhoaHoc,
             }
@@ -163,19 +165,20 @@ export default function TableKhoaHoc(props: any) {
                 {daGhiDanh && 'đã ghi danh'}
             </p>
             <div>
-                <Table columns={columns} pagination={false} dataSource={data} />
+                <Table
+                    columns={columns}
+                    pagination={{
+                        position: ['bottomRight'],
+                        pageSize,
+                        total: paging_totalItems,
+                        current: paging_selectedPage,
+                        onChange: (page) => {
+                            setPaging_selectedPage(page)
+                        },
+                    }}
+                    dataSource={data}
+                />
             </div>
-            {paging_totalPage >= 1 && (
-                <div className={css['paging']}>
-                    <Paging
-                        theme={2}
-                        selectedPage={paging_selectedPage}
-                        setSelectedPage={setPaging_selectedPage}
-                        totalPage={paging_totalPage}
-                    />
-                </div>
-            )}
-           
         </>
     )
 }

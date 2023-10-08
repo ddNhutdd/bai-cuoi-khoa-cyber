@@ -9,7 +9,6 @@ import 'react-toastify/dist/ReactToastify.css'
 import type { ColumnsType } from 'antd/es/table'
 import type { MenuProps } from 'antd'
 import { CloseOutlined, DownOutlined, UserOutlined } from '@ant-design/icons'
-import Paging from '../../../components/paging/paging'
 import TableKhoaHoc from './table-khoa-hoc/table-khoa-hoc'
 import {
     deleteUser,
@@ -49,12 +48,11 @@ export default function ListNguoiDung(props: any) {
         API_STATUS.pending,
     )
     const [paging_selectedPage, setPaging_selectedPage] = useState(1)
-    const [paging_totalPage, setPaging_totalPage] = useState(0)
+    const [paging_totalItems, setPaging_totalItems] = useState(0)
     const [searchText, setSearchText] = useState<string>()
     const [re_renderTableDaGhiDanh, setRe_renderTableDaGhiDanh] =
         useState<number>(0)
     const dispatch = useDispatch()
-
     useEffect(() => {
         loadListUser(1)
     }, [])
@@ -69,27 +67,30 @@ export default function ListNguoiDung(props: any) {
     }, [searchText])
     useEffect(() => {
         if (userRegisterCourse) {
-            setApiUserStatus(() => API_STATUS.fetching)
-            getCoursesNotEnrolled(userRegisterCourse.taiKhoan)
-                ?.then((resp) => {
-                    setApiUserStatus(() => API_STATUS.fetchingSuccess)
-                    itemsDanhMuc = resp.data.map((item: any) => {
-                        return {
-                            label: item.tenKhoaHoc,
-                            key: item.maKhoaHoc + ',' + item.tenKhoaHoc,
-                        }
-                    })
-                    if (itemsDanhMuc) {
-                        setDropdownCourseSelected(itemsDanhMuc[0]?.key)
-                    }
-                })
-                .catch((err) => {
-                    setApiUserStatus(API_STATUS.fetchingError)
-                    closeModel()
-                    toast.error(err.response.data, ALERT_CONFIG)
-                })
+            loadListCoursesNotEnrolledForDropdown()
         }
     }, [userRegisterCourse])
+    const loadListCoursesNotEnrolledForDropdown = () => {
+        setApiUserStatus(() => API_STATUS.fetching)
+        getCoursesNotEnrolled(userRegisterCourse.taiKhoan)
+            ?.then((resp) => {
+                setApiUserStatus(() => API_STATUS.fetchingSuccess)
+                itemsDanhMuc = resp.data.map((item: any) => {
+                    return {
+                        label: item.tenKhoaHoc,
+                        key: item.maKhoaHoc + ',' + item.tenKhoaHoc,
+                    }
+                })
+                if (itemsDanhMuc) {
+                    setDropdownCourseSelected(itemsDanhMuc[0]?.key)
+                }
+            })
+            .catch((err) => {
+                setApiUserStatus(API_STATUS.fetchingError)
+                closeModel()
+                toast.error(err.response.data, ALERT_CONFIG)
+            })
+    }
     const showModal = () => {
         setIsModalOpen(true)
     }
@@ -102,7 +103,7 @@ export default function ListNguoiDung(props: any) {
             ?.then((resp) => {
                 setListUser(() => resp.data.items)
                 setPaging_selectedPage(() => resp.data.currentPage)
-                setPaging_totalPage(() => resp.data.totalPages)
+                setPaging_totalItems(() => resp.data.totalCount)
             })
             .catch((err) => {
                 setApiUserStatus(() => API_STATUS.fetchingError)
@@ -222,9 +223,10 @@ export default function ListNguoiDung(props: any) {
         setApiUserStatus(API_STATUS.fetching)
         ghiDanhKhoaHoc(khoaHoc, taiKhoan)
             ?.then((resp: any) => {
-                setApiUserStatus(API_STATUS.fetchingSuccess)
+                loadListCoursesNotEnrolledForDropdown()
                 toast.success(resp.data, ALERT_CONFIG)
                 setRe_renderTableDaGhiDanh((c) => ++c)
+                setApiUserStatus(API_STATUS.fetchingSuccess)
             })
             .catch((err: any) => {
                 setApiUserStatus(API_STATUS.fetchingError)
@@ -269,19 +271,17 @@ export default function ListNguoiDung(props: any) {
                 <div className={css['list-nguoi-dung__table-container']}>
                     <Table
                         columns={columns}
-                        pagination={false}
                         dataSource={data}
+                        pagination={{
+                            position: ['bottomRight'],
+                            pageSize: 10,
+                            total: paging_totalItems,
+                            showSizeChanger: false,
+                            onChange: (page) => {
+                                setPaging_selectedPage(page)
+                            },
+                        }}
                     />
-                    {paging_totalPage > 1 && (
-                        <div className={css['paging']}>
-                            <Paging
-                                theme={2}
-                                totalPage={paging_totalPage}
-                                selectedPage={paging_selectedPage}
-                                setSelectedPage={setPaging_selectedPage}
-                            />
-                        </div>
-                    )}
                 </div>
             </div>
             <Modal
