@@ -74,7 +74,7 @@ export const enum VALIDATITON{
     luotXem_Min = 'Lượt xem phải từ 1 ký tự trở lên !',
     luotXem_Max = 'Lượt xem phải nhỏ hơn 5000 !',
     luotXem_Required = 'Lượt xem không được bỏ trống !',
-    danhGia_Min = 'Đánh giá phải từ 3 ký tự trở lên !',
+    danhGia_Min = 'Đánh giá phải từ 1 ký tự trở lên !',
     danhGia_Max = 'Đánh giá phải nhỏ hơn 5000 !',
     danhGia_Required = 'Đánh giá không được bỏ trống !',
 

@@ -22,7 +22,7 @@ function ListKhoaHoc(props: any) {
   const [data, setData] = useState<TypeKH[]>([]);
   const [searchResults, setSearchResults] = useState<TypeKH[]>([]);
   const [searchText, setSearchText] = useState<string>("");
-  const [noResults, setNoResults] = useState<boolean>(false); // New state to track no results
+  const [noResults, setNoResults] = useState<boolean>(false);
 
   const maNhom = getLocalStorage(MA_NHOM);
 
@@ -31,7 +31,6 @@ function ListKhoaHoc(props: any) {
       const data = await layDanhSachKhoaHoc(maNhom);
       setData(data);
     };
-
     fetchData();
   }, [maNhom]);
 
@@ -41,10 +40,10 @@ function ListKhoaHoc(props: any) {
         item.tenKhoaHoc.includes(searchText)
       );
       setSearchResults(filteredData);
-      setNoResults(filteredData.length === 0); 
+      setNoResults(filteredData.length === 0);
     } else {
       setSearchResults([]);
-      setNoResults(false); 
+      setNoResults(false);
     }
   }, [searchText, data]);
 
@@ -54,11 +53,15 @@ function ListKhoaHoc(props: any) {
 
       if (response && response.data === API_RESPONSE.huyThanhCong) {
         toast.success(response.data, ALERT_CONFIG);
+
+        setTimeout(() => {
+          const dataAfterDelete = data.filter(item => item.maKhoaHoc !== record.maKhoaHoc)
+          setData(dataAfterDelete)
+        }, 3000)
+
       } else {
         toast.error(API_RESPONSE.khongTheHuy, ALERT_CONFIG);
       }
-      const newData = await layDanhSachKhoaHoc(maNhom);
-      setData(newData);
     } catch (error) {
       console.log(error);
     }
@@ -67,9 +70,8 @@ function ListKhoaHoc(props: any) {
   let dataSource: TypeKH[] = [];
   if (searchResults.length > 0) {
     dataSource = searchResults;
-    console.log(dataSource)
   } else {
-    dataSource = data;  
+    dataSource = data;
   }
 
   const columns = [
@@ -100,7 +102,7 @@ function ListKhoaHoc(props: any) {
       title: 'Người tạo',
       dataIndex: 'nguoiTao',
       key: 'nguoiTao',
-      render: (nguoiTao: {hoTen: string, taiKhoan: string, maLoaiNguoiDung: string}) => (
+      render: (nguoiTao: { hoTen: string, taiKhoan: string, maLoaiNguoiDung: string }) => (
         <div>
           {nguoiTao.hoTen}
         </div>
@@ -121,7 +123,14 @@ function ListKhoaHoc(props: any) {
             Ghi danh
           </Button>
 
-          <Button type="primary" ghost>Sửa</Button>
+          <Button
+            onClick={() => {
+              const maKhoaHoc = record.maKhoaHoc;
+              setPage(isPage.update)
+              setMaKhoaHoc(maKhoaHoc)
+            }}
+            type="primary" ghost>Sửa</Button>
+            
           <Button onClick={() => buttonXoaKhoaHoc(record)} type="primary" danger>Xóa</Button>
         </Space>
       ),
@@ -149,7 +158,12 @@ function ListKhoaHoc(props: any) {
       </div>
       {noResults ? <p>Không tìm thấy kết quả</p> : (
         <div className={css["table-kh"]}>
-          <Table dataSource={dataSource} columns={columns} />
+          <Table dataSource={dataSource} columns={columns}
+            pagination={{
+              position: ['bottomRight'],
+              pageSize: 10,
+              showSizeChanger: false,
+            }} />
         </div>
       )}
 

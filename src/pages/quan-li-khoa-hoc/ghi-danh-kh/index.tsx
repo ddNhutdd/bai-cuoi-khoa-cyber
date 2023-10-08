@@ -1,11 +1,10 @@
 import { Button, Space, Table, Input } from "antd";
 import { useEffect, useState } from 'react'
-import { ghiDanhKhoaHoc, huyGhiDanh, layDanhSachChoXetDuyet, layDanhSachChuaGhiDanh, layDanhSachHocVienKhoaHoc, timKiemKhoaHoc } from "../../../services/khoa-hoc.service";
+import { ghiDanhKhoaHoc, huyGhiDanh, layDanhSachChoXetDuyet, layDanhSachChuaGhiDanh, layDanhSachHocVienKhoaHoc} from "../../../services/khoa-hoc.service";
 import css from './ghidanh.module.scss'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { ALERT_CONFIG, API_RESPONSE } from "../../../constants";
-const { Search } = Input
 
 interface TypeKH {
     key: number
@@ -17,10 +16,16 @@ interface TypeKH {
 
 function GhiDanh(props: any) {
     const { maKhoaHoc } = props
-    const [dataChoXacThuc, setDataChoXacThuc] = useState([]);
-    const [dataLayDS, setDataLayDS] = useState([]);
+    const [dataChoXacThuc, setDataChoXacThuc] = useState<TypeKH[]>([]);
+    const [dataLayDS, setDataLayDS] = useState<TypeKH[]>([]);
     const [dataChuaGhiDanh, setdataChuaGhiDanh] = useState([]);
-
+    const [searchText1, setSearchText1] = useState('');
+    const [searchText2, setSearchText2] = useState('');     // State để lưu từ khóa tìm kiếm
+    const [searchText3, setSearchText3] = useState('');
+    const [results1, setResults1] = useState<TypeKH[]>([]);
+    const [results2, setResults2] = useState<TypeKH[]>([]); // State để lưu KQ tìm kiếm
+    const [results3, setResults3] = useState<TypeKH[]>([]);
+    
     useEffect(() => {
         const fetchDataChoXet = async () => {
             try {
@@ -84,19 +89,42 @@ function GhiDanh(props: any) {
         huyGhiDanh(maKhoaHoc, record.taiKhoan)
             .then(() => {
                 toast.success(API_RESPONSE.huyGhiDanh, ALERT_CONFIG);
+                // thực hiện xóa sau khi gọi api thành công
+                setTimeout(() => {
+                    const dataChoXacThucDel = dataChoXacThuc.filter(item => item.hoTen !== record.hoTen)
+                    setDataChoXacThuc(dataChoXacThucDel)
+                    const dataLayDSDel = dataLayDS.filter(item => item.hoTen !== record.hoTen)
+                    setDataLayDS(dataLayDSDel)
+
+                }, 3000)
+                
             })
             .catch(error => {
                 console.log(error)
             })
     }
-    const handleSearch = (value: any) => {
-        timKiemKhoaHoc(value, 1, 10)
-            .then(result => {
-                console.log(result)
-            })
-    }
 
+    // chức năng tìm kiếm
+    useEffect(() => {
+        // Tìm trên 3 data source
+        const results1: TypeKH[] = dataChoXacThuc.filter((item: any) => item.hoTen.includes(searchText1))
+        results1.forEach(item => {
+            item.actionType = 'Chờ xét duyệt'
+        })
+        const results2: TypeKH[] = dataLayDS.filter((item: any) => item.hoTen.includes(searchText2))
+        results2.forEach(item => {
+            item.actionType = 'Học viên khóa học'
+        })
+        const results3: TypeKH[] = dataChuaGhiDanh.filter((item: any) => item.hoTen.includes(searchText3))
+        results3.forEach(item => {
+            item.actionType = 'Ghi danh'
+        })
 
+        setResults1(results1);
+        setResults2(results2);
+        setResults3(results3);
+
+    }, [searchText1, searchText2, searchText3]);
 
     const dataSourceChoXacThuc: TypeKH[] = Array.isArray(dataChoXacThuc) ? dataChoXacThuc.map((item: any, index) => {
         const actionType = 'Chờ xét duyệt'
@@ -131,6 +159,7 @@ function GhiDanh(props: any) {
         return dataDetail;
     }) : [];
 
+
     const columns = [
         {
             title: 'Tài khoản',
@@ -160,7 +189,7 @@ function GhiDanh(props: any) {
                         <Space>
                             {actionType === 'Chờ xét duyệt' ? (
                                 <>
-                                    <Button type='primary'>Xác thực</Button>
+                                    <Button onClick={() => handleGhiDanh(record)} type='primary'>Xác thực</Button>
                                     <Button onClick={() => handleCancel(record)} type="primary" danger>Hủy</Button>
                                 </>
                             ) : actionType === 'Ghi danh' ? (
@@ -175,62 +204,74 @@ function GhiDanh(props: any) {
                         </Space>
                     );
                 }
-                else {
-
-                }
             }
-
-
         },
-
-
-
     ];
     return (
         <div>
-            <div className={css['search-ghidanh']}>
-                <Search
-                    className={css['header__search']}
-                    placeholder='Nhập tên học viên cần tim'
-                    enterButton
-                    onSearch={handleSearch}
-                />
-                <Button type='primary'>Ghi danh</Button>
-            </div>
 
             <div className={css['table-cho-xthuc']}>
-                <p className={css['cho-xac-thuc']}> Học viên chờ xác thực</p>
+                <div className={css['search-ghidanh']}>
+                    <p className={css['cho-xac-thuc']}> Học viên chờ xác thực</p>
+                    <Input
+                        className={css['ghiDanh__search']}
+                        placeholder='Nhập tên học viên cần tim'
+                        onChange={e => setSearchText1(e.target.value)}
+                        value={searchText1}
+                    />
+                </div>
                 <div>
-                    <Table dataSource={dataSourceChoXacThuc} columns={columns} />
+                    <Table dataSource={searchText1 ? results1 : dataSourceChoXacThuc} 
+                    columns={columns} 
+                    pagination={{
+                        position: ['bottomRight'],
+                        pageSize: 5,
+                        showSizeChanger: false,
+                    }} />
                 </div>
             </div>
             <div className={css['table-dshv']}>
-                <p className={css['ds-hv']}> Học viên khóa học</p>
+                <div className={css['search-ghidanh']}>
+                    <p className={css['cho-xac-thuc']}> Học viên khóa học</p>
+                    <Input
+                        className={css['ghiDanh__search']}
+                        placeholder='Nhập tên học viên cần tim'
+                        onChange={e => setSearchText2(e.target.value)}
+                        value={searchText2}
+                    />
+                </div>
                 <div>
-                    <Table dataSource={dataSourceLayDS} columns={columns} />
+                    <Table dataSource={searchText2 ? results2 : dataSourceLayDS} 
+                    columns={columns} 
+                    pagination={{
+                        position: ['bottomRight'],
+                        pageSize: 5,
+                        showSizeChanger: false,
+                    }}/>
+                </div>
+            </div>
+            <div className={css['table-chuaghidanh']}>
+                <div className={css['search-ghidanh']}>
+                    <p className={css['cho-xac-thuc']}>Học viên chưa ghi danh</p>
+                    <Input
+                        className={css['ghiDanh__search']}
+                        placeholder='Nhập tên học viên cần tim'
+                        onChange={e => setSearchText3(e.target.value)}
+                        value={searchText3}
+                    />
+                </div>
+                <div>
+                    <Table dataSource={searchText3 ? results3 : dataSourceChuaGhiDanh} 
+                    columns={columns} 
+                    pagination={{
+                        position: ['bottomRight'],
+                        pageSize: 5,
+                        showSizeChanger: false,
+                    }}/>
                 </div>
             </div>
 
-            <div className={css['table-dshv']}>
-                <p className={css['ds-hv']}> Học viên chưa ghi danh</p>
-                <div>
-                    <Table dataSource={dataSourceChuaGhiDanh} columns={columns} />
-                </div>
-            </div>
-
-            <ToastContainer
-                position='top-center'
-                autoClose={2000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme='light'
-            />
-        </div>
+        </div >
     )
 }
 

@@ -104,6 +104,31 @@ export const xoaKhoaHoc = async (maKhoaHoc: string) =>{
         console.log(error)
     }
 }
+export const thongTinKhoaHoc = async (maKhoaHoc: string) => {
+    try {
+        const resp = await axiosWithAuth({
+            method: 'get',
+            url: `/QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${maKhoaHoc}`,
+        })
+        return resp
+    } catch (err: any) {
+        console.log('err',err)
+        return err.response.data
+    }
+}
+export const capNhatKhoaHoc = async (data: any) => {
+    try {
+        const resp = await axiosWithAuth({
+            method: 'put',
+            url: '/QuanLyKhoaHoc/CapNhatKhoaHoc',
+            data
+        })
+        return resp
+    } catch (err: any) {
+        console.log('err',err)
+        return err.response.data
+    }
+}
 export const layDanhSachKhoaHoc = async (maNhom: string) => {
     try {
         const resp = await axiosWithoutAuth(`/QuanLyKhoaHoc/LayDanhSachKhoaHoc?MaNhom=${maNhom}`)
