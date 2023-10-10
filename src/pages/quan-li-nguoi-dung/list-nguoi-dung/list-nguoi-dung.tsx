@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { ghiDanhKhoaHoc } from '../../../services/khoa-hoc.service'
 import { selectUserForUpdate } from '../../../redux/slices/user.slice'
 import { Button, Input, Space, Table, Modal, Dropdown } from 'antd'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import type { ColumnsType } from 'antd/es/table'
@@ -23,6 +23,7 @@ import {
     FIELD_NAME_WIDTH_SPACE,
 } from '../../../constants'
 import { ShowPage } from '../quan-li-nguoi-dung'
+import { debounce } from '../../../utils'
 interface IUser {
     key: number
     STT: number
@@ -62,9 +63,6 @@ export default function ListNguoiDung(props: any) {
     useEffect(() => {
         loadListUser(paging_selectedPage, searchText)
     }, [paging_selectedPage])
-    useEffect(() => {
-        loadListUser(1, searchText)
-    }, [searchText])
     useEffect(() => {
         if (userRegisterCourse) {
             loadListCoursesNotEnrolledForDropdown()
@@ -236,6 +234,7 @@ export default function ListNguoiDung(props: any) {
                 )
             })
     }
+    const loadListUserDebounced = useCallback(debounce(loadListUser, 1000), [])
     return (
         <>
             <div className={css['list-nguoi-dung']}>
@@ -260,6 +259,7 @@ export default function ListNguoiDung(props: any) {
                                 e: React.ChangeEvent<HTMLInputElement>,
                             ) => {
                                 setSearchText(e.target.value)
+                                loadListUserDebounced(1, e.target.value)
                             }}
                             value={searchText}
                             placeholder={
