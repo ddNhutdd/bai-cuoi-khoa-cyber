@@ -56,7 +56,7 @@ export const enum VALIDATITON{
     tenKhoaHoc_Max = 'Tên khóa học phải nhỏ hơn 30 ký tự !',
     tenKhoaHoc_Required = 'Tên khóa học không được bỏ trống !',
     moTa_Min = 'Mô tả phải từ 3 ký tự trở lên !',
-    moTa_Max = 'Mô tả phải nhỏ hơn 10 ký tự !',
+    moTa_Max = 'Mô tả phải nhỏ hơn 100 ký tự !',
     moTa_Required = 'Mô tả không được bỏ trống !',
     hinhAnh_hl = 'Hình ảnh không hợp lệ',
     hinhAnh_Min = 'Hình ảnh phải từ 3 ký tự trở lên !',

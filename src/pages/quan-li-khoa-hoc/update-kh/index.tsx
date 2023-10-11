@@ -1,12 +1,13 @@
 import * as Y from 'yup'
 import ButtonQT from '../../../components/button'
-import { capNhatKhoaHoc, thongTinKhoaHoc } from '../../../services/khoa-hoc.service'
+import { capNhatKhoaHoc, thongTinKhoaHoc, upLoadHinhAnhKhoaHoc } from '../../../services/khoa-hoc.service'
 import { toast } from 'react-toastify'
 import { ALERT_CONFIG, VALIDATITON } from '../../../constants'
 import { useFormik } from 'formik'
 import InputForm from '../../../components/input'
 import css from './update-kh.module.scss'
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { Button } from 'antd'
 
 const registerSchema = Y.object({
 
@@ -24,7 +25,7 @@ const registerSchema = Y.object({
         .required(VALIDATITON.tenKhoaHoc_Required),
     moTa: Y.string()
         .min(6, VALIDATITON.moTa_Min)
-        .max(15, VALIDATITON.moTa_Max)
+        .max(100, VALIDATITON.moTa_Max)
         .required(VALIDATITON.moTa_Required),
     luotXem: Y.number()
         .min(0, VALIDATITON.luotXem_Min)
@@ -35,9 +36,6 @@ const registerSchema = Y.object({
         .max(5000, VALIDATITON.danhGia_Max)
         .required(VALIDATITON.danhGia_Required),
     hinhAnh: Y.string()
-        .matches(/^https:\/\/elearningnew\.cybersoft\.edu\.vn\/hinhanh\/.+\.(jpg|jpeg|png|gif)$/i, VALIDATITON.hinhAnh_hl)
-        .min(1, VALIDATITON.hinhAnh_Min)
-        .max(100, VALIDATITON.hinhAnh_Max)
         .required(VALIDATITON.hinhAnh_Required),
     maNhom: Y.string()
         .min(3, VALIDATITON.maNhom_Min)
@@ -48,7 +46,7 @@ const registerSchema = Y.object({
         .max(20, VALIDATITON.ngayTao_Max)
         .required(VALIDATITON.ngayTao_Required),
     maDanhMucKhoaHoc: Y.string()
-        .min(6, VALIDATITON.maDanhMucKhoaHoc_Min)
+        .min(3, VALIDATITON.maDanhMucKhoaHoc_Min)
         .max(20, VALIDATITON.maDanhMucKhoaHoc_Max)
         .required(VALIDATITON.maDanhMucKhoaHoc_Required),
     taiKhoanNguoiTao: Y.string()
@@ -57,7 +55,10 @@ const registerSchema = Y.object({
         .required(VALIDATITON.tkNguoiTao_Required),
 })
 function UpdateKH(props: any) {
-    const {maKhoaHoc} = props
+    const { maKhoaHoc } = props
+    const [isEditMode, setIsEditMode] = useState(false);
+    const fileInput = useRef<HTMLInputElement>(null)
+    let imageUrl = '';
     const formik = useFormik({
         initialValues: {
             maKhoaHoc: '',
@@ -89,8 +90,16 @@ function UpdateKH(props: any) {
                 maDanhMucKhoaHoc: value.maDanhMucKhoaHoc,
                 taiKhoanNguoiTao: value.taiKhoanNguoiTao
             }
-
             try {
+                if (fileInput.current?.files?.length) {
+                    const formData = new FormData();
+                    formData.append('file', fileInput.current.files[0]);
+                    formData.append('tenKhoaHoc', data.tenKhoaHoc);
+                    const result = await upLoadHinhAnhKhoaHoc(formData);
+                    imageUrl = result.data.url;
+                    console.log('hinh anh', imageUrl)
+        
+                }
                 const response = await capNhatKhoaHoc(data);
                 if (response.statusText === 'OK') {
                     toast.success('Cập nhật khóa học thành công !', ALERT_CONFIG)
@@ -108,10 +117,10 @@ function UpdateKH(props: any) {
     const ma = maKhoaHoc
     useEffect(() => {
         const fetchData = async () => {
-           const data = await thongTinKhoaHoc(ma);
-            const { maKhoaHoc, biDanh, tenKhoaHoc, moTa, luotXem, hinhAnh, maNhom, ngayTao, soLuongHocVien} = data?.data ?? {};
-            const {taiKhoan} = data?.data.nguoiTao;
-            const {maDanhMucKhoahoc} = data?.data.danhMucKhoaHoc;
+            const data = await thongTinKhoaHoc(ma);
+            const { maKhoaHoc, biDanh, tenKhoaHoc, moTa, luotXem, hinhAnh, maNhom, ngayTao, soLuongHocVien } = data?.data ?? {};
+            const { taiKhoan } = data?.data.nguoiTao;
+            const { maDanhMucKhoahoc } = data?.data.danhMucKhoaHoc;
             formik.setFieldValue('maKhoaHoc', maKhoaHoc);
             formik.setFieldValue('biDanh', biDanh);
             formik.setFieldValue('tenKhoaHoc', tenKhoaHoc);
@@ -126,6 +135,12 @@ function UpdateKH(props: any) {
         };
         fetchData();
     }, [maKhoaHoc]);
+
+   
+    const toggleEditMode = () => {
+        setIsEditMode(prev => !prev);
+    }
+
     return (
         <div>
             <p className={css['add-kh']}>Cập nhật khóa học</p>
@@ -214,12 +229,30 @@ function UpdateKH(props: any) {
                                 placeholder="Mã danh mục khóa học" />
                         </div>
                     </div>
-                    <div>
-                        <p className={css['p-title']}>Hình ảnh</p>
-                        <InputForm
-                            formik={formik}
-                            {...formik.getFieldProps('hinhAnh')}
-                            placeholder="Hình ảnh" />
+                    <div className={css['input-row']}>
+                        <div className={css['input-eleImg']}>
+                            <p className={css['p-title']}>Hình ảnh</p>
+                            {
+                                isEditMode ? (
+                                    <InputForm
+                                        formik={formik}
+                                        type="file"
+                                        
+                                    />
+                                ) : (
+                                    <InputForm
+                                        formik={formik}
+                                        {...formik.getFieldProps('hinhAnh')}
+                                        placeholder="Hình ảnh"
+                                    />
+                                )
+                            }
+                        </div>
+                        <div className={css['button-updateImg']}>
+                            <Button onClick={toggleEditMode}>Chỉnh sửa ảnh</Button>
+                        </div>
+
+
                     </div>
                 </div>
                 <div><ButtonQT title='Cập nhật' type='submit' /></div>

@@ -138,6 +138,19 @@ export const layDanhSachKhoaHoc = async (maNhom: string) => {
         return error.response.data
     }
 }
+export const upLoadHinhAnhKhoaHoc = async (formData: any) => {
+    try {
+        const resp = await axiosWithAuth({
+            method: 'post',
+            url: '/QuanLyKhoaHoc/UploadHinhAnhKhoaHoc',
+            data: formData
+        })
+        return resp
+    } catch (err: any) {
+        console.log('err',err)
+        return err.response.data
+    }
+}
 export const layDanhSachChoXetDuyet = async (maKhoaHoc: string) => {
     try {
         const resp = await axiosWithAuth({
