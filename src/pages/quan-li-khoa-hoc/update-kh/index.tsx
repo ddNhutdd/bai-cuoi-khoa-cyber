@@ -58,7 +58,7 @@ function UpdateKH(props: any) {
     const { maKhoaHoc } = props
     const [isEditMode, setIsEditMode] = useState(false);
     const fileInput = useRef<HTMLInputElement>(null)
-    let imageUrl = '';
+    let imageUrl: any;
     const formik = useFormik({
         initialValues: {
             maKhoaHoc: '',
@@ -96,10 +96,10 @@ function UpdateKH(props: any) {
                     formData.append('file', fileInput.current.files[0]);
                     formData.append('tenKhoaHoc', data.tenKhoaHoc);
                     const result = await upLoadHinhAnhKhoaHoc(formData);
-                    imageUrl = result.data.url;
-                    console.log('hinh anh', imageUrl)
+                    imageUrl = result;
         
                 }
+                console.log('hinh anh', imageUrl)
                 const response = await capNhatKhoaHoc(data);
                 if (response.statusText === 'OK') {
                     toast.success('Cập nhật khóa học thành công !', ALERT_CONFIG)
