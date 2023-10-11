@@ -27,7 +27,6 @@ declare global {
         skip(count: number): T[];
     }
 }
-
 //
 Array.prototype.take = function (count: number): any[] {
     if (!this) return []
@@ -42,3 +41,10 @@ Array.prototype.skip = function (count: number): any[] {
     }
     return this.slice(count);
 };
+export const debounce = (func: (...args: any[]) => void, ms: number) => {
+    let timeout: ReturnType<typeof setTimeout>;
+    return function (this: ThisParameterType<typeof func>, ...args: any[]) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), ms);
+    };
+}
