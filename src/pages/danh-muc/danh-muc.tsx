@@ -5,6 +5,7 @@ import { layKhoaHocTheoDanhMuc } from '../../services/khoa-hoc.service'
 import css from './danh-muc.module.scss'
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import { scrollToSmooth } from '../../utils'
 export default function DanhMuc() {
     const [listKhoaHoc, setListKhoaHoc] = useState<any>()
     const [paging_show, setPaging_show] = useState<any>()
@@ -22,11 +23,7 @@ export default function DanhMuc() {
     }, [listKhoaHoc])
     useEffect(() => {
         showItemWithPageChange()
-        document.documentElement.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: 'smooth',
-        })
+        scrollToSmooth()
     }, [paging_selectedPage])
     const fetchData = async (maKhoaHoc: string, maNhom: string) => {
         const data = await layKhoaHocTheoDanhMuc(maKhoaHoc, maNhom)

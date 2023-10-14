@@ -48,3 +48,11 @@ export const debounce = (func: (...args: any[]) => void, ms: number) => {
         timeout = setTimeout(() => func.apply(this, args), ms);
     };
 }
+//
+export const scrollToSmooth = () => {
+    document.documentElement.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth',
+    })
+}
