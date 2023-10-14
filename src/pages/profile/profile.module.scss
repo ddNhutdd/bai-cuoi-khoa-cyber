@@ -46,6 +46,7 @@
 }
 
 .h2-profile{
+    composes: animate__animated animate__bounce;
     text-align: center;
     color: #3C40C6;
     font-size: 2.5rem;

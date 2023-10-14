@@ -7,15 +7,14 @@ import { useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as Y from 'yup'
 import { getProfile, updateProfile } from '../../services/user.service'
-import { ACCESS_TOKEN, ALERT_CONFIG, VALIDATITON } from '../../constants'
+import { ACCESS_TOKEN, ALERT_CONFIG, COMMON_MESSAGE, VALIDATITON } from '../../constants'
 import { useEffect } from 'react'
 import { getLocalStorage } from '../../utils'
 import { URL_NAVIGATE } from "../../constants"
 import 'animate.css';
 import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-import { huyGhiDanh} from '../../services/khoa-hoc.service'
-
+import { huyGhiDanh } from '../../services/khoa-hoc.service'
+import ReactWOW from 'react-wow'
 
 const registerSchema = Y.object({
   taiKhoan: Y.string()
@@ -88,9 +87,9 @@ function Profile() {
           .then((resp) => {
             if (resp) {
               console.log(resp)
-              toast.success('Cập nhật thành công', ALERT_CONFIG)
+              toast.success(COMMON_MESSAGE.capNhatSuccess, ALERT_CONFIG)
             } else {
-              toast.error('Cập nhật thất bại', ALERT_CONFIG)
+              toast.error(COMMON_MESSAGE.capNhatFail, ALERT_CONFIG)
             }
           })
           .catch((err) => {
@@ -102,6 +101,7 @@ function Profile() {
 
     },
   })
+
   useEffect(() => {
     (async () => {
       const token = getLocalStorage(ACCESS_TOKEN);
@@ -121,11 +121,15 @@ function Profile() {
     })();
   }, []);
 
+
   return (
     <div className={css['form-container']}>
       <form onSubmit={formik.handleSubmit} className={css['profile-form']}>
         <div className={css['h2-profile']}>
-          <h2 className='animate__animated animate__bounce'>Trang cá nhân</h2>
+          <ReactWOW animation="bounce" offset={200} duration="1s">
+            <h2>Trang cá nhân</h2>
+          </ReactWOW>
+
           <span><NoteIcon /></span>
         </div>
         <div className={css['flex-container']}>
@@ -143,7 +147,7 @@ function Profile() {
                 <InputForm
                   formik={formik}
                   {...formik.getFieldProps('taiKhoan')}
-                  disabled = {true}
+                  disabled={true}
                   placeholder="Tài khoản"
                 />
               </div>
@@ -214,7 +218,7 @@ function Profile() {
 
       </form>
 
-      
+
     </div>
   )
 }

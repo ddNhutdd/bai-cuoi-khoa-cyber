@@ -2,7 +2,7 @@ import * as Y from 'yup'
 import ButtonQT from '../../../components/button'
 import { capNhatKhoaHoc, thongTinKhoaHoc, upLoadHinhAnhKhoaHoc } from '../../../services/khoa-hoc.service'
 import { toast } from 'react-toastify'
-import { ALERT_CONFIG, VALIDATITON } from '../../../constants'
+import { ALERT_CONFIG, COMMON_MESSAGE, VALIDATITON } from '../../../constants'
 import { useFormik } from 'formik'
 import InputForm from '../../../components/input'
 import css from './update-kh.module.scss'
@@ -13,18 +13,18 @@ const registerSchema = Y.object({
 
     maKhoaHoc: Y.string()
         .min(3, VALIDATITON.maKhoaHoc_Min)
-        .max(10, VALIDATITON.maKhoaHoc_Max)
+        .max(20, VALIDATITON.maKhoaHoc_Max)
         .required(VALIDATITON.maKhoaHoc_Required),
     biDanh: Y.string()
         .min(6, VALIDATITON.biDanh_Min)
-        .max(20, VALIDATITON.biDanh_Max)
+        .max(50, VALIDATITON.biDanh_Max)
         .required(VALIDATITON.biDanh_Required),
     tenKhoaHoc: Y.string()
         .min(6, VALIDATITON.tenKhoaHoc_Min)
         .max(30, VALIDATITON.tenKhoaHoc_Max)
         .required(VALIDATITON.tenKhoaHoc_Required),
     moTa: Y.string()
-        .min(6, VALIDATITON.moTa_Min)
+        .min(1, VALIDATITON.moTa_Min)
         .max(100, VALIDATITON.moTa_Max)
         .required(VALIDATITON.moTa_Required),
     luotXem: Y.number()
@@ -50,7 +50,7 @@ const registerSchema = Y.object({
         .max(20, VALIDATITON.maDanhMucKhoaHoc_Max)
         .required(VALIDATITON.maDanhMucKhoaHoc_Required),
     taiKhoanNguoiTao: Y.string()
-        .min(6, VALIDATITON.tkNguoiTao_Min)
+        .min(3, VALIDATITON.tkNguoiTao_Min)
         .max(20, VALIDATITON.tkNguoiTao_Max)
         .required(VALIDATITON.tkNguoiTao_Required),
 })
@@ -58,7 +58,6 @@ function UpdateKH(props: any) {
     const { maKhoaHoc } = props
     const [isEditMode, setIsEditMode] = useState(false);
     const fileInput = useRef<HTMLInputElement>(null)
-    let imageUrl: any;
     const formik = useFormik({
         initialValues: {
             maKhoaHoc: '',
@@ -91,24 +90,20 @@ function UpdateKH(props: any) {
                 taiKhoanNguoiTao: value.taiKhoanNguoiTao
             }
             try {
-                if (fileInput.current?.files?.length) {
-                    const formData = new FormData();
-                    formData.append('file', fileInput.current.files[0]);
-                    formData.append('tenKhoaHoc', data.tenKhoaHoc);
-                    const result = await upLoadHinhAnhKhoaHoc(formData);
-                    imageUrl = result;
-        
-                }
-                console.log('hinh anh', imageUrl)
                 const response = await capNhatKhoaHoc(data);
                 if (response.statusText === 'OK') {
-                    toast.success('Cập nhật khóa học thành công !', ALERT_CONFIG)
+                    toast.success(COMMON_MESSAGE.capNhatSuccess, ALERT_CONFIG)
+                    if (fileInput.current?.files?.length) {
+                        const formData = new FormData();
+                        formData.append('file', fileInput.current.files[0]);
+                        formData.append('tenKhoaHoc', response.data.tenKhoaHoc);    
+                        const result = await upLoadHinhAnhKhoaHoc(formData);
+                        console.log(result)
+                    }
                 }
                 else {
                     toast.error(response, ALERT_CONFIG)
                 }
-                console.log('response: ', response)
-
             } catch (error) {
                 console.log(error)
             }
@@ -234,10 +229,9 @@ function UpdateKH(props: any) {
                             <p className={css['p-title']}>Hình ảnh</p>
                             {
                                 isEditMode ? (
-                                    <InputForm
-                                        formik={formik}
+                                    <input
                                         type="file"
-                                        
+                                        ref={fileInput}
                                     />
                                 ) : (
                                     <InputForm

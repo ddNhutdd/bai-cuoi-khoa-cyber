@@ -3,6 +3,8 @@ import css from './card.module.scss'
 import { StarRating } from './starRating/star-rating'
 import { Button, Card } from 'antd'
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify'
+import { ALERT_CONFIG, COMMON_MESSAGE } from '../../constants';
 
 export default function CardCyber(props: any) {
     const [isDeleted, setIsDeleted] = useState(false);
@@ -20,10 +22,12 @@ export default function CardCyber(props: any) {
     const handleDeleteClick = async () => {
         console.log(item.maKhoaHoc, taiKhoan)
         try {
-            setIsDeleted(true);
-            const resp = await onDelete(item.maKhoaHoc, taiKhoan);
-            console.log('thanh cong !!!', resp)
-
+            await onDelete(item.maKhoaHoc, taiKhoan);
+            toast.success(COMMON_MESSAGE.xoaThanhCong, ALERT_CONFIG)
+            setTimeout(() =>{
+                setIsDeleted(true);
+            }, 3000)
+            
         } catch (error) {
             console.log(error)
         }

@@ -50,12 +50,12 @@ export const enum VALIDATITON{
     maKhoaHoc_Max = 'Mã khóa học phải nhỏ hơn 20 ký tự !',
     maKhoaHoc_Required = 'Mã khóa học không được bỏ trống !',
     biDanh_Min = 'Bí danh phải từ 3 ký tự trở lên !',
-    biDanh_Max = 'Bí danh phải nhỏ hơn 20 ký tự !',
+    biDanh_Max = 'Bí danh phải nhỏ hơn 50 ký tự !',
     biDanh_Required = 'Bí danh không được bỏ trống !',
     tenKhoaHoc_Min = 'Tên khóa học phải từ 3 ký tự trở lên !',
     tenKhoaHoc_Max = 'Tên khóa học phải nhỏ hơn 30 ký tự !',
     tenKhoaHoc_Required = 'Tên khóa học không được bỏ trống !',
-    moTa_Min = 'Mô tả phải từ 3 ký tự trở lên !',
+    moTa_Min = 'Mô tả phải từ 1 ký tự trở lên !',
     moTa_Max = 'Mô tả phải nhỏ hơn 100 ký tự !',
     moTa_Required = 'Mô tả không được bỏ trống !',
     hinhAnh_hl = 'Hình ảnh không hợp lệ',
@@ -83,6 +83,11 @@ export const enum COMMON_MESSAGE {
     thanhCong = 'Thành công',
     thatBai = 'Thất bại',
     nhapVaoTaiKhoanHocTenNguoiDung = 'Nhập vào tên tài khoản hoặc họ tên người dùng',
+    dangKiThanhCong = 'Đăng ký thành công !',
+    dangKiThatBai = 'Đăng ký không thành công. Có lỗi xảy ra !',
+    xoaThanhCong = 'Xóa thành công !',
+    capNhatSuccess = 'Cập nhật thành công',
+    capNhatFail = 'Cập nhật thất bại'
 }
 /////
 export const enum FIELD_NAME_WIDTH_SPACE {
