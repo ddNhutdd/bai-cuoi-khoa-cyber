@@ -2,7 +2,7 @@
     outline: none;
     width: 100%;
     font-size: 1.6rem;
-    padding: 1rem 4rem 1rem 1rem;
+    padding: 1rem 2rem 1rem 1rem;
     border-left: 0.6rem solid #4684ee;
     border-top: 0.1rem solid #4684ee;
     border-bottom: 0.2rem solid #4684ee;
@@ -13,11 +13,7 @@
     margin-left: .5rem;
     color: red;
 }
-.input-eye{
-    display: flex;
-}
-.eye{
-    padding-top: 1rem;
-    margin-left: 1rem;
-    cursor: pointer;
+
+.custom-eye-icon{
+    margin-left: 3rem;
 }

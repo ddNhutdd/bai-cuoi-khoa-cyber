@@ -8,7 +8,8 @@ import * as Y from 'yup'
 import { register } from "../../services/user.service"
 import { UserRegister } from "../../types"
 import { useNavigate } from "react-router-dom"
-import { URL_NAVIGATE, VALIDATITON } from "../../constants"
+import { ALERT_CONFIG, COMMON_MESSAGE, URL_NAVIGATE, VALIDATITON } from "../../constants"
+import { toast } from 'react-toastify'
 
 const registerSchema = Y.object({
     taiKhoan: Y.string()
@@ -64,17 +65,21 @@ function Register() {
             register(data)
                 .then((data) => {
                     if (data) {
-                        alert('Đăng ký thành công !')
-                        navigate(URL_NAVIGATE.login)
+                        toast.success(COMMON_MESSAGE.dangKiThanhCong, ALERT_CONFIG)
+                        
+                        setTimeout(() => {
+                            navigate(URL_NAVIGATE.login)
+                        }, 3000); 
+                        
                     }
                     else {
-                        alert('Đăng ký không thành công. Có lỗi xảy ra. !');
+                        toast.error(COMMON_MESSAGE.dangKiThatBai, ALERT_CONFIG)
                     }
 
                 })
                 .catch((err) => {
                     console.log(err)
-                    alert('Đăng ký không thành công. Có lỗi xảy ra.');
+                    toast.error(COMMON_MESSAGE.dangKiThatBai, ALERT_CONFIG)
                 });
         },
     })

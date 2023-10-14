@@ -14,7 +14,7 @@ import { ACCESS_TOKEN, ALERT_CONFIG, HO_TEN, MA_LOAI_NGUOI_DUNG, MA_NHOM, TAI_KH
 import { useNavigate } from 'react-router-dom';
 import 'animate.css'
 import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+
 
 const registerSchema = Y.object({
   taiKhoan: Y.string()
@@ -92,7 +92,7 @@ function Login() {
               formik={formik}
               {...formik.getFieldProps('matKhau')}
               type='password'
-              showEye={true}
+              showEye
               placeholder="Mật khẩu" />
           </div>
 
