@@ -119,8 +119,8 @@ function UpdateKH(props: any) {
         const fetchData = async () => {
             const data = await thongTinKhoaHoc(ma);
             const { maKhoaHoc, biDanh, tenKhoaHoc, moTa, luotXem, hinhAnh, maNhom, ngayTao, soLuongHocVien } = data?.data ?? {};
-            const { taiKhoan } = data?.data.nguoiTao;
-            const { maDanhMucKhoahoc } = data?.data.danhMucKhoaHoc;
+            const { taiKhoan } = data?.data?.nguoiTao ?? null;
+            const { maDanhMucKhoahoc } = data?.data.danhMucKhoaHoc ?? null;
             formik.setFieldValue('maKhoaHoc', maKhoaHoc);
             formik.setFieldValue('biDanh', biDanh);
             formik.setFieldValue('tenKhoaHoc', tenKhoaHoc);
