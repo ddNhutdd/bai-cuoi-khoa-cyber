@@ -59,7 +59,7 @@ function Login() {
             }
           }, 3000); // Chờ 3 giây trước khi điều hướng
         }
-        else{
+        else {
           toast.error(resp, ALERT_CONFIG);
         }
 

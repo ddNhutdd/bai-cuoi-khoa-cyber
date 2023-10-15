@@ -1,12 +1,18 @@
 .search-container{
     background-color: #3C40C6;
     padding: 5rem 5rem 10rem 5rem;
+    @media screen and (min-width: 993px) and (max-width: 1090px) {
+        padding: 5rem 2rem 10rem 2rem; /* Khi màn hình có kích thước từ 1024 đến 1025px */
+    }
 }
 .list-search{
     padding: 3rem 2rem 10rem 2rem;
     background-color: rgb(244, 244, 244);
     border: 2rem solid rgb(105, 202, 255);
     border-radius: 1rem;
+    @media screen and (min-width: 993px) and (max-width: 1090px) {
+        padding: 3rem 1rem 10rem 1rem; /* Khi màn hình có kích thước từ 1024 đến 1025px */
+    }
 }
 .err-search{
     text-align: center;

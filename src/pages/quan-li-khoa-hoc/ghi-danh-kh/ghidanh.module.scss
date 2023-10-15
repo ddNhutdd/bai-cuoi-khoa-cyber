@@ -1,3 +1,26 @@
+.page-ghiDanh{
+    @media screen and (max-width:576px) {
+        padding: 2rem 20rem;
+    }   
+}
+.ghiDanh-container{
+    // @media screen and (max-width:1400px) {
+    //     padding: 8rem 4rem 10rem 4rem;
+    // }
+    // @media screen and (max-width:1200px) {
+    //     padding: 8rem 4rem 10rem 4rem;
+    // }
+    // @media screen and (max-width:992px) {
+    //     padding: 8rem 4rem 10rem 4rem;
+    // }
+    // @media screen and (max-width:768px) {
+    //     padding: 8rem 4rem 10rem 4rem;
+    // }
+    @media screen and (max-width:576px) {
+        padding: 2rem 20rem;
+    }   
+}
+
 .search-ghidanh{
     display: flex;
     justify-content: space-around;

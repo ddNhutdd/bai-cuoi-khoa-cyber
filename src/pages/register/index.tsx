@@ -142,7 +142,6 @@ function Register() {
                 </div>
                 <div className={css['button-register']}>
                     <ButtonQT type="submit" title='Đăng kí' />
-                    {/* <Link to='/profile'><ButtonQT type="submit" title='Đăng kí' /></Link> */}
                 </div>
             </form>
 

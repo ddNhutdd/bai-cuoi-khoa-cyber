@@ -1,6 +1,6 @@
 import { Button, Space, Table, Input } from "antd";
 import { useEffect, useState } from 'react'
-import { ghiDanhKhoaHoc, huyGhiDanh, layDanhSachChoXetDuyet, layDanhSachChuaGhiDanh, layDanhSachHocVienKhoaHoc} from "../../../services/khoa-hoc.service";
+import { ghiDanhKhoaHoc, huyGhiDanh, layDanhSachChoXetDuyet, layDanhSachChuaGhiDanh, layDanhSachHocVienKhoaHoc } from "../../../services/khoa-hoc.service";
 import css from './ghidanh.module.scss'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -26,7 +26,7 @@ function GhiDanh(props: any) {
     const [results1, setResults1] = useState<TypeKH[]>([]);
     const [results2, setResults2] = useState<TypeKH[]>([]); // State để lưu KQ tìm kiếm
     const [results3, setResults3] = useState<TypeKH[]>([]);
-    
+
     useEffect(() => {
         const fetchDataChoXet = async () => {
             try {
@@ -98,7 +98,7 @@ function GhiDanh(props: any) {
                     setDataLayDS(dataLayDSDel)
 
                 }, 3000)
-                
+
             })
             .catch(error => {
                 console.log(error)
@@ -209,70 +209,73 @@ function GhiDanh(props: any) {
         },
     ];
     return (
-        <div>
-            <div className={css['tro-lai']} onClick={() => setPage(isPage.list)}>{'<< '}Trở lại danh sách</div>
-            <div className={css['table-cho-xthuc']}>
-                <div className={css['search-ghidanh']}>
-                    <p className={css['cho-xac-thuc']}> Học viên chờ xác thực</p>
-                    <Input
-                        className={css['ghiDanh__search']}
-                        placeholder='Nhập tên học viên cần tim'
-                        onChange={e => setSearchText1(e.target.value)}
-                        value={searchText1}
-                    />
+        <div className={css['page-ghiDanh']}>
+            <div className={css['ghiDanh-container']}>
+                <div className={css['tro-lai']} onClick={() => setPage(isPage.list)}>{'<< '}Trở lại danh sách</div>
+                <div className={css['table-cho-xthuc']}>
+                    <div className={css['search-ghidanh']}>
+                        <p className={css['cho-xac-thuc']}> Học viên chờ xác thực</p>
+                        <Input
+                            className={css['ghiDanh__search']}
+                            placeholder='Nhập tên học viên cần tim'
+                            onChange={e => setSearchText1(e.target.value)}
+                            value={searchText1}
+                        />
+                    </div>
+                    <div>
+                        <Table dataSource={searchText1 ? results1 : dataSourceChoXacThuc}
+                            columns={columns}
+                            pagination={{
+                                position: ['bottomRight'],
+                                pageSize: 5,
+                                showSizeChanger: false,
+                            }} />
+                    </div>
                 </div>
-                <div>
-                    <Table dataSource={searchText1 ? results1 : dataSourceChoXacThuc} 
-                    columns={columns} 
-                    pagination={{
-                        position: ['bottomRight'],
-                        pageSize: 5,
-                        showSizeChanger: false,
-                    }} />
+                <div className={css['table-dshv']}>
+                    <div className={css['search-ghidanh']}>
+                        <p className={css['cho-xac-thuc']}> Học viên khóa học</p>
+                        <Input
+                            className={css['ghiDanh__search']}
+                            placeholder='Nhập tên học viên cần tim'
+                            onChange={e => setSearchText2(e.target.value)}
+                            value={searchText2}
+                        />
+                    </div>
+                    <div>
+                        <Table dataSource={searchText2 ? results2 : dataSourceLayDS}
+                            columns={columns}
+                            pagination={{
+                                position: ['bottomRight'],
+                                pageSize: 5,
+                                showSizeChanger: false,
+                            }} />
+                    </div>
                 </div>
-            </div>
-            <div className={css['table-dshv']}>
-                <div className={css['search-ghidanh']}>
-                    <p className={css['cho-xac-thuc']}> Học viên khóa học</p>
-                    <Input
-                        className={css['ghiDanh__search']}
-                        placeholder='Nhập tên học viên cần tim'
-                        onChange={e => setSearchText2(e.target.value)}
-                        value={searchText2}
-                    />
+                <div className={css['table-chuaghidanh']}>
+                    <div className={css['search-ghidanh']}>
+                        <p className={css['cho-xac-thuc']}>Học viên chưa ghi danh</p>
+                        <Input
+                            className={css['ghiDanh__search']}
+                            placeholder='Nhập tên học viên cần tim'
+                            onChange={e => setSearchText3(e.target.value)}
+                            value={searchText3}
+                        />
+                    </div>
+                    <div>
+                        <Table dataSource={searchText3 ? results3 : dataSourceChuaGhiDanh}
+                            columns={columns}
+                            pagination={{
+                                position: ['bottomRight'],
+                                pageSize: 5,
+                                showSizeChanger: false,
+                            }} />
+                    </div>
                 </div>
-                <div>
-                    <Table dataSource={searchText2 ? results2 : dataSourceLayDS} 
-                    columns={columns} 
-                    pagination={{
-                        position: ['bottomRight'],
-                        pageSize: 5,
-                        showSizeChanger: false,
-                    }}/>
-                </div>
-            </div>
-            <div className={css['table-chuaghidanh']}>
-                <div className={css['search-ghidanh']}>
-                    <p className={css['cho-xac-thuc']}>Học viên chưa ghi danh</p>
-                    <Input
-                        className={css['ghiDanh__search']}
-                        placeholder='Nhập tên học viên cần tim'
-                        onChange={e => setSearchText3(e.target.value)}
-                        value={searchText3}
-                    />
-                </div>
-                <div>
-                    <Table dataSource={searchText3 ? results3 : dataSourceChuaGhiDanh} 
-                    columns={columns} 
-                    pagination={{
-                        position: ['bottomRight'],
-                        pageSize: 5,
-                        showSizeChanger: false,
-                    }}/>
-                </div>
-            </div>
 
-        </div >
+            </div >
+        </div>
+
     )
 }
 

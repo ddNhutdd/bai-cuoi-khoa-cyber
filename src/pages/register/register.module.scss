@@ -2,31 +2,51 @@
     display: flex;
     background: #3C40C6;
     box-shadow: 0px 35px 44px -22px #1f181b;
-    padding: 8rem 10rem 10rem 10rem;    
-}
-.register-form {
-    flex: 70%;
-    background-color: white; 
-    padding: 3rem 2rem 10rem 2rem;
-    border-radius: 10px;
-    box-shadow: 0px 0px 1rem rgba(4, 4, 4, 0.904); 
-    border: 2rem solid rgb(105, 202, 255);
-}
-.img-cyber{
-    padding: 3rem;
-    width: 31.9rem;
-    height: 25.4rem;
-}
-.img-register{
-    flex: 30%;
-}
-.input-form{
-    padding: 1rem 4rem 1rem 4rem;
-}
+    @media screen and (max-width:1400px) {
+        padding: 8rem 10rem 10rem 10rem;
+    }
+    @media screen and (max-width:1200px) {
+        padding: 8rem 10rem 10rem 10rem;;
+    }
+    @media screen and (max-width:992px) {
+        padding: 8rem 8rem 10rem 8rem;
+    }
+    @media screen and (max-width:768px) {
+        padding: 8rem 6rem 10rem 6rem;;
+    }
+    @media screen and (max-width:576px) {
+        padding: 4rem 1rem 4rem 1rem;
+    }
+    .img-register{
+        flex: 30%;
+        @media screen and (max-width:900px){
+            display: none; 
+        }
+        @media screen and (max-width:576px) {
+            display: none; 
+        }
+        .img-cyber{
+            padding: 3rem;
+            width: 31.9rem;
+            height: 25.4rem;
+        }
+    }
+    .register-form {
+        flex: 70%;
+        background-color: white; 
+        padding: 3rem 2rem 10rem 2rem;
+        border-radius: 10px;
+        box-shadow: 0px 0px 1rem rgba(4, 4, 4, 0.904); 
+        border: 2rem solid rgb(105, 202, 255);
+        .input-form{
+            padding: 1rem 4rem 1rem 4rem;
+        }
 
-.button-register{
-    margin-top: 2rem;
-    padding: 0 8rem 0 8rem;
+        .button-register{
+            margin-top: 2rem;
+            padding: 0 8rem 0 8rem;
+        }
+    }
 }
 
 .h2-register{
