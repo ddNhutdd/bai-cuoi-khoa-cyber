@@ -1,6 +1,6 @@
 import { useFormik } from 'formik'
 import InputForm from '../../../components/input'
-import { ALERT_CONFIG, VALIDATITON } from '../../../constants'
+import { ALERT_CONFIG, API_RESPONSE, VALIDATITON } from '../../../constants'
 import css from './add.module.scss'
 import * as Y from 'yup'
 import ButtonQT from '../../../components/button'
@@ -31,7 +31,7 @@ const registerSchema = Y.object({
     .max(5000, VALIDATITON.luotXem_Max)
     .required(VALIDATITON.luotXem_Required),
   danhGia: Y.number()
-    .min(6, VALIDATITON.danhGia_Min)
+    .min(1, VALIDATITON.danhGia_Min)
     .max(5000, VALIDATITON.danhGia_Max)
     .required(VALIDATITON.danhGia_Required),
   hinhAnh: Y.string()
@@ -95,7 +95,7 @@ function ThemKhoaHoc(props: any) {
       try {
         const response = await themKhoaHoc(data);
         if(response.statusText === 'OK'){
-          toast.success('Them khoa hoc thanh cong !', ALERT_CONFIG)
+          toast.success(API_RESPONSE.themThanhCong, ALERT_CONFIG)
         }
         else{
           toast.error(response, ALERT_CONFIG)
@@ -204,7 +204,7 @@ function ThemKhoaHoc(props: any) {
               placeholder="Hình ảnh" />
           </div>
         </div>
-        <div><ButtonQT title='Thêm khóa học' type = 'submit'/></div>
+        <div className={css['button-addKh']}><ButtonQT title='Thêm khóa học' type = 'submit'/></div>
       </form>
     </div>
   )

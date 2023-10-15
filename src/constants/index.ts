@@ -11,7 +11,8 @@ export const enum API_RESPONSE {
     tb = "Thất bại",
     huyGhiDanh = 'Hủy ghi danh thành công !',
     huyThanhCong = 'Xóa thành công',
-    khongTheHuy = 'Khóa học đã ghi danh học viên không thể xóa!'
+    khongTheHuy = 'Khóa học đã ghi danh học viên không thể xóa!',
+    themThanhCong = 'Thêm khóa học thành công !'
 }
 ////
 export const enum URL_NAVIGATE {

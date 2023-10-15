@@ -7,6 +7,11 @@
     width: 75%;
     padding-left: 2rem;
 }
+.p-title{
+    @media screen and (max-width:576px) {
+        display: none;
+    }   
+}
 .add-kh{
     text-align: center;
     font-size: 2rem;
@@ -18,4 +23,7 @@
 }
 .tro-lai:hover{
     color: black;
+}
+.button-addKh{
+    margin-top: 3rem;
 }
