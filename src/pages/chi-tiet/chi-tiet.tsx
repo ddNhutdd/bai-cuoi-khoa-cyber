@@ -20,6 +20,7 @@ export default function ChiTiet() {
     const navigate = useNavigate()
     useEffect(() => {
         fetchData(maKhoaHoc ?? '')
+        
     }, [])
     const fetchData = async (maKhoaHoc: string) => {
         const data = await layThongTinKhoaHoc(maKhoaHoc)

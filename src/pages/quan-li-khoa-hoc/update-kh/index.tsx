@@ -1,6 +1,10 @@
 import * as Y from 'yup'
 import ButtonQT from '../../../components/button'
-import { capNhatKhoaHoc, thongTinKhoaHoc, upLoadHinhAnhKhoaHoc } from '../../../services/khoa-hoc.service'
+import {
+    capNhatKhoaHoc,
+    thongTinKhoaHoc,
+    upLoadHinhAnhKhoaHoc,
+} from '../../../services/khoa-hoc.service'
 import { toast } from 'react-toastify'
 import { ALERT_CONFIG, COMMON_MESSAGE, VALIDATITON } from '../../../constants'
 import { useFormik } from 'formik'
@@ -12,7 +16,6 @@ import { isPage } from '..'
 
 
 const registerSchema = Y.object({
-
     maKhoaHoc: Y.string()
         .min(3, VALIDATITON.maKhoaHoc_Min)
         .max(20, VALIDATITON.maKhoaHoc_Max)
@@ -37,8 +40,7 @@ const registerSchema = Y.object({
         .min(0, VALIDATITON.danhGia_Min)
         .max(5000, VALIDATITON.danhGia_Max)
         .required(VALIDATITON.danhGia_Required),
-    hinhAnh: Y.string()
-        .required(VALIDATITON.hinhAnh_Required),
+    hinhAnh: Y.string().required(VALIDATITON.hinhAnh_Required),
     maNhom: Y.string()
         .min(3, VALIDATITON.maNhom_Min)
         .max(30, VALIDATITON.maNhom_Max)
@@ -58,7 +60,7 @@ const registerSchema = Y.object({
 })
 function UpdateKH(props: any) {
     const { maKhoaHoc, setPage } = props
-    const [isEditMode, setIsEditMode] = useState(false);
+    const [isEditMode, setIsEditMode] = useState(false)
     const fileInput = useRef<HTMLInputElement>(null)
     const formik = useFormik({
         initialValues: {
@@ -72,11 +74,9 @@ function UpdateKH(props: any) {
             maNhom: '',
             ngayTao: '',
             maDanhMucKhoaHoc: '',
-            taiKhoanNguoiTao: ''
-
+            taiKhoanNguoiTao: '',
         },
         validationSchema: registerSchema,
-
         onSubmit: async (value) => {
             const data = {
                 maKhoaHoc: value.maKhoaHoc,
@@ -89,21 +89,20 @@ function UpdateKH(props: any) {
                 maNhom: value.maNhom,
                 ngayTao: value.ngayTao,
                 maDanhMucKhoaHoc: value.maDanhMucKhoaHoc,
-                taiKhoanNguoiTao: value.taiKhoanNguoiTao
+                taiKhoanNguoiTao: value.taiKhoanNguoiTao,
             }
             try {
-                const response = await capNhatKhoaHoc(data);
+                const response = await capNhatKhoaHoc(data)
                 if (response.statusText === 'OK') {
                     toast.success(COMMON_MESSAGE.capNhatSuccess, ALERT_CONFIG)
                     if (fileInput.current?.files?.length) {
-                        const formData = new FormData();
-                        formData.append('file', fileInput.current.files[0]);
-                        formData.append('tenKhoaHoc', response.data.tenKhoaHoc);    
-                        const result = await upLoadHinhAnhKhoaHoc(formData);
+                        const formData = new FormData()
+                        formData.append('file', fileInput.current.files[0])
+                        formData.append('tenKhoaHoc', response.data.tenKhoaHoc)
+                        const result = await upLoadHinhAnhKhoaHoc(formData)
                         console.log(result)
                     }
-                }
-                else {
+                } else {
                     toast.error(response, ALERT_CONFIG)
                 }
             } catch (error) {
@@ -114,35 +113,45 @@ function UpdateKH(props: any) {
     const ma = maKhoaHoc
     useEffect(() => {
         const fetchData = async () => {
-            const data = await thongTinKhoaHoc(ma);
-            const { maKhoaHoc, biDanh, tenKhoaHoc, moTa, luotXem, hinhAnh, maNhom, ngayTao, soLuongHocVien } = data?.data ?? {};
-            const { taiKhoan } = data?.data.nguoiTao;
-            const { maDanhMucKhoahoc } = data?.data.danhMucKhoaHoc;
-            formik.setFieldValue('maKhoaHoc', maKhoaHoc);
-            formik.setFieldValue('biDanh', biDanh);
-            formik.setFieldValue('tenKhoaHoc', tenKhoaHoc);
-            formik.setFieldValue('moTa', moTa);
-            formik.setFieldValue('luotXem', luotXem);
-            formik.setFieldValue('hinhAnh', hinhAnh);
-            formik.setFieldValue('maNhom', maNhom);
-            formik.setFieldValue('ngayTao', ngayTao);
-            formik.setFieldValue('soLuongHocVien', soLuongHocVien);
-            formik.setFieldValue('maDanhMucKhoaHoc', maDanhMucKhoahoc);
-            formik.setFieldValue('taiKhoanNguoiTao', taiKhoan);
-        };
-        fetchData();
-    }, [maKhoaHoc]);
-
-   
+            const data = await thongTinKhoaHoc(ma)
+            const {
+                maKhoaHoc,
+                biDanh,
+                tenKhoaHoc,
+                moTa,
+                luotXem,
+                hinhAnh,
+                maNhom,
+                ngayTao,
+                soLuongHocVien,
+            } = data?.data ?? {}
+            const { taiKhoan } = data?.data?.nguoiTao ?? null
+            const { maDanhMucKhoahoc } = data?.data.danhMucKhoaHoc ?? null
+            formik.setFieldValue('maKhoaHoc', maKhoaHoc)
+            formik.setFieldValue('biDanh', biDanh)
+            formik.setFieldValue('tenKhoaHoc', tenKhoaHoc)
+            formik.setFieldValue('moTa', moTa)
+            formik.setFieldValue('luotXem', luotXem)
+            formik.setFieldValue('hinhAnh', hinhAnh)
+            formik.setFieldValue('maNhom', maNhom)
+            formik.setFieldValue('ngayTao', ngayTao)
+            formik.setFieldValue('soLuongHocVien', soLuongHocVien)
+            formik.setFieldValue('maDanhMucKhoaHoc', maDanhMucKhoahoc)
+            formik.setFieldValue('taiKhoanNguoiTao', taiKhoan)
+        }
+        fetchData()
+    }, [maKhoaHoc])
     const toggleEditMode = () => {
-        setIsEditMode(prev => !prev);
+        setIsEditMode((prev) => !prev)
     }
-
     return (
         <div>
             <div className={css['tro-lai']} onClick={() => setPage(isPage.list)}>{'<< '}Trở lại danh sách</div>
             <p className={css['add-kh']}>Cập nhật khóa học</p>
-            <form onSubmit={formik.handleSubmit} className={css['profile-form']}>
+            <form
+                onSubmit={formik.handleSubmit}
+                className={css['profile-form']}
+            >
                 <div className={css['input-forms-container']}>
                     <div className={css['input-row']}>
                         <div className={css['input-ele']}>
@@ -150,16 +159,15 @@ function UpdateKH(props: any) {
                             <InputForm
                                 formik={formik}
                                 {...formik.getFieldProps('maKhoaHoc')}
-                                placeholder="Mã khóa học"
+                                placeholder='Mã khóa học'
                             />
                         </div>
-
                         <div className={css['input-ele']}>
                             <p className={css['p-title']}>Bí danh</p>
                             <InputForm
                                 formik={formik}
                                 {...formik.getFieldProps('biDanh')}
-                                placeholder="Bí danh"
+                                placeholder='Bí danh'
                             />
                         </div>
                     </div>
@@ -169,14 +177,16 @@ function UpdateKH(props: any) {
                             <InputForm
                                 formik={formik}
                                 {...formik.getFieldProps('tenKhoaHoc')}
-                                placeholder="Tên khóa học" />
+                                placeholder='Tên khóa học'
+                            />
                         </div>
                         <div className={css['input-ele']}>
                             <p className={css['p-title']}>Mô tả</p>
                             <InputForm
                                 formik={formik}
                                 {...formik.getFieldProps('moTa')}
-                                placeholder="Mô tả" />
+                                placeholder='Mô tả'
+                            />
                         </div>
                     </div>
                     <div className={css['input-row']}>
@@ -185,30 +195,36 @@ function UpdateKH(props: any) {
                             <InputForm
                                 formik={formik}
                                 {...formik.getFieldProps('luotXem')}
-                                placeholder="Lượt xem" />
+                                placeholder='Lượt xem'
+                            />
                         </div>
                         <div className={css['input-ele']}>
                             <p className={css['p-title']}>Số lượng học viên</p>
                             <InputForm
                                 formik={formik}
                                 {...formik.getFieldProps('soLuongHocVien')}
-                                placeholder="Số lượng học viên" />
+                                placeholder='Số lượng học viên'
+                            />
                         </div>
                     </div>
                     <div className={css['input-row']}>
                         <div className={css['input-ele']}>
-                            <p className={css['p-title']}>Tài khoản người tạo</p>
+                            <p className={css['p-title']}>
+                                Tài khoản người tạo
+                            </p>
                             <InputForm
                                 formik={formik}
                                 {...formik.getFieldProps('taiKhoanNguoiTao')}
-                                placeholder="Tài khoản người tạo" />
+                                placeholder='Tài khoản người tạo'
+                            />
                         </div>
                         <div className={css['input-ele']}>
                             <p className={css['p-title']}>Mã nhóm</p>
                             <InputForm
                                 formik={formik}
                                 {...formik.getFieldProps('maNhom')}
-                                placeholder="Mã nhóm" />
+                                placeholder='Mã nhóm'
+                            />
                         </div>
                     </div>
                     <div className={css['input-row']}>
@@ -217,42 +233,43 @@ function UpdateKH(props: any) {
                             <InputForm
                                 formik={formik}
                                 {...formik.getFieldProps('ngayTao')}
-                                placeholder="Ngày tạo" />
+                                placeholder='Ngày tạo'
+                            />
                         </div>
                         <div className={css['input-ele']}>
-                            <p className={css['p-title']}>Mã danh mục khóa học</p>
+                            <p className={css['p-title']}>
+                                Mã danh mục khóa học
+                            </p>
                             <InputForm
                                 formik={formik}
                                 {...formik.getFieldProps('maDanhMucKhoaHoc')}
-                                placeholder="Mã danh mục khóa học" />
+                                placeholder='Mã danh mục khóa học'
+                            />
                         </div>
                     </div>
                     <div className={css['input-row']}>
                         <div className={css['input-eleImg']}>
                             <p className={css['p-title']}>Hình ảnh</p>
-                            {
-                                isEditMode ? (
-                                    <input
-                                        type="file"
-                                        ref={fileInput}
-                                    />
-                                ) : (
-                                    <InputForm
-                                        formik={formik}
-                                        {...formik.getFieldProps('hinhAnh')}
-                                        placeholder="Hình ảnh"
-                                    />
-                                )
-                            }
+                            {isEditMode ? (
+                                <input type='file' ref={fileInput} />
+                            ) : (
+                                <InputForm
+                                    formik={formik}
+                                    {...formik.getFieldProps('hinhAnh')}
+                                    placeholder='Hình ảnh'
+                                />
+                            )}
                         </div>
                         <div className={css['button-updateImg']}>
-                            <Button onClick={toggleEditMode}>Chỉnh sửa ảnh</Button>
+                            <Button onClick={toggleEditMode}>
+                                Chỉnh sửa ảnh
+                            </Button>
                         </div>
-
-
                     </div>
                 </div>
-                <div><ButtonQT title='Cập nhật' type='submit' /></div>
+                <div>
+                    <ButtonQT title='Cập nhật' type='submit' />
+                </div>
             </form>
         </div>
     )

@@ -23,7 +23,7 @@ import {
     FIELD_NAME_WIDTH_SPACE,
 } from '../../../constants'
 import { ShowPage } from '../quan-li-nguoi-dung'
-import { debounce } from '../../../utils'
+import { debounce, scrollToSmooth } from '../../../utils'
 interface IUser {
     key: number
     STT: number
@@ -62,6 +62,7 @@ export default function ListNguoiDung(props: any) {
     }, [listUser])
     useEffect(() => {
         loadListUser(paging_selectedPage, searchText)
+        scrollToSmooth()
     }, [paging_selectedPage])
     useEffect(() => {
         if (userRegisterCourse) {
