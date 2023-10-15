@@ -1,74 +1,82 @@
-.disabled {
-    color: gray !important;
-    cursor: not-allowed;
-}
-
-.list-nguoi-dung {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
-
-    .list-nguoi-dung__add {
-        color: blue;
-        text-decoration: underline;
-        cursor: pointer;
-        display: block;
+.list-nguoi-dung-container {
+    .disabled {
+        color: gray !important;
+        cursor: not-allowed;
     }
 
-    .list-nguoi-dung__table-container {
+    .list-nguoi-dung {
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
 
-        .ant-table-tbody>.ant-table-cell {
-            word-break: break-all;
+        .list-nguoi-dung__add {
+            color: blue;
+            text-decoration: underline;
+            cursor: pointer;
+            display: block;
         }
 
-        .list-nguoi-dung__xu-li-cell {
-            gap: 1rem;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
+        .list-nguoi-dung__table-container {
+            width: 100%;
+
+            tr>td {
+                overflow-wrap: break-word;
+                hyphens: auto;
+                word-break: break-all;
+            }
+
+            .list-nguoi-dung__xu-li-cell {
+                gap: 1rem;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+            }
         }
     }
 }
 
 .list-nguoi-dung-model {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+    max-width: none;
 
-    .modal-khoa-hoc-dropdown {
+    .list-nguoi-dung-modal-body {
         display: flex;
-        gap: 1rem;
+        flex-direction: column;
+        gap: 2rem;
 
-        .dropdown-container {
-            flex: 1;
+        .modal-khoa-hoc-dropdown {
+            display: flex;
+            gap: 1rem;
 
-            button {
-                width: 100%;
+            .dropdown-container {
+                flex: 1;
 
-                div {
+                button {
                     width: 100%;
 
                     div {
-                        text-align: left;
+                        width: 100%;
 
-                        &:last-child {
-                            text-align: right;
+                        div {
+                            text-align: left;
+
+                            &:last-child {
+                                text-align: right;
+                            }
                         }
                     }
                 }
             }
         }
-    }
 
-    .ant-dropdown {
-        overflow-y: scroll;
-        max-height: 25rem;
-    }
+        .ant-dropdown {
+            overflow-y: scroll;
+            max-height: 25rem;
+        }
 
-    .model-khoa-hoc-line {
-        width: 100%;
-        border: .1rem solid #f0f0f0;
+        .modal-khoa-hoc-line {
+            width: 100%;
+            border: .1rem solid #f0f0f0;
+        }
     }
 }
