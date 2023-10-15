@@ -8,8 +8,9 @@ export const userLogin = async (data: { taiKhoan: string; matKhau: string }) => 
             data
         })
         return resp.data
-    } catch (error) {
+    } catch (error:any) {
         console.log(error)
+        return error.response.data
     }
 }
 export const register = async (data: UserRegister) => {

@@ -20,11 +20,11 @@ const registerSchema = Y.object({
   taiKhoan: Y.string()
     .min(6, VALIDATITON.taikhoan_Min)
     .max(20, VALIDATITON.taikhoan_Max)
-    .required( VALIDATITON.taikhoan_Required ),
+    .required(VALIDATITON.taikhoan_Required),
   matKhau: Y.string()
     .min(6, VALIDATITON.matKhau_Min)
     .max(20, VALIDATITON.matKhau_Max)
-    .required( VALIDATITON.matKhau_Required ),
+    .required(VALIDATITON.matKhau_Required),
 })
 
 function Login() {
@@ -35,24 +35,22 @@ function Login() {
       matKhau: "",
     },
     validationSchema: registerSchema,
-    
+
     onSubmit: async (values) => {
       const data = {
         taiKhoan: values.taiKhoan,
         matKhau: values.matKhau
       };
-    
+
       try {
         const resp = await userLogin(data);
-        if (resp) {
-          console.log(resp)
+        if (resp.accessToken) {
           toast.success('Đăng nhập thành công !', ALERT_CONFIG);
           setLocalStorage(ACCESS_TOKEN, resp.accessToken);
           setLocalStorage(TAI_KHOAN, resp.taiKhoan);
           setLocalStorage(HO_TEN, resp.hoTen);
           setLocalStorage(MA_LOAI_NGUOI_DUNG, resp.maLoaiNguoiDung);
           setLocalStorage(MA_NHOM, resp.maNhom)
-    
           setTimeout(() => {
             if (resp.maLoaiNguoiDung === 'HV') {
               navigate(URL_NAVIGATE.home);
@@ -60,14 +58,17 @@ function Login() {
               navigate(URL_NAVIGATE.quanlynguoidung);
             }
           }, 3000); // Chờ 3 giây trước khi điều hướng
-        } else {
-          toast.error('Đăng nhập không thành công. Có lỗi xảy ra.', ALERT_CONFIG);
         }
+        else{
+          toast.error(resp, ALERT_CONFIG);
+        }
+
+
       } catch (err) {
         console.error(err);
       }
     },
-    
+
   })
 
 

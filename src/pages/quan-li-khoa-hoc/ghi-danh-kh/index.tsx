@@ -5,6 +5,7 @@ import css from './ghidanh.module.scss'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { ALERT_CONFIG, API_RESPONSE } from "../../../constants";
+import { isPage } from "..";
 
 interface TypeKH {
     key: number
@@ -15,7 +16,7 @@ interface TypeKH {
 }
 
 function GhiDanh(props: any) {
-    const { maKhoaHoc } = props
+    const { maKhoaHoc, setPage } = props
     const [dataChoXacThuc, setDataChoXacThuc] = useState<TypeKH[]>([]);
     const [dataLayDS, setDataLayDS] = useState<TypeKH[]>([]);
     const [dataChuaGhiDanh, setdataChuaGhiDanh] = useState([]);
@@ -209,7 +210,7 @@ function GhiDanh(props: any) {
     ];
     return (
         <div>
-
+            <div className={css['tro-lai']} onClick={() => setPage(isPage.list)}>{'<< '}Trở lại danh sách</div>
             <div className={css['table-cho-xthuc']}>
                 <div className={css['search-ghidanh']}>
                     <p className={css['cho-xac-thuc']}> Học viên chờ xác thực</p>

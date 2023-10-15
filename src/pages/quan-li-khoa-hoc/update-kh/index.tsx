@@ -8,6 +8,8 @@ import InputForm from '../../../components/input'
 import css from './update-kh.module.scss'
 import { useEffect, useRef, useState } from 'react'
 import { Button } from 'antd'
+import { isPage } from '..'
+
 
 const registerSchema = Y.object({
 
@@ -55,7 +57,7 @@ const registerSchema = Y.object({
         .required(VALIDATITON.tkNguoiTao_Required),
 })
 function UpdateKH(props: any) {
-    const { maKhoaHoc } = props
+    const { maKhoaHoc, setPage } = props
     const [isEditMode, setIsEditMode] = useState(false);
     const fileInput = useRef<HTMLInputElement>(null)
     const formik = useFormik({
@@ -138,6 +140,7 @@ function UpdateKH(props: any) {
 
     return (
         <div>
+            <div className={css['tro-lai']} onClick={() => setPage(isPage.list)}>{'<< '}Trở lại danh sách</div>
             <p className={css['add-kh']}>Cập nhật khóa học</p>
             <form onSubmit={formik.handleSubmit} className={css['profile-form']}>
                 <div className={css['input-forms-container']}>

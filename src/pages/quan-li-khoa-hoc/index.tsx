@@ -18,11 +18,11 @@ export default function QuanLiKhoaHoc() {
       case isPage.list:
         return <ListKhoaHoc setPage={setPage} setMaKhoaHoc={setMaKhoaHoc} />
       case isPage.add:
-        return <ThemKhoaHoc />
+        return <ThemKhoaHoc setPage={setPage} />
       case isPage.ghiDanh:
-        return <GhiDanh maKhoaHoc={maKhoaHoc} />
+        return <GhiDanh setPage={setPage} maKhoaHoc={maKhoaHoc} />
       case isPage.update:
-        return <UpdateKH maKhoaHoc={maKhoaHoc}/>
+        return <UpdateKH setPage={setPage} maKhoaHoc={maKhoaHoc}/>
       default:
         break
     }

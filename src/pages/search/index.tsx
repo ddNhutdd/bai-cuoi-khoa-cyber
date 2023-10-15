@@ -37,9 +37,8 @@ function Search() {
       ) : (
         <div className={css['list-search']}>
         {Array.isArray(searchResults) && searchResults.length > 0 ? (
-          <p>
-             <ListCard list={searchResults} />
-          </p>
+          <ListCard list={searchResults} />
+          
          
         ) : (
           <p className={css['err-search']}>Không tìm thấy kết quả !!!.</p>

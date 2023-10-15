@@ -6,6 +6,7 @@ import * as Y from 'yup'
 import ButtonQT from '../../../components/button'
 import { themKhoaHoc } from '../../../services/khoa-hoc.service'
 import { toast } from 'react-toastify'
+import { isPage } from '..'
 
 const registerSchema = Y.object({
   
@@ -57,7 +58,8 @@ const registerSchema = Y.object({
 })
 
 
-function ThemKhoaHoc() {
+function ThemKhoaHoc(props: any) {
+  const {setPage} = props
   const formik = useFormik({
     initialValues: {
       maKhoaHoc: '',
@@ -107,6 +109,7 @@ function ThemKhoaHoc() {
   })
   return (
     <div>
+      <div className={css['tro-lai']} onClick={() => setPage(isPage.list)}>{'<< '}Trở lại danh sách</div>
       <p className={css['add-kh']}>Thêm khóa học</p>
       <form onSubmit={formik.handleSubmit} className={css['profile-form']}>
         <div className={css['input-forms-container']}>
