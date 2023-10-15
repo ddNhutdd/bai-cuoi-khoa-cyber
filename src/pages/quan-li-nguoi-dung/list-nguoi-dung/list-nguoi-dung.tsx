@@ -53,6 +53,7 @@ export default function ListNguoiDung(props: any) {
     const [searchText, setSearchText] = useState<string>()
     const [re_renderTableDaGhiDanh, setRe_renderTableDaGhiDanh] =
         useState<number>(0)
+    const [re_renderLoadListCoursesNotEnrolledForDropdown,setRe_renderLoadListCoursesNotEnrolledForDropdown ] = useState<number>(0)
     const dispatch = useDispatch()
     useEffect(() => {
         loadListUser(1)
@@ -68,7 +69,7 @@ export default function ListNguoiDung(props: any) {
         if (userRegisterCourse) {
             loadListCoursesNotEnrolledForDropdown()
         }
-    }, [userRegisterCourse])
+    }, [userRegisterCourse, re_renderLoadListCoursesNotEnrolledForDropdown])
     const loadListCoursesNotEnrolledForDropdown = () => {
         setApiUserStatus(() => API_STATUS.fetching)
         getCoursesNotEnrolled(userRegisterCourse.taiKhoan)
@@ -237,7 +238,7 @@ export default function ListNguoiDung(props: any) {
     }
     const loadListUserDebounced = useCallback(debounce(loadListUser, 1000), [])
     return (
-        <>
+        <div className={css['list-nguoi-dung-container']}>
             <div className={css['list-nguoi-dung']}>
                 <span
                     className={
@@ -285,7 +286,7 @@ export default function ListNguoiDung(props: any) {
                     />
                 </div>
             </div>
-            <Modal
+            <Modal className={css['list-nguoi-dung-model']}
                 maskClosable={false}
                 open={isModalOpen}
                 closeIcon={<CloseOutlined onClick={closeModel} />}
@@ -296,7 +297,7 @@ export default function ListNguoiDung(props: any) {
                 }
                 width={'95%'}
             >
-                <div className={css['list-nguoi-dung-model']}>
+                <div className={css['list-nguoi-dung-modal-body']}>
                     <p>Chọn khoá học</p>
                     <div className={css['modal-khoa-hoc-dropdown']}>
                         <div className={css['dropdown-container']}>
@@ -326,20 +327,22 @@ export default function ListNguoiDung(props: any) {
                             </Button>
                         </div>
                     </div>
-                    <div className={css['model-khoa-hoc-line']}></div>
+                    <div className={css['modal-khoa-hoc-line']}></div>
                     <TableKhoaHoc
                         xacThuc
                         setRe_renderTableDaGhiDanh={setRe_renderTableDaGhiDanh}
                         userInfo={userRegisterCourse}
+                        setRe_renderLoadListCoursesNotEnrolledForDropdown={setRe_renderLoadListCoursesNotEnrolledForDropdown}
                     />
-                    <div className={css['model-khoa-hoc-line']}></div>
+                    <div className={css['modal-khoa-hoc-line']}></div>
                     <TableKhoaHoc
                         re_render={re_renderTableDaGhiDanh}
                         daGhiDanh
                         userInfo={userRegisterCourse}
+                        setRe_renderLoadListCoursesNotEnrolledForDropdown={setRe_renderLoadListCoursesNotEnrolledForDropdown}
                     />
                 </div>
             </Modal>
-        </>
+        </div>
     )
 }

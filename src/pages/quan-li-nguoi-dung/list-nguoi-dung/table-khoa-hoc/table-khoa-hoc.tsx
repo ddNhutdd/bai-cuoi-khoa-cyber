@@ -32,6 +32,7 @@ export default function TableKhoaHoc(props: any) {
         userInfo,
         re_render,
         setRe_renderTableDaGhiDanh,
+        setRe_renderLoadListCoursesNotEnrolledForDropdown,
     } = props
     const [apiUserStatus, setApiUserStatus] = useState(API_STATUS.pending)
     const [listDataForTable, setListDataForTable] = useState<any>()
@@ -88,6 +89,9 @@ export default function TableKhoaHoc(props: any) {
             ?.then((resp: any) => {
                 toast.success(resp.data, ALERT_CONFIG)
                 loadDataForTable()
+                setRe_renderLoadListCoursesNotEnrolledForDropdown(
+                    (value: number) => ++value,
+                )
             })
             .catch((err: any) => {
                 toast.error(COMMON_MESSAGE.thatBai, ALERT_CONFIG)
