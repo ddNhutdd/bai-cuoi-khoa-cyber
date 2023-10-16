@@ -19,7 +19,8 @@ export const enum URL_NAVIGATE {
     login = '/login',
     home = '/',
     profile = '/profile',
-    quanlynguoidung = '/admin/quanlinguoidung'
+    quanLiNguoiDung = '/admin/quanlinguoidung',
+    quanLiKhoaHoc = '/admin/quanlikhoahoc'
 }
 export const enum API_STATUS {
     pending = 'pending',
@@ -100,7 +101,6 @@ export const enum FIELD_NAME_WIDTH_SPACE {
     loaiNguoiDung = 'Loại người dùng',
     tenKhoaHoc = 'Tên khoá học',
     xuLi = 'Xử lí',
-
 }
 
 export const enum FIELD_NAME {

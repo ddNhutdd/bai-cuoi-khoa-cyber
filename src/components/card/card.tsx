@@ -20,7 +20,6 @@ export default function CardCyber(props: any) {
         navigate('/chitiet/' + item.maKhoaHoc);
     }
     const handleDeleteClick = async () => {
-        console.log(item.maKhoaHoc, taiKhoan)
         try {
             await onDelete(item.maKhoaHoc, taiKhoan);
             toast.success(COMMON_MESSAGE.xoaThanhCong, ALERT_CONFIG)

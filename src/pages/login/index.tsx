@@ -55,7 +55,7 @@ function Login() {
             if (resp.maLoaiNguoiDung === 'HV') {
               navigate(URL_NAVIGATE.home);
             } else {
-              navigate(URL_NAVIGATE.quanlynguoidung);
+              navigate(URL_NAVIGATE.quanLiNguoiDung);
             }
           }, 3000); // Chờ 3 giây trước khi điều hướng
         }

@@ -53,7 +53,10 @@ export default function ListNguoiDung(props: any) {
     const [searchText, setSearchText] = useState<string>()
     const [re_renderTableDaGhiDanh, setRe_renderTableDaGhiDanh] =
         useState<number>(0)
-    const [re_renderLoadListCoursesNotEnrolledForDropdown,setRe_renderLoadListCoursesNotEnrolledForDropdown ] = useState<number>(0)
+    const [
+        re_renderLoadListCoursesNotEnrolledForDropdown,
+        setRe_renderLoadListCoursesNotEnrolledForDropdown,
+    ] = useState<number>(0)
     const dispatch = useDispatch()
     useEffect(() => {
         loadListUser(1)
@@ -186,7 +189,7 @@ export default function ListNguoiDung(props: any) {
                     <Button
                         disabled={apiUserStatus === API_STATUS.fetching}
                         type='primary'
-                        ghost
+                        danger
                         onClick={() => {
                             deleteUserHandle(record.taiKhoan)
                         }}
@@ -286,7 +289,8 @@ export default function ListNguoiDung(props: any) {
                     />
                 </div>
             </div>
-            <Modal className={css['list-nguoi-dung-model']}
+            <Modal
+                className={css['list-nguoi-dung-model']}
                 maskClosable={false}
                 open={isModalOpen}
                 closeIcon={<CloseOutlined onClick={closeModel} />}
@@ -332,14 +336,18 @@ export default function ListNguoiDung(props: any) {
                         xacThuc
                         setRe_renderTableDaGhiDanh={setRe_renderTableDaGhiDanh}
                         userInfo={userRegisterCourse}
-                        setRe_renderLoadListCoursesNotEnrolledForDropdown={setRe_renderLoadListCoursesNotEnrolledForDropdown}
+                        setRe_renderLoadListCoursesNotEnrolledForDropdown={
+                            setRe_renderLoadListCoursesNotEnrolledForDropdown
+                        }
                     />
                     <div className={css['modal-khoa-hoc-line']}></div>
                     <TableKhoaHoc
                         re_render={re_renderTableDaGhiDanh}
                         daGhiDanh
                         userInfo={userRegisterCourse}
-                        setRe_renderLoadListCoursesNotEnrolledForDropdown={setRe_renderLoadListCoursesNotEnrolledForDropdown}
+                        setRe_renderLoadListCoursesNotEnrolledForDropdown={
+                            setRe_renderLoadListCoursesNotEnrolledForDropdown
+                        }
                     />
                 </div>
             </Modal>
