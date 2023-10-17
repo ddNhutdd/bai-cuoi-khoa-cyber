@@ -4,11 +4,12 @@ import { RouterProvider } from 'react-router-dom'
 import { store } from './redux/config-store'
 import { router } from './router/router'
 import { ToastContainer } from 'react-toastify'
+
 function App() {
     return (
         <ReduxProvider store={store}>
             <GlobalStyle>
-                    <RouterProvider router={router} />
+                <RouterProvider router={router} />
                 <ToastContainer
                     position='top-center'
                     autoClose={2000}
@@ -21,6 +22,7 @@ function App() {
                     pauseOnHover
                     theme='light'
                 />
+
             </GlobalStyle>
         </ReduxProvider>
     )

@@ -267,7 +267,7 @@ function UpdateKH(props: any) {
                         </div>
                     </div>
                 </div>
-                <div>
+                <div className={css['button-updateKH']}>
                     <ButtonQT title='Cập nhật' type='submit' />
                 </div>
             </form>

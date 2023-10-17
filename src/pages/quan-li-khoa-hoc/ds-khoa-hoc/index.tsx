@@ -6,9 +6,9 @@ import { isPage } from '../index'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { ALERT_CONFIG, API_RESPONSE, MA_NHOM } from '../../../constants';
-import { getLocalStorage } from '../../../utils';
+import { getLocalStorage, scrollToSmooth } from '../../../utils';
 interface TypeKH {
-  key: number
+  key: string
   maKhoaHoc: string
   tenKhoaHoc: string
   hinhAnh: string
@@ -130,13 +130,17 @@ function ListKhoaHoc(props: any) {
               setMaKhoaHoc(maKhoaHoc)
             }}
             type="primary" ghost>Sửa</Button>
-            
+
           <Button onClick={() => buttonXoaKhoaHoc(record)} type="primary" danger>Xóa</Button>
         </Space>
       ),
     },
 
   ];
+
+  const handleScrollToTop = () => {
+    scrollToSmooth(); // Gọi hàm scrollToSmooth khi cần cuộn đến đầu trang
+  };
 
   return (
     <div>
@@ -158,9 +162,15 @@ function ListKhoaHoc(props: any) {
       </div>
       {noResults ? <p>Không tìm thấy kết quả</p> : (
         <div className={css["table-kh"]}>
-          <Table dataSource={dataSource} columns={columns}
+          <Table
+            dataSource={dataSource.map(item => ({
+              ...item,
+              key: item.maKhoaHoc // thêm key là maKhoaHoc
+            }))}
+            columns={columns}
             pagination={{
               position: ['bottomRight'],
+              onChange: () => handleScrollToTop(),
               pageSize: 10,
               showSizeChanger: false,
             }} />

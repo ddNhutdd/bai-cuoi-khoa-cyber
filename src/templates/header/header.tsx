@@ -15,6 +15,7 @@ const { Search } = Input
 export default function Header() {
     const [listDanhMucKhoaHoc, setListDanhMucKhoaHoc] = useState<any>([])
     const [hotenUser, setHoTenUser] = useState<any>()
+
     const location = useLocation()
     const navigate = useNavigate()
     useEffect(() => {
@@ -23,6 +24,7 @@ export default function Header() {
     useEffect(() => {
         setHoTenUser(() => getLocalStorage(HO_TEN))
     }, [location])
+
     const items: MenuProps['items'] = [...listDanhMucKhoaHoc]
     const fetchMenuItems = async () => {
         const menuItems = await layDanhMucKhoaHoc()
@@ -47,7 +49,8 @@ export default function Header() {
         removeLocalStorage(TAI_KHOAN)
         setHoTenUser(() => '')
         navigate('/')
-    }
+    } 
+    
     return (
         <div className={css['header']}>
             <div className={css['header__container']}>
@@ -70,7 +73,9 @@ export default function Header() {
                     className={css['header__search']}
                     placeholder='input search text'
                     onSearch={(value) => {
-                        navigate(`/search?query=${value}`);
+                        if (value) {
+                            navigate(`/search?query=${value}`);
+                        }
                     }}
                     enterButton
                 />

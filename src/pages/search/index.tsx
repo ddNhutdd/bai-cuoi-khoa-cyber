@@ -9,7 +9,7 @@ function Search() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const searchQuery = searchParams.get('query') || '';
-  
+
   const [searchResults, setSearchResults] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -17,7 +17,6 @@ function Search() {
     const fetchData = async () => {
       try {
         const data = await timKiemKhoaHoc(searchQuery, 1, 10); // Thay thế tham số page và pageSize bằng giá trị mong muốn
-        console.log(data)
         setSearchResults(data.items);
         setLoading(false);
       } catch (error) {
@@ -29,6 +28,7 @@ function Search() {
     fetchData();
   }, [searchQuery]);
 
+  
   return (
     <div className={css['search-container']}>
       <h1 className={css['content-search']}>Kết quả tìm kiếm</h1>

@@ -14,7 +14,7 @@ import { ACCESS_TOKEN, ALERT_CONFIG, HO_TEN, MA_LOAI_NGUOI_DUNG, MA_NHOM, TAI_KH
 import { useNavigate } from 'react-router-dom';
 import 'animate.css'
 import { toast } from 'react-toastify'
-
+import 'react-toastify/dist/ReactToastify.css'
 
 const registerSchema = Y.object({
   taiKhoan: Y.string()
@@ -83,7 +83,9 @@ function Login() {
           <div className={css['input-formik']}>
             <InputForm
               formik={formik}
-              {...formik.getFieldProps('taiKhoan')} placeholder="Tài khoản" />
+              {...formik.getFieldProps('taiKhoan')} 
+              type='text'
+              placeholder="Tài khoản" />
           </div>
           <div className={css['icon-user']}><UserIcon /></div>
         </div>

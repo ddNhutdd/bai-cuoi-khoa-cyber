@@ -10,6 +10,7 @@ import { UserRegister } from "../../types"
 import { useNavigate } from "react-router-dom"
 import { ALERT_CONFIG, COMMON_MESSAGE, URL_NAVIGATE, VALIDATITON } from "../../constants"
 import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const registerSchema = Y.object({
     taiKhoan: Y.string()

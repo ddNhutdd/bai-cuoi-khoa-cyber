@@ -6,15 +6,15 @@ import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 function InputForm(props: any) {
   const { showEye, type, placeholder, disabled, ...field } = props
   const { touched, errors } = field.formik;
-  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [password, setPassword] = useState(false);
 
-  const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible);
+  const changeEye = () => {
+    setPassword(!password);
   };
 
   const inputSuffix = type === 'password' && (
-    <span onClick={togglePasswordVisibility}>
-      {passwordVisible ? <EyeInvisibleOutlined /> : <EyeOutlined />}
+    <span className={css['input-eye']} onClick={changeEye}>
+      {password ? <EyeOutlined /> : <EyeInvisibleOutlined />}
     </span>
   );
 
@@ -23,7 +23,7 @@ function InputForm(props: any) {
       <div className={css['input-eye']}>
         <Input
           {...field}
-          type={passwordVisible ? 'password' : 'text'}
+          type={type === 'password' ? (!password ? 'password' : 'text') : type}
           placeholder={placeholder}
           disabled={disabled}
           className={css['input-form']}

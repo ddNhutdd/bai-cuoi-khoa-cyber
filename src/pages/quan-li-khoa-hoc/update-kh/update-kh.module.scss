@@ -3,6 +3,12 @@
     justify-content:space-around;
     margin-bottom: 2rem;
 }
+.p-title{
+    
+    @media screen and (max-width:576px) {
+        font-size: 1rem;
+    }   
+}
 .input-ele{
     width: 75%;
     padding-left: 2rem;
@@ -17,6 +23,10 @@
 }
 .button-updateImg{
     margin-top: 3rem;
+}
+.button-updateKH{
+    padding: 0 10rem;
+    margin-bottom: 5rem;
 }
 .tro-lai{
     cursor: pointer;
