@@ -80,22 +80,22 @@ export default function AdminTemplate() {
                     </div>
                     <ul>
                         <li className={allowShowSideBar ? css['--dn'] : ''}>
-                            <NavLink to={'/admin/quanlikhoahoc'}>
+                            <NavLink to={URL_NAVIGATE.quanLiKhoaHoc}>
                                 Quản lý khóa học
                             </NavLink>
                         </li>
                         <li className={allowShowSideBar ? css['--dn'] : ''}>
-                            <NavLink to={'/admin/quanlinguoidung'}>
+                            <NavLink to={URL_NAVIGATE.quanLiNguoiDung}>
                                 Quản lý người dùng
                             </NavLink>
                         </li>
                         <li className={!allowShowSideBar ? css['--dn'] : ''}>
-                            <NavLink to={'/'}>
+                            <NavLink to={URL_NAVIGATE.quanLiKhoaHoc}>
                                 <LearnIcon />
                             </NavLink>
                         </li>
                         <li className={!allowShowSideBar ? css['--dn'] : ''}>
-                            <NavLink to={'/admin/quanlinguoidung'}>
+                            <NavLink to={URL_NAVIGATE.quanLiNguoiDung}>
                                 <UserFill />
                             </NavLink>
                         </li>
