@@ -14,7 +14,6 @@ import { URL_NAVIGATE } from "../../constants"
 import 'animate.css';
 import { toast } from 'react-toastify'
 import { huyGhiDanh } from '../../services/khoa-hoc.service'
-import ReactWOW from 'react-wow'
 
 const registerSchema = Y.object({
   taiKhoan: Y.string()
@@ -86,7 +85,6 @@ function Profile() {
         await updateProfile(data)
           .then((resp) => {
             if (resp) {
-              console.log(resp)
               toast.success(COMMON_MESSAGE.capNhatSuccess, ALERT_CONFIG)
             } else {
               toast.error(COMMON_MESSAGE.capNhatFail, ALERT_CONFIG)
@@ -126,10 +124,7 @@ function Profile() {
     <div className={css['form-container']}>
       <form onSubmit={formik.handleSubmit} className={css['profile-form']}>
         <div className={css['h2-profile']}>
-          <ReactWOW animation="bounce" offset={200} duration="1s">
-            <h2>Trang cá nhân</h2>
-          </ReactWOW>
-
+          <h2>Trang cá nhân</h2>
           <span><NoteIcon /></span>
         </div>
         <div className={css['flex-container']}>
@@ -202,7 +197,7 @@ function Profile() {
                   {...formik.getFieldProps('maLoaiNguoiDung')}
                   placeholder="Loại người dùng"
                   dropdown
-                  dropdownValue = {formik.values.maLoaiNguoiDung}
+                  dropdownValue={formik.values.maLoaiNguoiDung}
                   setFieldValue={formik.setFieldValue} />
               </div>
               <div className={css['button-profile']}>

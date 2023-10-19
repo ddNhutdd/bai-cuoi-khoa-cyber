@@ -30,7 +30,7 @@ const registerSchema = Y.object({
         .required(VALIDATITON.tenKhoaHoc_Required),
     moTa: Y.string()
         .min(1, VALIDATITON.moTa_Min)
-        .max(100, VALIDATITON.moTa_Max)
+        .max(200, VALIDATITON.moTa_Max)
         .required(VALIDATITON.moTa_Required),
     luotXem: Y.number()
         .min(0, VALIDATITON.luotXem_Min)
@@ -99,8 +99,7 @@ function UpdateKH(props: any) {
                         const formData = new FormData()
                         formData.append('file', fileInput.current.files[0])
                         formData.append('tenKhoaHoc', response.data.tenKhoaHoc)
-                        const result = await upLoadHinhAnhKhoaHoc(formData)
-                        console.log(result)
+                        await upLoadHinhAnhKhoaHoc(formData)
                     }
                 } else {
                     toast.error(response, ALERT_CONFIG)

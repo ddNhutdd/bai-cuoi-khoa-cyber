@@ -25,7 +25,7 @@ function ListKhoaHoc(props: any) {
   const [noResults, setNoResults] = useState<boolean>(false);
 
   const maNhom = getLocalStorage(MA_NHOM);
-  useEffect(()=>{console.log(data)}, [data])
+  useEffect(()=>{}, [data])
 
   useEffect(() => {
     const fetchData = async () => {

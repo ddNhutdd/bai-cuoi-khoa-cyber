@@ -100,7 +100,6 @@ function ThemKhoaHoc(props: any) {
         else{
           toast.error(response, ALERT_CONFIG)
         }
-        console.log('response: ',response)
         
       } catch (error) {
         console.log(error)

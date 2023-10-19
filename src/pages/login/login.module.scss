@@ -4,6 +4,22 @@
     background: #3C40C6;
     box-shadow: 0px 35px 44px -22px #1f181b;
     width: 100%;
+    @media screen and (max-width:2000px) {
+        width: 100%;
+        padding: 8rem 70rem 10rem 70rem;
+    }
+    @media screen and (max-width:1800px) {
+        width: 100%;
+        padding: 8rem 65rem 10rem 65rem;
+    }
+    @media screen and (max-width:1700px) {
+        width: 100%;
+        padding: 8rem 55rem 10rem 55rem;
+    }
+    @media screen and (max-width:1500px) {
+        width: 100%;
+        padding: 8rem 45rem 10rem 45rem;
+    }
     @media screen and (max-width:1400px) {
         width: 100%;
         padding: 8rem 38rem 10rem 38rem;
