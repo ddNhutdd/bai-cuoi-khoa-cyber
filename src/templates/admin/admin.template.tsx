@@ -21,7 +21,7 @@ export default function AdminTemplate() {
     const isWidth768 = useMediaQuery({ query: '(max-width: 768px)' })
     useEffect(() => {
         const typeOfUser = getLocalStorage(MA_LOAI_NGUOI_DUNG)
-        if (!typeOfUser) {
+        if (typeOfUser != 'GV') {
             navigate(URL_NAVIGATE.login)
         } else {
             setNameLogedUser(getLocalStorage(HO_TEN))
