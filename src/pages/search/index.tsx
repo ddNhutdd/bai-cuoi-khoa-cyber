@@ -16,7 +16,7 @@ function Search() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await timKiemKhoaHoc(searchQuery, 1, 10); // Thay thế tham số page và pageSize bằng giá trị mong muốn
+        const data = await timKiemKhoaHoc(searchQuery, 1, 10); // Thay thế tham số page và pageSize 
         setSearchResults(data.items);
         setLoading(false);
       } catch (error) {

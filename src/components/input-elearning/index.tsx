@@ -35,7 +35,7 @@ export default function InputElearning(props: any) {
                 <>
                     <Select
                         value={dropdownValue}
-                        style={{ width: '100%' }}
+                        style={{width: '100%' }}
                         onChange={onChangeDropdown}
                         options={listDropdown}
                     />

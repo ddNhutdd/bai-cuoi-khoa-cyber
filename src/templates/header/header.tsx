@@ -49,7 +49,15 @@ export default function Header() {
         removeLocalStorage(TAI_KHOAN)
         setHoTenUser(() => '')
         navigate('/')
-    } 
+    }
+    const [searchText, setSearchText] = useState(''); // Trạng thái để lưu trạng thái của trường Input
+
+    const handleSearch = (value: any) => {
+        if (value) {
+            setSearchText(''); // Cập nhật giá trị searchText nếu có giá trị tìm kiếm
+            navigate(`/search?query=${value}`);
+        } 
+    };
     
     return (
         <div className={css['header']}>
@@ -72,12 +80,10 @@ export default function Header() {
                 <Search
                     className={css['header__search']}
                     placeholder='input search text'
-                    onSearch={(value) => {
-                        if (value) {
-                            navigate(`/search?query=${value}`);
-                        }
-                    }}
+                    onSearch={handleSearch}
                     enterButton
+                    value={searchText} // Truyền giá trị vào trường Input
+                    onChange={(e) => setSearchText(e.target.value)} // Cập nhật giá trị khi có sự thay đổi
                 />
                 {hotenUser ? (
                     <UserDropdown
