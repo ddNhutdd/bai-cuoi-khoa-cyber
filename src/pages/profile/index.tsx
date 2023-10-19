@@ -200,7 +200,10 @@ function Profile() {
                 <InputForm
                   formik={formik}
                   {...formik.getFieldProps('maLoaiNguoiDung')}
-                  placeholder="Loại người dùng" />
+                  placeholder="Loại người dùng"
+                  dropdown
+                  dropdownValue = {formik.values.maLoaiNguoiDung}
+                  setFieldValue={formik.setFieldValue} />
               </div>
               <div className={css['button-profile']}>
                 <ButtonQT type='submit' title='Cập nhật' />

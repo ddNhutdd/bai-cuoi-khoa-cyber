@@ -19,7 +19,7 @@ function GhiDanh(props: any) {
     const { maKhoaHoc, setPage } = props
     const [dataChoXacThuc, setDataChoXacThuc] = useState<TypeKH[]>([]);
     const [dataLayDS, setDataLayDS] = useState<TypeKH[]>([]);
-    const [dataChuaGhiDanh, setdataChuaGhiDanh] = useState([]);
+    const [dataChuaGhiDanh, setdataChuaGhiDanh] = useState<TypeKH[]>([]);
     const [searchText1, setSearchText1] = useState('');
     const [searchText2, setSearchText2] = useState('');     // State để lưu từ khóa tìm kiếm
     const [searchText3, setSearchText3] = useState('');
@@ -75,9 +75,13 @@ function GhiDanh(props: any) {
     const handleGhiDanh = (record: TypeKH) => {
         if (record.taiKhoan) {
             ghiDanhKhoaHoc(maKhoaHoc, record.taiKhoan)!
-                .then(result => {
+                .then(() => {
                     toast.success(API_RESPONSE.gdtc, ALERT_CONFIG);
-                    console.log(result)
+                    const updatedChuaGhiDanh = dataChuaGhiDanh.filter(item => item.hoTen !== record.hoTen);
+                    setdataChuaGhiDanh(updatedChuaGhiDanh);
+                    const updatedChoXacThuc = dataChoXacThuc.filter(item => item.hoTen !== record.hoTen);
+                    setDataChoXacThuc(updatedChoXacThuc);
+                    setDataLayDS([...dataLayDS, record]);
                 })
                 .catch(error => {
                     console.log(error)
@@ -185,7 +189,6 @@ function GhiDanh(props: any) {
             render: (_: any, record: TypeKH) => {
                 const { actionType } = record!;
                 if (actionType === 'Chờ xét duyệt' || actionType === 'Học viên khóa học' || actionType === 'Ghi danh') {
-                    console.log('actionType (Render):', actionType);
                     return (
                         <Space>
                             {actionType === 'Chờ xét duyệt' ? (
