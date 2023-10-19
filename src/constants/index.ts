@@ -111,7 +111,9 @@ export const enum FIELD_NAME {
     soDienThoai = 'soDienThoai',
     loaiNguoiDung = 'loaiNguoiDung',
     tenKhoaHoc = 'tenKhoaHoc',
-    stt = "STT"
+    stt = "STT",
+    maNhom = "maNhom",
+    maDanhMuc = "maDanhMuc"
 }
 
 //

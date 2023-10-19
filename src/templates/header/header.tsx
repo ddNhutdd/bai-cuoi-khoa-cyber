@@ -1,6 +1,7 @@
 import css from './header.module.scss'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown, Input } from 'antd'
 import logo from '../../assets/imgs/cyberlogo-white.png'
@@ -11,6 +12,7 @@ import { useLocation } from 'react-router-dom'
 import { getLocalStorage, removeLocalStorage } from '../../utils'
 import { ACCESS_TOKEN, HO_TEN, TAI_KHOAN } from '../../constants'
 import UserDropdown from '../../components/user-dropdown/user-dropdown'
+import { selectCatalogForDanhMucPage } from '../../redux/slices/catalog.slice'
 const { Search } = Input
 export default function Header() {
     const [listDanhMucKhoaHoc, setListDanhMucKhoaHoc] = useState<any>([])
@@ -18,6 +20,7 @@ export default function Header() {
 
     const location = useLocation()
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     useEffect(() => {
         fetchMenuItems()
     }, [])
@@ -36,6 +39,9 @@ export default function Header() {
                 label: (
                     <NavLink
                         to={`/DanhMucKhoaHoc?maDanhMuc=${item.maDanhMuc}&maNhom=GP01`}
+                        onClick={() => {
+                            dispatch(selectCatalogForDanhMucPage(item))
+                        }}
                     >
                         {item.tenDanhMuc}
                     </NavLink>

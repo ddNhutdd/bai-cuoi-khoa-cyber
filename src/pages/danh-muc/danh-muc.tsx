@@ -1,19 +1,21 @@
 import ListCard from '../../components/list-card/list-card'
 import Paging from '../../components/paging/paging'
-import { ITEM_PER_PAGE } from '../../constants'
+import { FIELD_NAME, ITEM_PER_PAGE } from '../../constants'
 import { layKhoaHocTheoDanhMuc } from '../../services/khoa-hoc.service'
 import css from './danh-muc.module.scss'
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { scrollToSmooth } from '../../utils'
+import { useSelector } from 'react-redux'
+import { getSelectedCalalog } from '../../redux/slices/catalog.slice'
 export default function DanhMuc() {
     const [listKhoaHoc, setListKhoaHoc] = useState<any>()
     const [paging_show, setPaging_show] = useState<any>()
     const [paging_totalItem, setPaging_totalItem] = useState(0)
     const [paging_selectedPage, setPaging_selectedPage] = useState(1)
     const [queryParameters] = useSearchParams()
-    const MaKhoaHoc = queryParameters.get('maDanhMuc')
-    const MaNhom = queryParameters.get('maNhom')
+    const MaKhoaHoc = queryParameters.get(FIELD_NAME.maDanhMuc)
+    const MaNhom = queryParameters.get(FIELD_NAME.maNhom)
     useEffect(() => {
         fetchData(MaKhoaHoc ?? '', MaNhom ?? 'PG01')
     }, [MaKhoaHoc, MaNhom])
@@ -41,7 +43,7 @@ export default function DanhMuc() {
         <>
             <div className={css['danh-muc']}>
                 <div className={css['danh-muc__title']}>
-                    <h1>LẬP TRÌNH FRONTEND</h1>
+                    <h1>{(useSelector(getSelectedCalalog).tenDanhMuc) || "Khoá học"}</h1>
                 </div>
                 <div className={css['danh-muc__container']}>
                     <h3>Các khoá học phổ biến</h3>
