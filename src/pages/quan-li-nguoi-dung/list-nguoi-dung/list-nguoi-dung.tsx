@@ -295,7 +295,7 @@ export default function ListNguoiDung(props: any) {
                 open={isModalOpen}
                 closeIcon={<CloseOutlined onClick={closeModel} />}
                 footer={
-                    <Button onClick={closeModel} type='primary'>
+                    <Button onClick={closeModel} type='primary' danger>
                         Close
                     </Button>
                 }

@@ -107,6 +107,7 @@ export default function ThemSuaNguoiDung(props: any) {
                         if (resp) {
                             setApiUserStatus(API_STATUS.fetchingSuccess)
                             toast.success(COMMON_MESSAGE.thanhCong, ALERT_CONFIG)
+                            formik.setFieldValue(FIELD_NAME.matKhau, "")
                         }
                     })
                     .catch((err) => {
