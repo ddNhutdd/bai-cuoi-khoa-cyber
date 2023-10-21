@@ -175,7 +175,7 @@ export default function TableKhoaHoc(props: any) {
                         position: ['bottomRight'],
                         pageSize,
                         total: paging_totalItems,
-                        current: paging_selectedPage,
+                        current: paging_selectedPage <= 0 ? 1 : paging_selectedPage,
                         onChange: (page) => {
                             setPaging_selectedPage(page)
                         },

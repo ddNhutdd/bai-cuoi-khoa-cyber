@@ -14,6 +14,7 @@ import {
     ERROR_MESSAGE,
     FIELD_NAME,
     FIELD_NAME_WIDTH_SPACE,
+    LOAI_NGUOI_DUNG,
 } from '../../../constants'
 import { ShowPage } from '../quan-li-nguoi-dung'
 import * as Y from 'yup'
@@ -71,7 +72,7 @@ export default function ThemSuaNguoiDung(props: any) {
             matKhau: '',
             soDienThoai: '',
             hoTen: '',
-            loaiNguoiDung: 'GV',
+            loaiNguoiDung: LOAI_NGUOI_DUNG.GV,
         },
         validationSchema: userSchema,
         onSubmit: (values) => {
@@ -91,7 +92,7 @@ export default function ThemSuaNguoiDung(props: any) {
                         setApiUserStatus(API_STATUS.fetchingSuccess)
                         toast.success(COMMON_MESSAGE.thanhCong, ALERT_CONFIG)
                         formik.resetForm()
-                        formik.setFieldValue(FIELD_NAME.loaiNguoiDung, 'GV')
+                        formik.setFieldValue(FIELD_NAME.loaiNguoiDung, LOAI_NGUOI_DUNG.GV)
                     })
                     .catch((er) => {
                         setApiUserStatus(API_STATUS.fetchingError)

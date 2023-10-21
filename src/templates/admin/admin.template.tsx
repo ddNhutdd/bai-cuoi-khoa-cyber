@@ -10,6 +10,7 @@ import { getLocalStorage, removeLocalStorage } from '../../utils'
 import {
     ACCESS_TOKEN,
     HO_TEN,
+    LOAI_NGUOI_DUNG,
     MA_LOAI_NGUOI_DUNG,
     TAI_KHOAN,
     URL_NAVIGATE,
@@ -21,7 +22,7 @@ export default function AdminTemplate() {
     const isWidth768 = useMediaQuery({ query: '(max-width: 768px)' })
     useEffect(() => {
         const typeOfUser = getLocalStorage(MA_LOAI_NGUOI_DUNG)
-        if (typeOfUser != 'GV') {
+        if (typeOfUser != LOAI_NGUOI_DUNG.GV) {
             navigate(URL_NAVIGATE.login)
         } else {
             setNameLogedUser(getLocalStorage(HO_TEN))
