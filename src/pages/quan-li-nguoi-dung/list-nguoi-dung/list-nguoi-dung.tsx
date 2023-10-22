@@ -2,11 +2,13 @@ import css from './list-nguoi-dung.module.scss'
 import { useDispatch } from 'react-redux'
 import { ghiDanhKhoaHoc } from '../../../services/khoa-hoc.service'
 import { selectUserForUpdate } from '../../../redux/slices/user.slice'
-import { Button, Input, Space, Table, Modal, Dropdown } from 'antd'
+import { Input, Space, Table, Modal, Dropdown } from 'antd'
 import { useState, useEffect, useCallback } from 'react'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import type { ColumnsType } from 'antd/es/table'
+import Button from "antd-button-color";
+import 'antd-button-color/dist/css/style.css'; // or 'antd-button-color/dist/css/style.less'
 import type { MenuProps } from 'antd'
 import { CloseOutlined, DownOutlined, UserOutlined } from '@ant-design/icons'
 import TableKhoaHoc from './table-khoa-hoc/table-khoa-hoc'
@@ -173,7 +175,7 @@ export default function ListNguoiDung(props: any) {
                     </Button>
                     <Button
                         disabled={apiUserStatus === API_STATUS.fetching}
-                        type='primary'
+                        type="success"
                         onClick={() => {
                             dispatch(selectUserForUpdate(record))
                             setShowPage(ShowPage.update)
