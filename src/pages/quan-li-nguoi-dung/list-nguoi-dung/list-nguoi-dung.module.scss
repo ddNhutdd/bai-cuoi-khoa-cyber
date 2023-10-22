@@ -40,9 +40,13 @@
                     }
 
                     th {
+                        overflow-wrap: break-word;
+                        word-wrap: break-word;
+                        word-break: break-all;
+                        hyphens: auto;
+
                         @media screen and (max-width:576px) {
                             padding: 0.8rem;
-                            overflow-wrap: break-word;
                         }
 
                         &:nth-of-type(1) {
@@ -111,11 +115,12 @@
 
                     td {
                         overflow-wrap: break-word;
+                        word-wrap: break-word;
                         word-break: break-all;
+                        hyphens: auto;
 
                         @media screen and (max-width:576px) {
                             padding: 0.8rem;
-                            overflow-wrap: break-word;
                         }
 
                         &:nth-of-type(1) {
@@ -188,6 +193,7 @@
             .dropdown-container {
                 flex: 1;
                 width: 8rem;
+
                 button {
                     width: 100%;
 
