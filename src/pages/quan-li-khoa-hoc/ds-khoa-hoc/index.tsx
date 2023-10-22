@@ -1,4 +1,4 @@
-import { Button, Input, Space, Table } from 'antd'
+import {Input, Space, Table } from 'antd'
 import css from './list-kh.module.scss'
 import { useEffect, useState } from 'react';
 import { layDanhSachKhoaHoc, xoaKhoaHoc } from '../../../services/khoa-hoc.service';
@@ -7,6 +7,8 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { ALERT_CONFIG, API_RESPONSE, MA_NHOM } from '../../../constants';
 import { getLocalStorage, scrollToSmooth } from '../../../utils';
+import Button from "antd-button-color";
+import 'antd-button-color/dist/css/style.css';
 interface TypeKH {
   key: string
   maKhoaHoc: string
@@ -130,7 +132,7 @@ function ListKhoaHoc(props: any) {
               setPage(isPage.update)
               setMaKhoaHoc(maKhoaHoc)
             }}
-            type="primary" ghost>Sửa</Button>
+            type="success">Sửa</Button>
 
           <Button onClick={() => buttonXoaKhoaHoc(record)} type="primary" danger>Xóa</Button>
         </Space>
