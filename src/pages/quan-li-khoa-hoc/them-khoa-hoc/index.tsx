@@ -149,14 +149,14 @@ function ThemKhoaHoc(props: any) {
           </div>
           <div className={css['input-row']}>
             <div className={css['input-ele']}>
-              <p className={css['p-title']}>Lượt xem</p>
+              <p className={css['p-titleNum']}>Lượt xem</p>
               <InputForm
                 formik={formik}
                 {...formik.getFieldProps('luotXem')}
                 placeholder="Lượt xem" />
             </div>
             <div className={css['input-ele']}>
-              <p className={css['p-title']}>Đánh giá</p>
+              <p className={css['p-titleNum']}>Đánh giá</p>
               <InputForm
                 formik={formik}
                 {...formik.getFieldProps('danhGia')}
@@ -195,7 +195,7 @@ function ThemKhoaHoc(props: any) {
                 placeholder="Mã danh mục khóa học" />
             </div>
           </div>
-          <div>
+          <div className={css['input-img']}>
             <p className={css['p-title']}>Hình ảnh</p>
             <InputForm
               formik={formik}

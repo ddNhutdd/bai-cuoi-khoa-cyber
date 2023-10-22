@@ -189,9 +189,9 @@ function Profile() {
               </div>
             </div>
 
-            <div className={css['input-row']}>
-              <div className={css['input-ele']}>
-                <p className={css['p-title']}>Loại người dùng</p>
+            <div className={css['input-select']}>
+              <div className={css['input-dropdown']}>
+                <p className={css['title-select']}>Loại người dùng</p>
                 <InputForm
                   formik={formik}
                   {...formik.getFieldProps('maLoaiNguoiDung')}

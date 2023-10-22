@@ -232,7 +232,8 @@ function GhiDanh(props: any) {
                                 position: ['bottomRight'],
                                 pageSize: 5,
                                 showSizeChanger: false,
-                            }} />
+                            }}
+                             />
                     </div>
                 </div>
                 <div className={css['table-dshv']}>
@@ -252,7 +253,8 @@ function GhiDanh(props: any) {
                                 position: ['bottomRight'],
                                 pageSize: 5,
                                 showSizeChanger: false,
-                            }} />
+                            }} 
+                            />
                     </div>
                 </div>
                 <div className={css['table-chuaghidanh']}>
@@ -272,7 +274,8 @@ function GhiDanh(props: any) {
                                 position: ['bottomRight'],
                                 pageSize: 5,
                                 showSizeChanger: false,
-                            }} />
+                            }} 
+                            />
                     </div>
                 </div>
 

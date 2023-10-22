@@ -16,7 +16,7 @@
     @media screen and (max-width:768px) {
         padding: 8rem 4rem 10rem 4rem;
     }
-    @media screen and (max-width:576px) {
+    @media screen and (max-width:700px) {
         padding: 8rem 1rem 10rem 1rem;
     }   
 }
@@ -40,13 +40,14 @@
         display: flex;
         justify-content:left;
         margin-bottom: 2rem;
-        @media screen and (max-width:576px) {
+        @media screen and (max-width:700px) {
             display: inline-block;
+            margin: 0;
         }   
         .input-ele{
             width: 45%;
             padding-left: 2rem;
-            @media screen and (max-width:576px) {
+            @media screen and (max-width:700px) {
                 width: 100%;
             }   
             .p-title{
@@ -54,6 +55,35 @@
             }
         }
     }
+}
+.input-dropdown{
+    @media screen and (max-width:1920px) {
+        padding: 0 2rem;
+        width: 46.5%;
+    }
+    @media screen and (max-width:1400px) {
+        padding: 0 2rem;
+        width: 93%;
+    }
+    @media screen and (max-width:1200px) {
+        padding: 0 2rem;
+        width: 93%;
+    }
+    @media screen and (max-width:992px) {
+        padding: 0 2rem;
+        width: 95%;
+    }
+    @media screen and (max-width:768px) {
+        padding: 0 2rem;
+        width: 100%;
+    }
+    @media screen and (max-width:700px) {
+        padding: 0 2rem;
+        width: 61%;
+    }   
+}
+.title-select{
+    color:#3C40C6;
 }
 .input-form {
     width: 48%; 
@@ -65,7 +95,7 @@
     margin-left: 2rem;
     margin-top: 3rem;
     border-radius: 50%;
-    @media screen and (max-width:576px) {
+    @media screen and (max-width:700px) {
         display: none;
     }   
 }
@@ -78,12 +108,32 @@
     margin-bottom: 3rem;
 }
 .button-profile{
-    margin-left: 2.3rem;
     margin-bottom: 2rem;
     margin-top: 2.3rem;
-    @media screen and (max-width:768px) {
-        margin-top: 5rem;
+    @media screen and (max-width:1920px) {
+        padding: 0 40rem;
+        width: 93%;
     }
+    @media screen and (max-width:1400px) {
+        padding: 0 2rem;
+        width: 93%;
+    }
+    @media screen and (max-width:1200px) {
+        padding: 0 2rem;
+        width: 93%;
+    }
+    @media screen and (max-width:992px) {
+        padding: 0 2rem;
+        width: 95%;
+    }
+    @media screen and (max-width:768px) {
+        padding: 0 2rem;
+        width: 100%;
+    }
+    @media screen and (max-width:700px) {
+        padding: 0 2rem;
+        width: 61%;
+    }   
     
 }
 
