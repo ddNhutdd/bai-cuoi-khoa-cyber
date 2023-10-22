@@ -1,6 +1,7 @@
 import { Table, Button, Space } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
 import { toast } from 'react-toastify'
+import css from './table-khoa-hoc.module.scss'
 import 'react-toastify/dist/ReactToastify.css'
 import { useEffect, useState } from 'react'
 import {
@@ -128,7 +129,7 @@ export default function TableKhoaHoc(props: any) {
             title: FIELD_NAME_WIDTH_SPACE.xuLi,
             key: FIELD_NAME_WIDTH_SPACE.xuLi,
             render: (_, record) => (
-                <Space size='middle'>
+                <Space size='middle' className={css['list-nguoi-dung-table-ghi-danh__xu-li']}>
                     {xacThuc && (
                         <Button
                             onClick={() => xacThucClickHandle(record)}
@@ -163,7 +164,7 @@ export default function TableKhoaHoc(props: any) {
             return newData
         })
     return (
-        <>
+        <div className={css['list-nguoi-dung-table-ghi-danh']}>
             <p>
                 Khoá học {xacThuc && 'chờ xác thực'}
                 {daGhiDanh && 'đã ghi danh'}
@@ -183,6 +184,6 @@ export default function TableKhoaHoc(props: any) {
                     dataSource={data}
                 />
             </div>
-        </>
+        </div>
     )
 }

@@ -132,31 +132,26 @@ export default function ListNguoiDung(props: any) {
             title: FIELD_NAME.stt,
             dataIndex: FIELD_NAME.stt,
             key: FIELD_NAME.stt,
-            width: '5%',
         },
         {
             title: FIELD_NAME_WIDTH_SPACE.taiKhoan,
             dataIndex: FIELD_NAME.taiKhoan,
             key: FIELD_NAME.taiKhoan,
-            width: '19%',
         },
         {
             title: FIELD_NAME_WIDTH_SPACE.hoTen,
             dataIndex: FIELD_NAME.hoTen,
             key: FIELD_NAME.hoTen,
-            width: '19%',
         },
         {
             title: FIELD_NAME_WIDTH_SPACE.email,
             dataIndex: FIELD_NAME.email,
             key: FIELD_NAME.email,
-            width: '19%',
         },
         {
             title: FIELD_NAME_WIDTH_SPACE.soDienThoai,
             dataIndex: FIELD_NAME.soDienThoai,
             key: FIELD_NAME.soDienThoai,
-            width: '19%',
         },
         {
             title: 'Xử lí',
@@ -198,7 +193,6 @@ export default function ListNguoiDung(props: any) {
                     </Button>
                 </Space>
             ),
-            width: '19%',
         },
     ]
     const data: IUser[] = (listUser ?? []).map((item: any, index) => {

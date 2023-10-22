@@ -1,4 +1,7 @@
-.paging {
-    margin: -2rem;
-    margin-top: -3rem;
+.list-nguoi-dung-table-ghi-danh {
+    .list-nguoi-dung-table-ghi-danh__xu-li {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
 }
