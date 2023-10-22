@@ -19,7 +19,7 @@ export default function AdminTemplate() {
     const navigate = useNavigate()
     const [showSideBar, setShowSideBar] = useState<boolean>(false)
     const [nameLogedUser, setNameLogedUser] = useState()
-    const isWidth768 = useMediaQuery({ query: '(max-width: 768px)' })
+    const isMaxWidth768 = useMediaQuery({ query: '(max-width: 768px)' })
     useEffect(() => {
         const typeOfUser = getLocalStorage(MA_LOAI_NGUOI_DUNG)
         if (typeOfUser != LOAI_NGUOI_DUNG.GV) {
@@ -28,7 +28,7 @@ export default function AdminTemplate() {
             setNameLogedUser(getLocalStorage(HO_TEN))
         }
     }, [])
-    const allowShowSideBar = isWidth768 || showSideBar
+    const allowShowSideBar = isMaxWidth768 || showSideBar
     const logoutHandle = () => {
         removeLocalStorage(ACCESS_TOKEN)
         removeLocalStorage(TAI_KHOAN)
@@ -72,11 +72,13 @@ export default function AdminTemplate() {
                         <span
                             className={allowShowSideBar ? css['--ma'] : ''}
                             onClick={() => {
-                                if (isWidth768) return
+                                if (isMaxWidth768) return
                                 setShowSideBar((s) => !s)
                             }}
                         >
-                            <BarsIcon />
+                            <span className={  isMaxWidth768 ? css['--vih'] : ''}>
+                                <BarsIcon />
+                            </span>
                         </span>
                     </div>
                     <ul>

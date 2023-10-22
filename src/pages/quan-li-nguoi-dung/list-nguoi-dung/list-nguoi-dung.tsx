@@ -2,11 +2,13 @@ import css from './list-nguoi-dung.module.scss'
 import { useDispatch } from 'react-redux'
 import { ghiDanhKhoaHoc } from '../../../services/khoa-hoc.service'
 import { selectUserForUpdate } from '../../../redux/slices/user.slice'
-import { Button, Input, Space, Table, Modal, Dropdown } from 'antd'
+import { Input, Space, Table, Modal, Dropdown } from 'antd'
 import { useState, useEffect, useCallback } from 'react'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import type { ColumnsType } from 'antd/es/table'
+import Button from "antd-button-color";
+import 'antd-button-color/dist/css/style.css'; // or 'antd-button-color/dist/css/style.less'
 import type { MenuProps } from 'antd'
 import { CloseOutlined, DownOutlined, UserOutlined } from '@ant-design/icons'
 import TableKhoaHoc from './table-khoa-hoc/table-khoa-hoc'
@@ -132,31 +134,26 @@ export default function ListNguoiDung(props: any) {
             title: FIELD_NAME.stt,
             dataIndex: FIELD_NAME.stt,
             key: FIELD_NAME.stt,
-            width: '5%',
         },
         {
             title: FIELD_NAME_WIDTH_SPACE.taiKhoan,
             dataIndex: FIELD_NAME.taiKhoan,
             key: FIELD_NAME.taiKhoan,
-            width: '19%',
         },
         {
             title: FIELD_NAME_WIDTH_SPACE.hoTen,
             dataIndex: FIELD_NAME.hoTen,
             key: FIELD_NAME.hoTen,
-            width: '19%',
         },
         {
             title: FIELD_NAME_WIDTH_SPACE.email,
             dataIndex: FIELD_NAME.email,
             key: FIELD_NAME.email,
-            width: '19%',
         },
         {
             title: FIELD_NAME_WIDTH_SPACE.soDienThoai,
             dataIndex: FIELD_NAME.soDienThoai,
             key: FIELD_NAME.soDienThoai,
-            width: '19%',
         },
         {
             title: 'Xử lí',
@@ -178,7 +175,7 @@ export default function ListNguoiDung(props: any) {
                     </Button>
                     <Button
                         disabled={apiUserStatus === API_STATUS.fetching}
-                        type='primary'
+                        type="success"
                         onClick={() => {
                             dispatch(selectUserForUpdate(record))
                             setShowPage(ShowPage.update)
@@ -198,7 +195,6 @@ export default function ListNguoiDung(props: any) {
                     </Button>
                 </Space>
             ),
-            width: '19%',
         },
     ]
     const data: IUser[] = (listUser ?? []).map((item: any, index) => {
