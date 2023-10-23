@@ -23,6 +23,7 @@ export const enum URL_NAVIGATE {
     login = '/login',
     home = '/',
     profile = '/profile',
+    register = '/register',
     quanLiNguoiDung = '/admin/quanlinguoidung',
     quanLiKhoaHoc = '/admin/quanlikhoahoc'
 }
