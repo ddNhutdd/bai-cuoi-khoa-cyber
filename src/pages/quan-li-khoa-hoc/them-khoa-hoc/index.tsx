@@ -43,10 +43,6 @@ const registerSchema = Y.object({
     .min(3, VALIDATITON.maNhom_Min)
     .max(30, VALIDATITON.maNhom_Max)
     .required(VALIDATITON.maNhom_Required),
-  ngayTao: Y.string()
-    .min(6, VALIDATITON.ngayTao_Min)
-    .max(20, VALIDATITON.ngayTao_Max)
-    .required(VALIDATITON.ngayTao_Required),
   maDanhMucKhoaHoc: Y.string()
     .min(6, VALIDATITON.maDanhMucKhoaHoc_Min)
     .max(20, VALIDATITON.maDanhMucKhoaHoc_Max)
@@ -60,6 +56,15 @@ const registerSchema = Y.object({
 
 function ThemKhoaHoc(props: any) {
   const {setPage} = props
+  const currentDate = new Date();
+  const currentDay = currentDate.getDate();
+  const currentMonth = currentDate.getMonth() + 1;
+  const currentYear = currentDate.getFullYear();
+
+  const formattedDay = currentDay < 10 ? `0${currentDay}` : currentDay.toString();
+  const formattedMonth = currentMonth < 10 ? `0${currentMonth}` : currentMonth.toString();
+  const formattedYear = currentYear.toString();
+  const currentDateStr = `${formattedDay}/${formattedMonth}/${formattedYear}`;
   const formik = useFormik({
     initialValues: {
       maKhoaHoc: '',
@@ -185,12 +190,16 @@ function ThemKhoaHoc(props: any) {
               <InputForm
                 formik={formik}
                 {...formik.getFieldProps('ngayTao')}
+                value={currentDateStr}
                 placeholder="Ngày tạo" />
             </div>
             <div className={css['input-ele']}>
               <p className={css['p-title']}>Mã danh mục khóa học</p>
               <InputForm
                 formik={formik}
+                dropdown2
+                dropdownValue2={formik.values.maDanhMucKhoaHoc}
+                setFieldValue={formik.setFieldValue}
                 {...formik.getFieldProps('maDanhMucKhoaHoc')}
                 placeholder="Mã danh mục khóa học" />
             </div>

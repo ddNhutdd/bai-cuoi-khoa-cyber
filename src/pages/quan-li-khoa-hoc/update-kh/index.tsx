@@ -241,6 +241,8 @@ function UpdateKH(props: any) {
                             </p>
                             <InputForm
                                 formik={formik}
+                                dropdown2
+                                dropdownValue2={formik.values.maDanhMucKhoaHoc}
                                 {...formik.getFieldProps('maDanhMucKhoaHoc')}
                                 placeholder='Mã danh mục khóa học'
                             />
