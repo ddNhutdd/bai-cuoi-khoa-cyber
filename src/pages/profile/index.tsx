@@ -13,6 +13,7 @@ import {
     ALERT_CONFIG,
     COMMON_MESSAGE,
     HO_TEN,
+    MA_LOAI_NGUOI_DUNG,
     VALIDATITON,
 } from '../../constants'
 import { useEffect } from 'react'
@@ -95,6 +96,7 @@ function Profile() {
                                 COMMON_MESSAGE.capNhatSuccess,
                                 ALERT_CONFIG,
                             )
+                            setLocalStorage(MA_LOAI_NGUOI_DUNG, data.maLoaiNguoiDung)
                             setLocalStorage(HO_TEN, data.hoTen)
                             dispatch(setLoggedUserInfo(data.hoTen))
                         } else {
