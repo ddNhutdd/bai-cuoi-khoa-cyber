@@ -307,6 +307,7 @@ export default function ListNguoiDung(props: any) {
                                 overlayStyle={{
                                     maxHeight: '250px',
                                     overflowY: 'auto',
+                                    maxWidth: '80%'
                                 }}
                             >
                                 <Button>
