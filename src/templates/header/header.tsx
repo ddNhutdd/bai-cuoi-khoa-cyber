@@ -10,7 +10,7 @@ import { NavLink, Link } from 'react-router-dom'
 import { layDanhMucKhoaHoc } from '../../services/khoa-hoc.service'
 import { useLocation } from 'react-router-dom'
 import { getLocalStorage, removeLocalStorage } from '../../utils'
-import { ACCESS_TOKEN, HO_TEN, TAI_KHOAN } from '../../constants'
+import { ACCESS_TOKEN, HO_TEN, TAI_KHOAN, URL_NAVIGATE } from '../../constants'
 import UserDropdown from '../../components/user-dropdown/user-dropdown'
 import { selectCatalogForDanhMucPage } from '../../redux/slices/catalog.slice'
 import { loggedUserInfo } from '../../redux/slices/user.slice'
@@ -21,7 +21,7 @@ export default function Header() {
     const location = useLocation()
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const userNameChangeFromProfile = useSelector(loggedUserInfo)
+    const userNameChangeFromProfile = useSelector(loggedUserInfo).name
     useEffect(() => {
         fetchMenuItems()
     }, [])
@@ -54,7 +54,7 @@ export default function Header() {
         removeLocalStorage(ACCESS_TOKEN)
         removeLocalStorage(TAI_KHOAN)
         setHoTenUser(() => '')
-        navigate('/')
+        navigate(URL_NAVIGATE.home)
     }
     const [searchText, setSearchText] = useState('') // Trạng thái để lưu trạng thái của trường Input
     const handleSearch = (value: any) => {
@@ -96,10 +96,10 @@ export default function Header() {
                     />
                 ) : (
                     <div className={css['header__action']}>
-                        <Link to='/register'>
+                        <Link to={URL_NAVIGATE.register}>
                             <Button type='primary'>Đăng kí</Button>
                         </Link>
-                        <Link to='/login'>
+                        <Link to={URL_NAVIGATE.login}>
                             <Button type='primary'>Đăng nhập</Button>
                         </Link>
                     </div>

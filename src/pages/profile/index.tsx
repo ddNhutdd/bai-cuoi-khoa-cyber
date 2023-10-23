@@ -98,7 +98,11 @@ function Profile() {
                             )
                             setLocalStorage(MA_LOAI_NGUOI_DUNG, data.maLoaiNguoiDung)
                             setLocalStorage(HO_TEN, data.hoTen)
-                            dispatch(setLoggedUserInfo(data.hoTen))
+                            dispatch(setLoggedUserInfo({
+                                name: data.hoTen,
+                                type: data.maLoaiNguoiDung
+                            }))
+                        
                         } else {
                             toast.error(
                                 COMMON_MESSAGE.capNhatFail,

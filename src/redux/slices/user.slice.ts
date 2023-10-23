@@ -9,7 +9,8 @@ const initialState = {
         taiKhoan: ""
     },
     loggedUserInfo: {
-        name: ""
+        name: "",
+        type: ""
     }
 };
 const userSlice = createSlice({
@@ -25,8 +26,9 @@ const userSlice = createSlice({
             state.selectedUserForUpdate.taiKhoan = taiKhoan
         },
         setLoggedUserInfo: (state, action) => {
-            const name = action.payload
+            const {name, type} = action.payload
             state.loggedUserInfo.name = name
+            state.loggedUserInfo.type = type
         }
     }
 })
