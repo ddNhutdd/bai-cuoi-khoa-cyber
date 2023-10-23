@@ -7,6 +7,9 @@ const initialState = {
         maLoaiNguoiDung: "GV",
         soDienThoai: "",
         taiKhoan: ""
+    },
+    loggedUserInfo: {
+        name: ""
     }
 };
 const userSlice = createSlice({
@@ -20,9 +23,14 @@ const userSlice = createSlice({
             state.selectedUserForUpdate.maLoaiNguoiDung = maLoaiNguoiDung
             state.selectedUserForUpdate.soDienThoai = soDienThoai
             state.selectedUserForUpdate.taiKhoan = taiKhoan
+        },
+        setLoggedUserInfo: (state, action) => {
+            const name = action.payload
+            state.loggedUserInfo.name = name
         }
     }
 })
 export default userSlice.reducer
-export const { selectUserForUpdate } = userSlice.actions
+export const { selectUserForUpdate, setLoggedUserInfo } = userSlice.actions
 export const userForUpdate = (state: RootState) => state.user.selectedUserForUpdate
+export const loggedUserInfo = (state: RootState) => state.user.loggedUserInfo
