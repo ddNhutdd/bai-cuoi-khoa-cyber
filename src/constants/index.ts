@@ -25,7 +25,8 @@ export const enum URL_NAVIGATE {
     profile = '/profile',
     register = '/register',
     quanLiNguoiDung = '/admin/quanlinguoidung',
-    quanLiKhoaHoc = '/admin/quanlikhoahoc'
+    quanLiKhoaHoc = '/admin/quanlikhoahoc',
+    hinhAnh = 'https://elearningnew.cybersoft.edu.vn/hinhanh/'
 }
 export const enum API_STATUS {
     pending = 'pending',

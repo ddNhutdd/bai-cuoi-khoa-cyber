@@ -243,6 +243,7 @@ function UpdateKH(props: any) {
                                 formik={formik}
                                 dropdown2
                                 dropdownValue2={formik.values.maDanhMucKhoaHoc}
+                                setFieldValue={formik.setFieldValue}
                                 {...formik.getFieldProps('maDanhMucKhoaHoc')}
                                 placeholder='Mã danh mục khóa học'
                             />

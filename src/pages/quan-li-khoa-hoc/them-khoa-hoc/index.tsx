@@ -1,6 +1,6 @@
 import { useFormik } from 'formik'
 import InputForm from '../../../components/input'
-import { ALERT_CONFIG, API_RESPONSE, VALIDATITON } from '../../../constants'
+import { ALERT_CONFIG, API_RESPONSE, URL_NAVIGATE, VALIDATITON } from '../../../constants'
 import css from './add.module.scss'
 import * as Y from 'yup'
 import ButtonQT from '../../../components/button'
@@ -204,7 +204,7 @@ function ThemKhoaHoc(props: any) {
             <InputForm
               formik={formik}
               {...formik.getFieldProps('hinhAnh')}
-              value="https://elearningnew.cybersoft.edu.vn/hinhanh/"
+              value={URL_NAVIGATE.hinhAnh}
               placeholder="Hình ảnh" />
           </div>
         </div>
