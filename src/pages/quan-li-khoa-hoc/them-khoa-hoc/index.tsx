@@ -23,8 +23,8 @@ const registerSchema = Y.object({
     .max(30, VALIDATITON.tenKhoaHoc_Max)
     .required(VALIDATITON.tenKhoaHoc_Required),
   moTa: Y.string()
-    .min(6, VALIDATITON.moTa_Min)
-    .max(15, VALIDATITON.moTa_Max)
+    .min(1, VALIDATITON.moTa_Min)
+    .max(200, VALIDATITON.moTa_Max)
     .required(VALIDATITON.moTa_Required),
   luotXem: Y.number()
     .min(1, VALIDATITON.luotXem_Min)
@@ -34,11 +34,6 @@ const registerSchema = Y.object({
     .min(1, VALIDATITON.danhGia_Min)
     .max(5000, VALIDATITON.danhGia_Max)
     .required(VALIDATITON.danhGia_Required),
-  hinhAnh: Y.string()
-    .matches(/^https:\/\/elearningnew\.cybersoft\.edu\.vn\/hinhanh\/.+\.(jpg|jpeg|png|gif)$/i, VALIDATITON.hinhAnh_hl)
-    .min(1, VALIDATITON.hinhAnh_Min)
-    .max(100, VALIDATITON.hinhAnh_Max)
-    .required(VALIDATITON.hinhAnh_Required),
   maNhom: Y.string()
     .min(3, VALIDATITON.maNhom_Min)
     .max(30, VALIDATITON.maNhom_Max)
@@ -209,6 +204,7 @@ function ThemKhoaHoc(props: any) {
             <InputForm
               formik={formik}
               {...formik.getFieldProps('hinhAnh')}
+              value="https://elearningnew.cybersoft.edu.vn/hinhanh/"
               placeholder="Hình ảnh" />
           </div>
         </div>

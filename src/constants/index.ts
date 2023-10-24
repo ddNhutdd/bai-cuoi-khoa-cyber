@@ -78,10 +78,10 @@ export const enum VALIDATITON{
     tkNguoiTao_Min = 'Tài khoản người tạo phải từ 3 ký tự trở lên !',
     tkNguoiTao_Max = 'Tài khoản người tạo phải nhỏ hơn 10 ký tự !',
     tkNguoiTao_Required = 'Tài khoản người tạo không được bỏ trống !',
-    luotXem_Min = 'Lượt xem phải từ 1 ký tự trở lên !',
+    luotXem_Min = 'Lượt xem phải từ 0 trở lên !',
     luotXem_Max = 'Lượt xem phải nhỏ hơn 5000 !',
     luotXem_Required = 'Lượt xem không được bỏ trống !',
-    danhGia_Min = 'Đánh giá phải từ 1 ký tự trở lên !',
+    danhGia_Min = 'Đánh giá phải từ 0 trở lên !',
     danhGia_Max = 'Đánh giá phải nhỏ hơn 5000 !',
     danhGia_Required = 'Đánh giá không được bỏ trống !',
 
