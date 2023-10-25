@@ -20,7 +20,6 @@ export default function ChiTiet() {
     const navigate = useNavigate()
     useEffect(() => {
         fetchData(maKhoaHoc ?? '')
-        
     }, [])
     const fetchData = async (maKhoaHoc: string) => {
         const data = await layThongTinKhoaHoc(maKhoaHoc)
@@ -75,7 +74,7 @@ export default function ChiTiet() {
                                 </div>
                             </div>
                             <div className={css['chi-tiet__right']}>
-                                <img src={bannerImage} alt='...' />
+                                <img src={khoaHoc?.hinhAnh || bannerImage} alt='...' />
                             </div>
                         </div>
                     </div>
