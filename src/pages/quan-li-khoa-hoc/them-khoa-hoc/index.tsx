@@ -14,7 +14,7 @@ const registerSchema = Y.object({
     .max(20, VALIDATITON.maKhoaHoc_Max)
     .required(VALIDATITON.maKhoaHoc_Required),
   biDanh: Y.string()
-    .min(6, VALIDATITON.biDanh_Min)
+    .min(3, VALIDATITON.biDanh_Min)
     .max(50, VALIDATITON.biDanh_Max)
     .required(VALIDATITON.biDanh_Required),
   tenKhoaHoc: Y.string()

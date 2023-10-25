@@ -45,7 +45,7 @@ export const enum VALIDATITON{
     hoTen_Max = 'Họ tên phải nhỏ hơn 20 ký tự !',
     hoTen_Required = 'Họ tên không được bỏ trống !',
     soDT_Min = 'Số điện thoại phải từ 6 ký tự trở lên !',
-    soDT_Max = 'Số điện thoại phải nhỏ hơn 20 ký tự !',
+    soDT_Max = 'Số điện thoại phải nhỏ hơn 15 ký tự !',
     soDT_Required = 'Số điện thoại không được bỏ trống !',
     maNhom_Min = 'Mã nhóm phải từ 1 ký tự trở lên !',
     maNhom_Max = 'Mã nhóm phải nhỏ hơn 6 ký tự !',

@@ -60,7 +60,7 @@ function ListKhoaHoc(props: any) {
         setTimeout(() => {
           const dataAfterDelete = data.filter(item => item.maKhoaHoc !== record.maKhoaHoc)
           setData(dataAfterDelete)
-        }, 3000)
+        }, 2000)
 
       } else {
         toast.error(API_RESPONSE.khongTheHuy, ALERT_CONFIG);
