@@ -26,7 +26,7 @@ export const enum URL_NAVIGATE {
     register = '/register',
     quanLiNguoiDung = '/admin/quanlinguoidung',
     quanLiKhoaHoc = '/admin/quanlikhoahoc',
-    hinhAnh = 'https://elearningnew.cybersoft.edu.vn/hinhanh/'
+    hinhAnh = 'https://elearningnew.cybersoft.edu.vn/hinhanh/hinhanh.png'
 }
 export const enum API_STATUS {
     pending = 'pending',
@@ -68,16 +68,16 @@ export const enum VALIDATITON{
     moTa_Required = 'Mô tả không được bỏ trống !',
     hinhAnh_hl = 'Hình ảnh không hợp lệ',
     hinhAnh_Min = 'Hình ảnh phải từ 3 ký tự trở lên !',
-    hinhAnh_Max = 'Hình ảnh phải nhỏ hơn 100 ký tự !',
+    hinhAnh_Max = 'Hình ảnh phải nhỏ hơn 200 ký tự !',
     hinhAnh_Required = 'Hình ảnh không được bỏ trống !',
     ngayTao_Min = 'Ngày tạo phải từ 3 ký tự trở lên !',
     ngayTao_Max = 'Ngày tạo phải nhỏ hơn 10 ký tự !',
     ngayTao_Required = 'Ngày tạo không được bỏ trống !',
     maDanhMucKhoaHoc_Min = 'Mã danh mục phải từ 3 ký tự trở lên !',
-    maDanhMucKhoaHoc_Max = 'Mã danh mục phải nhỏ hơn 10 ký tự !',
+    maDanhMucKhoaHoc_Max = 'Mã danh mục phải nhỏ hơn 20 ký tự !',
     maDanhMucKhoaHoc_Required = 'Mã danh mục không được bỏ trống !',
     tkNguoiTao_Min = 'Tài khoản người tạo phải từ 3 ký tự trở lên !',
-    tkNguoiTao_Max = 'Tài khoản người tạo phải nhỏ hơn 10 ký tự !',
+    tkNguoiTao_Max = 'Tài khoản người tạo phải nhỏ hơn 20 ký tự !',
     tkNguoiTao_Required = 'Tài khoản người tạo không được bỏ trống !',
     luotXem_Min = 'Lượt xem phải từ 0 trở lên !',
     luotXem_Max = 'Lượt xem phải nhỏ hơn 5000 !',

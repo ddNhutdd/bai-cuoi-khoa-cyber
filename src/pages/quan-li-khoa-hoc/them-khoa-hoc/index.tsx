@@ -9,17 +9,16 @@ import { toast } from 'react-toastify'
 import { isPage } from '..'
 
 const registerSchema = Y.object({
-  
   maKhoaHoc: Y.string()
     .min(3, VALIDATITON.maKhoaHoc_Min)
-    .max(10, VALIDATITON.maKhoaHoc_Max)
+    .max(20, VALIDATITON.maKhoaHoc_Max)
     .required(VALIDATITON.maKhoaHoc_Required),
   biDanh: Y.string()
     .min(6, VALIDATITON.biDanh_Min)
-    .max(20, VALIDATITON.biDanh_Max)
+    .max(50, VALIDATITON.biDanh_Max)
     .required(VALIDATITON.biDanh_Required),
   tenKhoaHoc: Y.string()
-    .min(6, VALIDATITON.tenKhoaHoc_Min)
+    .min(3, VALIDATITON.tenKhoaHoc_Min)
     .max(30, VALIDATITON.tenKhoaHoc_Max)
     .required(VALIDATITON.tenKhoaHoc_Required),
   moTa: Y.string()
@@ -39,18 +38,18 @@ const registerSchema = Y.object({
     .max(30, VALIDATITON.maNhom_Max)
     .required(VALIDATITON.maNhom_Required),
   maDanhMucKhoaHoc: Y.string()
-    .min(6, VALIDATITON.maDanhMucKhoaHoc_Min)
+    .min(3, VALIDATITON.maDanhMucKhoaHoc_Min)
     .max(20, VALIDATITON.maDanhMucKhoaHoc_Max)
     .required(VALIDATITON.maDanhMucKhoaHoc_Required),
   taiKhoanNguoiTao: Y.string()
-    .min(6, VALIDATITON.tkNguoiTao_Min)
+    .min(3, VALIDATITON.tkNguoiTao_Min)
     .max(20, VALIDATITON.tkNguoiTao_Max)
     .required(VALIDATITON.tkNguoiTao_Required),
 })
 
 
 function ThemKhoaHoc(props: any) {
-  const {setPage} = props
+  const { setPage } = props
   const currentDate = new Date();
   const currentDay = currentDate.getDate();
   const currentMonth = currentDate.getMonth() + 1;
@@ -90,22 +89,23 @@ function ThemKhoaHoc(props: any) {
         ngayTao: value.ngayTao,
         maDanhMucKhoaHoc: value.maDanhMucKhoaHoc,
         taiKhoanNguoiTao: value.taiKhoanNguoiTao
-    }
-
+      }
+      data.hinhAnh = URL_NAVIGATE.hinhAnh
       try {
         const response = await themKhoaHoc(data);
-        if(response.statusText === 'OK'){
+        if (response.statusText === 'OK') {
           toast.success(API_RESPONSE.themThanhCong, ALERT_CONFIG)
         }
-        else{
+        else {
           toast.error(response, ALERT_CONFIG)
         }
-        
+
       } catch (error) {
         console.log(error)
       }
     },
   })
+
   return (
     <div>
       <div className={css['tro-lai']} onClick={() => setPage(isPage.list)}>{'<< '}Trở lại danh sách</div>
@@ -208,7 +208,7 @@ function ThemKhoaHoc(props: any) {
               placeholder="Hình ảnh" />
           </div>
         </div>
-        <div className={css['button-addKh']}><ButtonQT title='Thêm khóa học' type = 'submit'/></div>
+        <div className={css['button-addKh']}><ButtonQT title='Thêm khóa học' type='submit' /></div>
       </form>
     </div>
   )

@@ -25,7 +25,7 @@ const registerSchema = Y.object({
         .max(50, VALIDATITON.biDanh_Max)
         .required(VALIDATITON.biDanh_Required),
     tenKhoaHoc: Y.string()
-        .min(6, VALIDATITON.tenKhoaHoc_Min)
+        .min(3, VALIDATITON.tenKhoaHoc_Min)
         .max(30, VALIDATITON.tenKhoaHoc_Max)
         .required(VALIDATITON.tenKhoaHoc_Required),
     moTa: Y.string()
@@ -33,11 +33,11 @@ const registerSchema = Y.object({
         .max(200, VALIDATITON.moTa_Max)
         .required(VALIDATITON.moTa_Required),
     luotXem: Y.number()
-        .min(0, VALIDATITON.luotXem_Min)
+        .min(1, VALIDATITON.luotXem_Min)
         .max(5000, VALIDATITON.luotXem_Max)
         .required(VALIDATITON.luotXem_Required),
     soLuongHocVien: Y.number()
-        .min(0, VALIDATITON.danhGia_Min)
+        .min(1, VALIDATITON.danhGia_Min)
         .max(5000, VALIDATITON.danhGia_Max)
         .required(VALIDATITON.danhGia_Required),
     hinhAnh: Y.string().required(VALIDATITON.hinhAnh_Required),

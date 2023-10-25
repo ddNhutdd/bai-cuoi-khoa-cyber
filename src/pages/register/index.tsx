@@ -31,7 +31,7 @@ const registerSchema = Y.object({
     .required(VALIDATITON.soDT_Required),
   maNhom: Y.string()
     .min(1, VALIDATITON.maNhom_Min)
-    .max(5, VALIDATITON.maNhom_Max)
+    .max(6, VALIDATITON.maNhom_Max)
     .required(VALIDATITON.maNhom_Required),
   email: Y.string()
     .email(VALIDATITON.email_hl)
