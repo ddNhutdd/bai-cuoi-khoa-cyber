@@ -199,14 +199,6 @@ function ThemKhoaHoc(props: any) {
                 placeholder="Mã danh mục khóa học" />
             </div>
           </div>
-          <div className={css['input-img']}>
-            <p className={css['p-title']}>Hình ảnh</p>
-            <InputForm
-              formik={formik}
-              {...formik.getFieldProps('hinhAnh')}
-              value={URL_NAVIGATE.hinhAnh}
-              placeholder="Hình ảnh" />
-          </div>
         </div>
         <div className={css['button-addKh']}><ButtonQT title='Thêm khóa học' type='submit' /></div>
       </form>

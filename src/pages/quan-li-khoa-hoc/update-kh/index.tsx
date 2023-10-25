@@ -37,7 +37,7 @@ const registerSchema = Y.object({
         .max(5000, VALIDATITON.luotXem_Max)
         .required(VALIDATITON.luotXem_Required),
     soLuongHocVien: Y.number()
-        .min(1, VALIDATITON.danhGia_Min)
+        .min(0, VALIDATITON.danhGia_Min)
         .max(5000, VALIDATITON.danhGia_Max)
         .required(VALIDATITON.danhGia_Required),
     hinhAnh: Y.string().required(VALIDATITON.hinhAnh_Required),
