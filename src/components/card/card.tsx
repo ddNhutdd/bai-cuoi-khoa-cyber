@@ -45,7 +45,7 @@ export default function CardCyber(props: any) {
                 />
             }
         >
-            <h3>{item.biDanh}</h3>
+            <h3>{item.tenKhoaHoc}</h3>
             <div className={css['card__content']}>
                 <StarRating
                     totalStars={5}

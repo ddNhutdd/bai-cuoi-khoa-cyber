@@ -50,7 +50,7 @@ export default function ChiTiet() {
                     <div className={css['chi-tiet__banner__container']}>
                         <div className={css['chi-tiet__banner__content']}>
                             <div className={css['chi-tiet__left']}>
-                                <h1>{khoaHoc && khoaHoc.biDanh}</h1>
+                                <h1>{khoaHoc && khoaHoc.tenKhoaHoc}</h1>
                                 <div
                                     className={css['chi-tiet__banner__rating']}
                                 >
@@ -82,7 +82,7 @@ export default function ChiTiet() {
                 </div>
                 <div className={css['chi-tiet__content']}>
                     <h3 className={css['chi-tiet__denomination']}>
-                        Giới thiệu khoá học (Phần mô tả khoá học)
+                        Giới thiệu khoá học
                     </h3>
                     <p>{khoaHoc && khoaHoc.moTa}</p>
                 </div>
